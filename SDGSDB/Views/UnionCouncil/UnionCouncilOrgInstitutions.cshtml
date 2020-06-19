@@ -1,0 +1,121 @@
+﻿
+@{
+    ViewBag.Title = "UnionCouncilOrgInstitutions";
+    Layout = "~/Views/Layouts/_DashboardLayout.cshtml";
+}
+
+
+@Scripts.Render("~/Scripts/jquery-3.4.1.js")
+@Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+<section class="content">
+    <div class="row" id="UCOrg_form">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- form start -->
+            @using (Html.BeginForm("UnionCouncilOrg", "UnionCouncil", FormMethod.Post, new { @class = "form", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <fieldset>
+                    <div class="box box-success">
+                        <div class="box-header with-border">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-10" style="padding: 0px;">
+                                <div class="well" style="padding:10px;border-radius:20px;">
+                                    <h3><img width="50" src="~/Images/sdgs_circle.png" />Union Council Organization And Institutions Detail:</h3>
+                                </div>
+                            </div>
+                            <div class="col-sm-1"></div>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-md-10">
+                                    <!-- Primary box -->
+                                    <div class="box box-solid box-primary">
+                                        <div class="box-header">
+                                            <h3 class="box-title">Sector's Institutions Detail:</h3>
+                                            <div class="box-tools pull-right">
+                                                <button class="btn btn-primary btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+
+                                            </div>
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="box">
+                                                        <div class="box-header">
+                                                            <h3 class="box-title">Institution's Detail:</h3>
+                                                            <div class="box-tools">
+                                                            </div>
+                                                        </div><!-- /.box-header -->
+                                                        <div class="box-body">
+                                                            <table id="example1" class="table table-bordered table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>S.No</th>
+                                                                        <th>Sector</th>
+                                                                        <th>Sector Category</th>
+                                                                        <th>Institution Name</th>
+                                                                        <th>Nature</th>
+                                                                        <th>Contact</th>
+                                                                        <th>Email</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="TableL">
+                                                                    @if (ViewBag.AllUCInstitutionsBySectors != null)
+                                                                    {
+                                                                        int id = 1;
+                                                                        foreach (var item in ViewBag.AllUCInstitutionsBySectors)
+                                                                        {
+                                                                            <tr id="row_@item.UC_OrganizationId">
+                                                                                <td>@id</td>
+                                                                                <td>@item.Sector_Name</td>
+                                                                                <td>@item.Category_Name</td>
+                                                                                <td>@item.Organization</td>
+                                                                                <td>@item.OrganizationNature</td>
+                                                                                <td>@item.ContactNumber</td>
+                                                                                <td>@item.EmailAddress</td>
+                                                                                <td>
+                                                                                    <button value="@item.UC_OrganizationId" id="btn_OrgUCDelete" title="Delete" class="btn btn-danger"> Delete <i class="fa fa-trash-o"></i></button>
+                                                                                    <button value="@item.UC_OrganizationId" id="btn_OrgUCEdit" title="Edit" class="btn btn-primary"> Edit <i class="fa fa-eye-slash"></i></button>
+                                                                                </td>
+
+                                                                            </tr>
+                                                                            id++;
+                                                                        }
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+
+                                                        </div><!-- /.box-body -->
+                                                    </div><!-- /.box -->
+                                                </div>
+                                            </div>
+                                        </div><!-- /.box-body -->
+                                        <div class="box-footer">
+
+                                        </div>
+                                    </div><!-- /.box -->
+                                </div>
+                                <div class="col-sm-1"></div>
+                            </div>
+
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer" style="text-align:center">
+                            @*<button type="submit" style="border-radius:10px;text-align: center;" id="btnEmployeeSubmit" class="btn btn-primary"><i class="glyphicon glyphicon-save"></i> Submit</button>*@
+                            @*<a href="/Organization/EmployeesDetail" style="margin-left:10px" class="btn btn-success"><i class="glyphicon glyphicon-th-large"></i> Detail</a>*@
+                        </div>
+
+                    </div><!-- /.box -->
+                </fieldset>
+            }
+        </div><!--/.col (left) -->
+        <!-- right column -->
+    </div>   <!-- /.row -->
+</section>
+
+@Scripts.Render("~/bundles/jqueryval")
+

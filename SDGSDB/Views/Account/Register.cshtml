@@ -1,0 +1,118 @@
+﻿@model SDGSDB.Models.RegisterViewModel
+@{
+    /**/
+
+    ViewBag.Title = "Register";
+
+}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SDG tracker Pakistan| Registration Page</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="~/ThemeRelated/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome Icons -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Theme style -->
+    <link href="~/ThemeRelated/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- iCheck -->
+    <link href="~/ThemeRelated/plugins/iCheck/square/blue.css" rel="stylesheet" type="text/css" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="register-page" style="background-image:url('/Img/FrmBackGround.png');background-repeat:no-repeat;
+  background-attachment:fixed;
+  background-size: cover;">
+    <img width="200" height="200" src="~/Img/SDGs-Academy-white-logo.png" />
+    <div class="register-box" style="width:40%;margin-top:0px;">
+        <div class="register-logo">
+            <a style="color:white" href="../../index2.html"><b style="color:white">SDGS</b>Tracker</a>
+        </div>
+        <div class="register-box-body" style="border-radius: 25px;">
+            <p class="login-box-msg" style="margin-bottom:0px;margin-top:0px;">Register a membership</p>
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+            <h3 class="well" style="color:white;margin-bottom:0px;margin-top:0px; margin-left:0px">Create a Password for your account</h3>
+                <hr />
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div class="col-lg-12">
+                    <div class="form-group has-feedback">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-5 control-label" })
+                        <div class="col-md-7">
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                            @Html.TextBoxFor(m => m.Email, new { @readonly = "readonly", @class = "form-control", @style = "color:Red;", placeholder = "Email" })
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-5 control-label" })
+                        <div class="col-md-7">
+                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback">
+
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-5 control-label" })
+                        <div class="col-md-7">
+                            <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm Password" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12 col-md-12">
+                        <input type="submit" class="btn btn-primary" style="display:block;width:90%;margin-left:30px" value="Register" />
+                    </div>
+                </div>
+            }
+
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+                @Scripts.Render("~/bundles/jquery")
+                @Scripts.Render("~/bundles/bootstrap")
+            }
+
+            <a href="~/Account/Login" class="text-center">I already have a membership</a>
+        </div><!-- /.form-box -->
+    </div><!-- /.register-box -->
+    <!-- jQuery 2.1.3 -->
+    <script src="~/ThemeRelated/plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <!-- Bootstrap 3.3.2 JS -->
+    <script src="~/ThemeRelated/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <!-- iCheck -->
+    <script src="~/ThemeRelated/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+
+</body>
+</html>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+@*<script src="~/Scripts/SDGSRegistrarionJS/GetRegisterOrgEmail.js"></script>*@
+<script type="text/javascript">
+    //alert("@ViewBag.id");
+	$(document).ready(function () {
+        var ID = "@ViewBag.id";
+        var OfficeID = "@ViewBag.OfficeID";
+    //alert(ID)
+    $.ajax({
+        type: 'Get',
+		url: '@System.Web.Configuration.WebConfigurationManager.AppSettings["ApiBaseUrl"]/GetRegistrOrgEmail?Organization_Id=' + ID + '&Office_Id=' + OfficeID,
+        dataType: 'json',
+        success: function (result) {
+            //alert(result);
+            var JSONDATA = JSON.parse(result);
+            //alert(JSONDATA);
+            $.each(JSONDATA, function (index, val) {
+                $("#Email").val(val.Person_Contat_Email);
+            });
+        }
+    });
+});
+
+</script>

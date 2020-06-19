@@ -1,0 +1,563 @@
+﻿@using SDGSDB.Models
+@model CompleteRegistrationModel
+@{
+    ViewBag.Title = "OrganizationDetailGrid";
+    Layout = "~/Views/Layouts/_DashboardLayout.cshtml";
+}
+
+<link href="~/Content/Style.css" rel="stylesheet" />
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div style="margin-bottom:0px;" class="box-header">
+                    <div style="margin-bottom:0px;" class="well"><h3 style="margin-bottom:0px;margin-top:0px;font-family:'Times New Roman', Times, serif">My Profile</h3></div>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class=" text-center">
+                        <div class="row content" style="margin-top:0px;">
+                            <div style="height:75%" class="col-sm-2 sidenav leftimg">
+                                <img id="lblOrgLogo" style="border:solid;border-radius:10px;width:180px;" width="100" />
+                                @*<label id="lblOrgLogo" style="margin-bottom:10px;margin-top:20px;"></label>*@
+                                <label id="lblOrgName" style="margin-bottom:10px;margin-top:20px;font-size:large;color:green"></label>
+                                <div style="margin-top:20px;text-align:left">
+                                    <h3 class=" well well-sm" style="text-align:center;font-size: small">Miscellaneous Information</h3>
+                                    <p style="margin-bottom:15px;"><strong>Organization Type:</strong><label id="lblOrgType" style="margin-left:10px;text-align:justify"></label></p>
+                                    <p class=" well well-sm" style="text-align:center;font-size:medium;margin-bottom:30px;">Address Information</p>
+                                    <p>Province:<label id="lblOrgProvince" style="margin-left:30px;text-align:justify"></label> </p>
+                                    <p>Division: <label id="lblOrgDivision" style="margin-left:30px;text-align:justify"></label></p>
+                                    <p>District: <label id="lblOrgDistrict" style="margin-left:35px;text-align:justify"></label></p>
+                                    <p>Street:<label id="lblOrgstreet" style="margin-left:43px"></label></p>
+                                    <p>House:<label id="lblOrHouse" style="margin-left:41px"></label></p>
+                                    <p>Postal Code:<label id="lblOrgCode" style="margin-left:8px"></label></p>
+                                </div>
+
+
+                            </div>
+                            <div class="col-sm-7 text-left">
+
+                                <section id="sdgs">
+                                    <h3 class=" well well-sm" style="text-align:center">SDGS we are working on</h3>
+                                    <div id="carddeck" class="card-deck ">
+										<div class="row">
+											<div class="cols-md-12" style="margin-left:20px;" id="SDGS">
+
+											</div>
+										</div>
+                                    </div>
+                                </section>
+
+                                @*<section class="container" id="projects" style="visibility:hidden">
+                                        <h4 style="padding: 10px;">Projects</h4>
+                                        <div class="row" style="padding:10px 5px;">
+                                            <div class="col-md-4 " style="text-align:center">
+                                                <img class="img img-circle" src="~/Images/sdgs_circle.png" alt="" width="120">
+                                                <h6>P1</h6>
+                                            </div>
+                                            <div class="col-md-4 " style="text-align:center">
+                                                <img class="img img-circle" src="~/Images/sdgs_circle.png" alt="" width="120">
+                                                <h6>P2</h6>
+                                            </div>
+                                            <div class="col-md-4 " style="align-items:center">
+                                                <img class="img img-circle" src="~/Images/sdgs_circle.png" alt="" width="120">
+                                                <h6>P3</h6>
+                                            </div>
+                                        </div>
+                                    </section>
+
+                                    <section class="container" id="tasks" style="visibility:hidden">
+                                        <h4 style="padding: 10px;">Tasks</h4>
+                                        <div class="row" style="padding:10px 5px;">
+                                            <div class="col-md-4 " style="text-align:center">
+                                                <img class="img img-circle" src="~/Images/sdgs_circle.png" alt="" width="120">
+                                                <h6>Task 1</h6>
+                                            </div>
+                                            <div class="col-md-4 " style="text-align:center">
+                                                <img class="img img-circle" src="~/Images/sdgs_circle.png" alt="" width="120">
+                                                <h6>Task 2</h6>
+                                            </div>
+                                            <div class="col-md-4 " style="align-items:center">
+                                                <img class="img img-circle" src="~/Images/sdgs_circle.png" alt="" width="120">
+                                                <h6>Task 3</h6>
+                                            </div>
+                                        </div>
+                                    </section>*@
+
+                                @*<section class="container" id="activities" style="visibility:hidden">
+                                        <h4 style="padding: 10px;">Activities</h4>
+                                        <div class="row" style="padding:10px 5px;">
+                                            <div class="col-md-4 " style="text-align:center">
+                                                <img class="img img-circle" src="~/Images/sdgs_circle.png" alt="" width="120">
+                                                <h6>Activity 1</h6>
+                                            </div>
+                                            <div class="col-md-4 " style="text-align:center">
+                                                <img class="img img-circle" src="~/Images/sdgs_circle.png" alt="" width="120">
+                                                <h6>Activity 2</h6>
+                                            </div>
+                                            <div class="col-md-4 " style="align-items:center">
+                                                <img class="img img-circle" src="~/Images/sdgs_circle.png" alt="" width="120">
+                                                <h6>Activity 3</h6>
+                                            </div>
+                                        </div>
+                                    </section>*@
+
+
+                                <br />
+                                <section id="offices">
+                                    <h4 class=" well well-sm" style="text-align:center;font-size:medium;padding: 10px;">Our Registered Offices</h4>
+                                    <div class="row" style="padding:10px 5px;">
+                                        <div class="col-md-4 " style="text-align:center">
+                                            <img class="img img-circle" src="~/Images/sdgs_circle.png" alt="" width="120">
+                                            <h6>Islamabad</h6>
+                                        </div>
+                                        <div class="col-md-4 " style="text-align:center">
+                                            <img class="img img-circle" src="~/Images/sdgs_circle.png" alt="" width="120">
+                                            <h6>Lahore</h6>
+                                        </div>
+                                        <div class="col-md-4 " style="align-items:center">
+                                            <img class="img img-circle" src="~/Images/sdgs_circle.png" alt="" width="120">
+                                            <h6>Karachi</h6>
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- The Modal Organization Email Address-->
+                                <div class="modal fade" id="OrgEmailModle">
+                                    <div class="modal-dialog" style="width:1100px">
+                                        <div class="modal-content">
+
+                                            <!--Organization Email Addresses Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Organization Email Addresses:</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+
+                                            <!--Organization Email Addresses Modal body -->
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-1"></div>
+                                                    @using (Html.BeginForm("CreateRegistration", "Registration", FormMethod.Post, new { @class = "form", role = "form", enctype = "multipart/form-data" }))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+                                                        <fieldset style="float:left;margin-left:40px;margin-right:40px;">
+                                                            <!-- Default box -->
+                                                            <div class="box box-danger">
+                                                                <div class="box-header with-border">
+                                                                    <div class="well">
+                                                                        <h3><img width="70" src="~/Images/sdgs_circle.png" /> Register With SDG-Academy to evaluate progress of SDGs in Pakistan.</h3>
+                                                                    </div>
+                                                                    @*<h3 class="box-title">Title</h3>*@
+                                                                    <div class="box-tools pull-right">
+                                                                        <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                                                                        <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="box-body" style="margin-left:100px;">
+                                                                    <legend>Organization Basic Information</legend>
+                                                                    @*@Html.ValidationSummary(true, null, new { @Class = "text-danger" })*@
+                                                                    <div class="row">
+                                                                        <div class="col-md-11">
+                                                                            <div class="form-group">
+
+                                                                                <label for="txtOrganizationName">Organization Name</label>
+                                                                                <div class="input-group">
+                                                                                    <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                                                                                    <input type="text" disabled class="form-control" id="txtOrganizationName_Org" style="color:blue" placeholder="Organization Name">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="drpOrganizationType">Organization Type</label>
+                                                                                <select class="form-control input-mini" disabled id="drpOrganizationType_Org" style="color:blue" name="drpOrganizationType_Org">
+                                                                                    <option value="OrganizationType" selected="selected">Organization Type</option>
+                                                                                    <option value="NGO">NGO</option>
+                                                                                    <option value="Public Department">Public Department</option>
+                                                                                    <option value="SME">SME</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                @*<label for="txtDescription">Head Office Name:</label>
+                                                                                    <input type="text" class="form-control" id="txtHeadOfficeName" placeholder="Head Office Name">
+                                                                                    @Html.ValidationMessageFor(m => m.HeadOffice_Name, "", new { @class = "text-danger", id= "txtHeadOfficeName" })*@
+                                                                                @Html.LabelFor(m => m.HeadOffice_Name, htmlAttributes: new { @class = "control-label" })
+                                                                                @Html.EditorFor(m => m.HeadOffice_Name, new { htmlattributes = new { @class = "form-control", id = "txtHeadOfficeName_Org", placeholder = "HeadOffice Name" } })
+                                                                                @Html.ValidationMessageFor(m => m.HeadOffice_Name, "", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-5">
+                                                                            <div class="form-group">
+                                                                                <label for="txtDescription">Registeration Authority</label>
+                                                                                @*@Html.LabelFor(m => m.HeadOffice_Name, htmlAttributes: new { @class = "control-label" })*@
+                                                                                @Html.DropDownListFor(m => m.Registeration_Authority, new SelectList(ViewBag.drpRegisterationAuthority, "Value", "Text"), new { @Class = "form-control input-mini", id = "drpRegisterationAuthority" })
+                                                                                @Html.ValidationMessageFor(m => m.HeadOffice_Name, "", new { @class = "text-danger" })
+                                                                                @*<select class="form-control input-mini" id="drpRegisterationAuthority" name="drpRegisterationAuthority">
+                                                                                        <option value="" selected="selected">Registeration Authority</option>
+                                                                                        <option value="SECP">SECP</option>
+                                                                                        <option value="Social Welfare">Social Welfare</option>
+                                                                                        <option value="Baitul Maal">Baitul Maal</option>
+                                                                                    </select>
+                                                                                    @Html.ValidationMessageFor(m => m.Registeration_Authority, "", new { @class = "text-danger", id= "drpRegisterationAuthority" })*@
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label>Registeration Date:</label>
+                                                                                <div class="input-group">
+                                                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                                    @Html.EditorFor(m => m.Registeration_Date, new { htmlattributes = new { @class = "form-control", id = "txtRegisterationDate", @readonly = "readonly", @Style = "Color:blue" , placeholder = "Registration Date" } })
+                                                                                    @*<input type="text" id="txtRegisterationDate" name="txtRegisterationDate" placeholder="Registration Date" class="form-control datepicker" data-dateformat="dd/mm/yy">*@
+                                                                                </div>
+                                                                                @Html.ValidationMessageFor(m => m.Registeration_Date, "", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-5">
+                                                                            <div class="form-group">
+                                                                                <label for="txtLicenseNo">License Number:</label>
+                                                                                @Html.EditorFor(m => m.LicenseNo, new { htmlattributes = new { @class = "form-control", id = "txtLicenseNo", placeholder = "License No." } })
+                                                                                @Html.ValidationMessageFor(m => m.LicenseNo, "", new { @class = "text-danger" })
+                                                                                @*<input type="text" class="form-control" id="txtLicenseNo" placeholder="License No.">*@
+                                                                            </div>
+                                                                            @Html.ValidationMessageFor(m => m.LicenseNo, "", new { @class = "text-danger" })
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label for="drpCompanyCategory">Company Category:</label>
+                                                                                @Html.DropDownListFor(m => m.CompanyCategory, new SelectList(ViewBag.drpCompanyCategory, "Value", "Text"), new { @Class = "form-control input-mini", id = "drpCompanyCategory" })
+                                                                                @*@Html.ValidationMessageFor(m => m.CompanyCategory, "", new { @class = "text-danger" })*@
+                                                                                @*<select class="form-control input-mini" id="drpCompanyCategory" name="drpCompanyCategory">
+                                                                                        <option value="" selected="selected"> Company Category </option>
+                                                                                        <option value="Single">Single</option>
+                                                                                        <option value="Partnership">Partnership</option>
+
+                                                                                    </select>*@
+                                                                            </div>
+                                                                            @Html.ValidationMessageFor(m => m.CompanyCategory, "", new { @class = "text-danger" })
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-5">
+                                                                            <div class="form-group">
+                                                                                <label for="txtContact">Person Contact Name:</label>
+                                                                                @Html.EditorFor(m => m.Person_Contact_Name, new { htmlattributes = new { @class = "form-control", id = "txtPersonName", placeholder = "Person Contact Name" } })
+
+                                                                                @*<input type="text" class="form-control" id="txtPersonName" placeholder="Person Contact Number">*@
+                                                                            </div>
+                                                                            @Html.ValidationMessageFor(m => m.Person_Contact_Name, "", new { @class = "text-danger" })
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label for="txtFax">Person Contact Title:</label>
+                                                                                @Html.EditorFor(m => m.Person_Contact_Title, new { htmlattributes = new { @class = "form-control", id = "txt_Person_Title", placeholder = "Person Contact Title" } })
+                                                                                @*<input type="text" class="form-control" id="txt_Person_Title" placeholder="Person Contact Title">*@
+                                                                            </div>
+                                                                            @Html.ValidationMessageFor(m => m.Person_Contact_Title, "", new { @class = "text-danger" })
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-5">
+                                                                            <div class="form-group">
+                                                                                <label for="txtFax">Person Contat Number:</label>
+                                                                                @Html.EditorFor(m => m.Person_Contat_Number, new { htmlattributes = new { @class = "form-control", id = "txt_Person_Contact", placeholder = "Person Contact Number" } })
+                                                                                @*<input type="text" class="form-control" id="txt_Person_Contact" placeholder="Person Contact Number">*@
+                                                                            </div>
+                                                                            @Html.ValidationMessageFor(m => m.Person_Contat_Number, "", new { @class = "text-danger" })
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label for="txtFax">Person Contat Email:</label>
+                                                                                @Html.EditorFor(m => m.Person_Contat_Email, new { htmlattributes = new { @class = "form-control", id = "txt_Person_Email_Org", placeholder = "Person Contact Email", @readonly = "readonly", @Style = "Color:blue" } })
+                                                                                @*<input type="text" class="form-control" id="txt_Person_Email" placeholder="Person Contact Email">*@
+                                                                            </div>
+                                                                            @Html.ValidationMessageFor(m => m.Person_Contat_Email, "", new { @class = "text-danger" })
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-11">
+
+                                                                            <div class="form-group">
+                                                                                <label for="txtBusiness">Type of Business:</label>
+                                                                                @Html.TextAreaFor(m => m.BusinessType, 3, 157, new { placeholder = "Type of Business", @class = "form-control", id = "txtBusiness_Org" })
+                                                                                @*<textarea type="text" class="form-control" id="txtBusiness" placeholder="Type of Business"></textarea>*@
+                                                                            </div>
+                                                                            @Html.ValidationMessageFor(m => m.BusinessType, "", new { @class = "text-danger" })
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-11">
+                                                                            <div class="form-group">
+                                                                                <label for="txtDesc">Planned Activities:</label>
+                                                                                @Html.TextAreaFor(m => m.Planned_Activities, 3, 157, new { placeholder = "Planned Activities", @class = "form-control", id = "txtPactivites_Org" })
+                                                                                @*<textarea type="text" class="form-control" id="txtPactivites" placeholder="Planned Activities"></textarea>*@
+                                                                            </div>
+                                                                            @Html.ValidationMessageFor(m => m.Planned_Activities, "", new { @class = "text-danger" })
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-11">
+                                                                            <div class="form-group">
+                                                                                <label for="txtDesc">Additional Comments:</label>
+                                                                                @Html.TextAreaFor(m => m.Additional_Comments, 3, 157, new { placeholder = "Additional Comments", @class = "form-control", id = "txt_additional_cments_Org" })
+                                                                                @*<textarea type="text" class="form-control" id="txt_additional_cments" placeholder="Additional Comments"></textarea>*@
+                                                                            </div>
+                                                                            @Html.ValidationMessageFor(m => m.Additional_Comments, "", new { @class = "text-danger" })
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-5">
+                                                                            <div class="form-group">
+                                                                                <label class=" control-label">Company Logo</label>
+                                                                                @Html.EditorFor(m => m.Logo_Image, new { htmlattributes = new { accept = "image/*", onchange = "showMyImage(this)", type = "file", @class = "btn btn-default", id = "exampleInputFile1", multiple = "multiple" } })
+                                                                                @*<input type="file" accept="image/*" onchange="showMyImage(this)" class="btn btn-default" id="exampleInputFile1">*@
+
+                                                                            </div>
+                                                                            @Html.ValidationMessageFor(m => m.Logo_Image, "", new { @class = "text-danger" })
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <img id="LogoImage" style="width:150px;height:150px;" class="img-circle" alt="User Image" />
+                                                                            <img id="thumbnil" style="visibility:hidden;width:30%; margin-top:0px;" src="~/Images/your-logo-here-512.png" alt="image" />
+                                                                            <p style="margin-left:13px;" class="help-block">Your company Logo</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+
+                                                                        <div class="col-md-11">
+                                                                            <div class="well">Organization Address:</div>
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-4">
+                                                                                    <div class="form-group">
+                                                                                        <label for="drpProvince">Province:</label>
+                                                                                        <label id="ProvinceID" style="color:blue" for="drpProvince">Province</label>
+                                                                                        <select id="drpProvince" class="form-control input-mini" name="Province">
+                                                                                            <option value="" selected="selected">---Select Province---</option>
+
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    @Html.ValidationMessageFor(m => m.Province_Id, "", new { @class = "text-danger" })
+                                                                                </div>
+                                                                                <div class="col-md-4">
+                                                                                    <div class="form-group">
+                                                                                        <label for="dprDivision">Division:</label>
+                                                                                        <label id="DivisionID" style="color:blue" for="dprDivision">Division</label>
+                                                                                        <select id="dprDivision" class="form-control input-mini" name="dprDivision">
+                                                                                            <option value="" selected="selected">---Select Division---</option>
+
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    @Html.ValidationMessageFor(m => m.Division_Id, "", new { @class = "text-danger" })
+                                                                                </div>
+                                                                                <div class="col-md-4">
+                                                                                    <div class="form-group">
+                                                                                        <label for="drpDistrict">District:</label>
+                                                                                        <label id="DistrictID" style="color:blue" for="drpDistrict">District</label>
+                                                                                        <select class="form-control input-mini" id="drpDistrict" name="drpDistrict">
+                                                                                            <option value="" selected="selected">---Select District---</option>
+                                                                                        </select>
+                                                                                        @Html.ValidationMessageFor(m => m.District_Id, "", new { @class = "text-danger" })
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+
+
+                                                                                <div class="col-md-4">
+                                                                                    <div class="form-group">
+                                                                                        <label for="txtstreet">Street #</label>
+                                                                                        @Html.EditorFor(m => m.Street, new { htmlattributes = new { @class = "form-control", id = "txtstreet", placeholder = "Street No." } })
+                                                                                        @*<input type="text" class="form-control" id="txtstreet" placeholder="Street No.">*@
+                                                                                    </div>
+                                                                                    @Html.ValidationMessageFor(m => m.Street, "", new { @class = "text-danger" })
+                                                                                </div>
+                                                                                <div class="col-md-4">
+                                                                                    <div class="form-group">
+                                                                                        <label for="txtDescription">House #</label>
+                                                                                        @Html.EditorFor(m => m.House, new { htmlattributes = new { @class = "form-control", id = "txtHouse", placeholder = "House" } })
+                                                                                        @*<input type="text" class="form-control" id="txtHouse" placeholder="House">*@
+                                                                                    </div>
+                                                                                    @Html.ValidationMessageFor(m => m.House, "", new { @class = "text-danger" })
+                                                                                </div>
+                                                                                <div class="col-md-4">
+                                                                                    <div class="form-group">
+                                                                                        <label for="txtDescription">Postal Code</label>
+                                                                                        @Html.EditorFor(m => m.PostalCode, new { htmlattributes = new { @class = "form-control", id = "txtPostalCode", placeholder = "Postal Code" } })
+                                                                                        @*<input type="text" class="form-control" id="txtPostalCode" placeholder="Postal Code">*@
+                                                                                    </div>
+                                                                                    @Html.ValidationMessageFor(m => m.PostalCode, "", new { @class = "text-danger" })
+                                                                                </div>
+
+
+                                                                            </div>
+
+
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+
+                                                                        <div class="col-md-11">
+                                                                            <div class="well">Organization Working Domain - List of SDGs:</div>
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-1"></div>
+                                                                                <div class="col-md-5">
+                                                                                    <label class="checkbox">
+                                                                                        <input type="checkbox" name="checkbox" value="1" id="CHKSDG1">
+                                                                                        <i></i>SDG-1 - No Poverty
+                                                                                    </label>
+                                                                                    <label class="checkbox">
+                                                                                        <input type="checkbox" id="CHKSDG2" value="2" name="checkbox">
+                                                                                        <i></i>SDG-2 - Zero Hunger
+                                                                                    </label>
+                                                                                    <label class="checkbox">
+                                                                                        <input type="checkbox" id="CHKSDG3" value="3" name="checkbox">
+                                                                                        <i></i>SDG-3 - Good Health and Well-being
+                                                                                    </label>
+                                                                                    <label class="checkbox">
+                                                                                        <input type="checkbox" id="CHKSDG4" value="4" name="checkbox">
+                                                                                        <i></i>SDG-4  -Quality Education
+                                                                                    </label>
+                                                                                    <label class="checkbox">
+                                                                                        <input type="checkbox" id="CHKSDG5" value="5" name="checkbox">
+                                                                                        <i></i>SDG-5 - Gender Equality
+                                                                                    </label>
+                                                                                    <label class="checkbox">
+                                                                                        <input type="checkbox" id="CHKSDG6" value="6" name="checkbox">
+                                                                                        <i></i>SDG-6 - Clean Water and Sanitation
+                                                                                    </label>
+                                                                                    <label class="checkbox">
+                                                                                        <input type="checkbox" id="CHKSDG7" value="7" name="checkbox">
+                                                                                        <i></i>SDG-7 - Affordable and Clean Energy
+                                                                                    </label>
+                                                                                    <label class="checkbox">
+                                                                                        <input type="checkbox" id="CHKSDG8" value="8" name="checkbox">
+                                                                                        <i></i>SDG-8 - Decent Work and Economic Growth
+                                                                                    </label>
+                                                                                    <label class="checkbox">
+                                                                                        <input type="checkbox" id="CHKSDG9" value="9" name="checkbox">
+                                                                                        <i></i>SDG-9 - Industry, Innovation and Infrastructure
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="col-md-5">
+                                                                                    <label class="checkbox">
+                                                                                        <input type="checkbox" id="CHKSDG10" value="10" name="checkbox">
+                                                                                        <i></i>SDG-10 - Reduced Inequality
+                                                                                    </label>
+                                                                                    <label class="checkbox">
+                                                                                        <input type="checkbox" id="CHKSDG11" value="11" name="checkbox">
+                                                                                        <i></i>SDG-11 - Sustainable Cities and Communities
+                                                                                    </label>
+                                                                                    <label class="checkbox">
+                                                                                        <input type="checkbox" id="CHKSDG12" value="12" name="checkbox">
+                                                                                        <i></i>SDG-12 - Responsible Consumption and Production
+                                                                                    </label>
+                                                                                    <label class="checkbox">
+                                                                                        <input type="checkbox" id="CHKSDG13" value="13" name="checkbox">
+                                                                                        <i></i>SDG-13 - Climate Action
+                                                                                    </label>
+                                                                                    <label class="checkbox">
+                                                                                        <input type="checkbox" id="CHKSDG14" value="14" name="checkbox">
+                                                                                        <i></i>SDG-14 - Life Below Water
+                                                                                    </label>
+                                                                                    <label class="checkbox">
+                                                                                        <input type="checkbox" id="CHKSDG15" value="15" name="checkbox">
+                                                                                        <i></i>SDG-15 - Life on Land
+                                                                                    </label>
+                                                                                    <label class="checkbox">
+                                                                                        <input type="checkbox" id="CHKSDG16" value="16" name="checkbox">
+                                                                                        <i></i>SDG-16 - Peace and Justice Strong Institutions
+                                                                                    </label>
+                                                                                    <label class="checkbox">
+                                                                                        <input type="checkbox" id="CHKSDG17" value="17" name="checkbox">
+                                                                                        <i></i>SDG-17 - Partnerships to achieve the Goal
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div><!-- /.box-body -->
+                                                                <div class="box-footer">
+                                                                    @*<button type="submit" style="margin-bottom:20px;margin-left:140px;" id="BtnRegistrationSubmit" class="btn btn-dropbox text-center">Submit</button>*@
+                                                                    <button type="submit" style="margin-bottom:20px;margin-left:140px;" id="BtnRegistrationUpdate" class="btn btn-dropbox text-center">Update</button>
+
+                                                                </div><!-- /.box-footer-->
+                                                            </div>
+                                                        </fieldset>
+                                                    }
+                                                    <div class="modal fade" tabindex="-1" id="successRegistrationModal" data-keyboard="false" data-backdrop="static">
+                                                        <div class="modal-dialog modal-md" >
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+
+                                                                    <h4>Success</h4>
+                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <h2>Your Profile Updated Successfully!</h2>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button data-dismiss="modal" class="btn btn-success">
+                                                                        Close
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div id="divError" class="alert alert-danger collapse">
+                                                            <a id="linkClose" class="close" href="#">$times;</a>
+                                                            <div id="divErrorText"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button type="button" id="BtnOrgEmailSubmit" style="float:right;margin-left:10px;" class="btn btn-primary text-center">Submit</button>
+                                                <button type="button" style="visibility:hidden;float:right;margin-left:10px;" id="BtnOrgEmailUpdate" class="btn btn-primary text-center">Update</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        @*<input type="submit" id="btnOrgProfileEdit" class="btn btn-block btn-success btn-lg" style="display:block;width:100%;" value="Edit Profile" />*@
+                                        <button type="button" class="btn btn-block btn-success btn-lg" id="bbtnOrgProfileEdit" style="margin-bottom:20px;margin-left:0px" type="button" data-toggle="modal" data-target="#OrgEmailModle">
+                                            Edit Profile
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div style="height:70%" class="col-sm-3 sidenav">
+                                <div style="height:70%;text-align:justify;font-family:Arial;font-size:medium">
+                                    <h3 class=" well well-sm" style="text-align:center;font-size:medium">Personal Information</h3>
+                                    <h4 style="margin-top:60px;color:blue"><strong>Focal Person:</strong></h4>
+                                    <h5 style="text-align:left;margin-left:100px;"><label id="lblOrgFocalPerson" style="margin-left:41px"></label></h5>
+                                    <h4 style="color:blue"><strong>Designation:</strong></h4>
+                                    <h5 style="text-align:left;margin-left:100px"><label id="lblOrgDesignation" style="margin-left:41px"></label></h5>
+                                    <h4 style="color:blue"><strong>Email:</strong></h4>
+                                    <h5 style="text-align:left;margin-left:100px"><label id="lblOrgEmail" style="margin-left:41px"></label></h5>
+                                    <h4 style="color:blue"><strong>Contact:</strong></h4>
+                                    <h5 style="text-align:left;margin-left:100px"><label id="lblOrgFPContact" style="margin-left:41px"></label></h5>
+                                    <h3 class="fa fa-star"></h3>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->

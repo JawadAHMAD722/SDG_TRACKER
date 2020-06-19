@@ -1,0 +1,95 @@
+﻿@model SDGSDB.Models.ProjectTeams
+@{
+    ViewBag.Title = "AddTeams";
+    Layout = "~/Views/Layouts/_DashboardLayout.cshtml";
+}
+@Scripts.Render("~/Scripts/jquery-3.4.1.js")
+@Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+@Scripts.Render("~/Scripts/bootstrap.min.js")
+<section class="content">
+
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="row">
+                    @using (Html.BeginForm("AddTeams", "Project", FormMethod.Post, new { @class = "form", role = "form", enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <fieldset>
+                            <!-- Default box -->
+                            <div class="box box-danger">
+                                <div class="box-header with-border">
+                                    <div class="well">
+                                        <h3><img width="70" src="~/Images/sdgs_circle.png" /> Create Teams for project</h3>
+                                    </div>
+
+                                </div>
+                                <div class="box-body">
+                                    <legend>Select Teams</legend>
+                                    @*@Html.ValidationSummary(true, null, new { @Class = "text-danger" })*@
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+
+                                                @Html.LabelFor(m => m.ProjectId, htmlAttributes: new { @class = "control-label" })
+                                                
+
+                                                    @Html.DropDownListFor(m => m.ProjectId, new List<SelectListItem> { new SelectListItem { Text = "Select Project", Value = " " }, new SelectListItem { Text = "Proj 1", Value = "1" }, new SelectListItem { Text = "Proj 2", Value = "2" }, new SelectListItem { Text = "Proj 3", Value = "3" } }, htmlAttributes: new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.ProjectId, "", new { @class = "text-danger" })
+                                                
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+
+                                                @Html.LabelFor(m => m.TeamName, htmlAttributes: new { @class = "control-label" })
+                                                
+                                                    @Html.EditorFor(m => m.TeamName, new { htmlattributes = new { @class = "form-control", id = "txtteamname", placeholder = "Team Name" } })
+                                                    @Html.ValidationMessageFor(m => m.TeamName, "", new { @class = "text-danger" })
+                                                
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+
+                                                @Html.LabelFor(m => m.Description, htmlAttributes: new { @class = "control-label" })
+                                                <div class="input-group">
+                                                    @Html.TextAreaFor(m => m.Description, 7, 175, new { htmlattributes = new { @class = "form-control", id = "txtteamname", placeholder = "Team Name" } })
+                                                    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- /.box-body -->
+                                <div class="box-footer" style="text-align: center;">
+                                    <button class="btn btn-primary">Create team</button>
+                                </div><!-- /.box-footer-->
+                            </div>
+                        </fieldset>
+
+                    }
+
+                </div>
+            </div>
+
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+
+    <!-- end widget content -->
+
+</section><!-- /.content -->
+<section class="content"></section>
+
+@Scripts.Render("~/bundles/jqueryval")
+

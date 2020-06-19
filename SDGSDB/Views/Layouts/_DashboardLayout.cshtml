@@ -1,0 +1,846 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SDG tracker Pakistan</title>
+
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link rel="shortcut icon" type="image/x-icon" href="~/SDG-Icon.ico" />
+    <!-- Bootstrap 3.3.2 -->
+    <link href="~/ThemeRelated/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <!-- DATA TABLES -->
+    <link href="~/ThemeRelated/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap time Picker -->
+    <link href="~/ThemeRelated/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet" />
+    <!-- Theme style -->
+    <link href="~/ThemeRelated/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link href="~/ThemeRelated/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+    <!-- iCheck -->
+    <link href="~/ThemeRelated/plugins/iCheck/flat/blue.css" rel="stylesheet" type="text/css" />
+    <!-- Morris chart -->
+    <link href="~/ThemeRelated/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
+    <!-- jvectormap -->
+    <link href="~/ThemeRelated/plugins/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
+    <!-- Date Picker -->
+    <link href="~/ThemeRelated/plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+    <!-- Daterange picker -->
+    <link href="~/ThemeRelated/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link href="~/ThemeRelated/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
+
+
+    <style type="text/css">
+        .modal {
+            margin-top: 5px;
+            position: fixed;
+            z-index: 99;
+            opacity: 0.8;
+            filter: alpha(opacity=80);
+            min-height: 100%;
+            width: 100%;
+        }
+
+        .loading {
+            margin-top: 50px;
+            display: none;
+            position: fixed;
+            z-index: 999;
+        }
+    </style>
+
+
+</head>
+<body class="skin-blue">
+    <div class="loading" align="center">
+        SDG-Tracker Pakistan.<br />
+        <br />
+        <img src="~/Img/Pre-loading-sdg.gif" />
+    </div>
+    <label hidden="hidden" id="ApiBaseURL">@System.Web.Configuration.WebConfigurationManager.AppSettings["ApiBaseUrl"]</label>
+    <label hidden="hidden" id="BaseURL">@System.Web.Configuration.WebConfigurationManager.AppSettings["baseUrl"]</label>
+    <div class="wrapper">
+
+        <header class="main-header">
+            <!-- Logo -->
+
+            <a href="index2.html" class="logo"><b>SDG</b> Tracker</a>
+
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- Messages: style can be found in dropdown.less-->
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            if (User.IsInRole("APP_USER"))
+                            {
+                                <li class="dropdown messages-menu">
+                                    <a title="Registration Request" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i title="Registration Request" class="fa fa-envelope-o"></i>
+                                        <span title="Registration Request" id="RegistrationRequest" class="label label-success"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="header alert-success">You have <label id="TotalRequest"><strong> </strong></label> Registration Request</li>
+                                        <li>
+                                            <div class="box-body">
+                                                <table style="border:thick" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr style="background-color:gray;color:white;">
+                                                            <th>Sr#</th>
+                                                            <th>Organization Name</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody style="color:black" id="NotificationRequest"></tbody>
+
+                                                </table>
+
+
+                                            </div>
+                                        </li>
+                                        <li class="footer"><a class="btn btn-default btn-flat" href="~/AppAdmin/PendingRequest">Click me For Approval</a></li>
+                                    </ul>
+                                </li>
+                            }
+                        }
+                        <!-- Notifications: style can be found in dropdown.less -->
+                        <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-bell-o"></i>
+                                <span class="label label-warning">10</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">You have 10 notifications</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the page and may cause design problems
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-users text-red"></i> 5 new members joined
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-shopping-cart text-green"></i> 25 sales made
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-user text-red"></i> You changed your username
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">View all</a></li>
+                            </ul>
+                        </li>
+                        <!-- Tasks: style can be found in dropdown.less -->
+                        <li class="dropdown tasks-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-flag-o"></i>
+                                <span class="label label-danger">9</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">You have 9 tasks</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li>
+                                            <!-- Task item -->
+                                            <a href="#">
+                                                <h3>
+                                                    Design some buttons
+                                                    <small class="pull-right">20%</small>
+                                                </h3>
+                                                <div class="progress xs">
+                                                    <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="sr-only">20% Complete</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li><!-- end task item -->
+                                        <li>
+                                            <!-- Task item -->
+                                            <a href="#">
+                                                <h3>
+                                                    Create a nice theme
+                                                    <small class="pull-right">40%</small>
+                                                </h3>
+                                                <div class="progress xs">
+                                                    <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="sr-only">40% Complete</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li><!-- end task item -->
+                                        <li>
+                                            <!-- Task item -->
+                                            <a href="#">
+                                                <h3>
+                                                    Some task I need to do
+                                                    <small class="pull-right">60%</small>
+                                                </h3>
+                                                <div class="progress xs">
+                                                    <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="sr-only">60% Complete</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li><!-- end task item -->
+                                        <li>
+                                            <!-- Task item -->
+                                            <a href="#">
+                                                <h3>
+                                                    Make beautiful transitions
+                                                    <small class="pull-right">80%</small>
+                                                </h3>
+                                                <div class="progress xs">
+                                                    <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="sr-only">80% Complete</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li><!-- end task item -->
+                                    </ul>
+                                </li>
+                                <li class="footer">
+                                    <a href="#">View all tasks</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- User Account: style can be found in dropdown.less -->
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img id="NGOLogo" class="user-image" alt="User Image" />
+                                <span class="hidden-xs"><label id="lblLoginNGO1"></label></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header">
+                                    <img id="LogoImage1" class="img-circle" alt="User Image" />
+                                    <p>
+                                        <label id="lblLogiNGO2"></label>
+                                        <small><label id="lblLoginOffice2"></label></small>
+                                    </p>
+                                </li>
+                                <!-- Menu Body -->
+                                <li class="user-body">
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Projects</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Tasks</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Activities</a>
+                                    </div>
+                                </li>
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="/Account/Logout" class="btn btn-default btn-flat">Sign out</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img id="LogoImage3" class="img-circle" alt="User Image" />
+                    </div>
+                    <div class="pull-left info">
+                        <p><label id="lblLoginNGO"></label></p>
+                        <a href="#">
+                            <i class="fa fa-circle text-success"></i>
+                            <label id="lblLoginNGOOffice"></label>
+                        </a>
+                    </div>
+                </div>
+                <!-- search form -->
+                <form action="#" method="get" class="sidebar-form">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Search..." />
+                        <span class="input-group-btn">
+                            <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </form>
+                <!-- /.search form -->
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu">
+                    <li class="header">MAIN NAVIGATIONS</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("APP_USER"))
+                        {
+                            <li class="active treeview">
+                                <a href="#">
+                                    <i class="fa fa-dashboard"></i> <span>SDG Tracker, Pakistan</span> <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="/Dashboard/AdminDashboard"><i class="fa fa-dashboard"></i>Admin Dashboard</a></li>
+                                    <li><a href="/AppAdmin/PendingRequest"><i class="fa fa-hand-o-up"></i> Registration Requests</a></li>
+                                    <li class="treeview">
+                                        <a href="#">
+                                            <i class="fa fa-users"></i> <span>Employees</span> <i class="fa fa-angle-left pull-right"></i>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="/Organization/OrgEmployees"><i class="fa fa-users"></i>Add Employees</a></li>
+                                            <li><a href="/Organization/EmployeesDetail"><i class="glyphicon glyphicon-th-large"></i>All Registered Employees</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="treeview">
+                                        <a href="#">
+                                            <i class="fa fa-users"></i> <span>Union Council</span> <i class="fa fa-angle-left pull-right"></i>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="/UnionCouncil/UCRegistration"><i class="fa fa-users"></i>UC Registration</a></li>
+
+                                            <li><a href="/UnionCouncil/UnionCouncil"><i class="fa fa-users"></i>New Union Council</a></li>
+                                            <li><a href="/UnionCouncil/UCStaff"><i class="glyphicon glyphicon-th-large"></i>UC Staff</a></li>
+                                            <li class="treeview">
+                                                <a href="/Organization/EmployeesDetail">
+                                                    <i class="glyphicon glyphicon-th-large"></i>UC Organization<i class="fa fa-angle-left pull-right"></i>
+                                                </a>
+                                                <ul class="treeview-menu">
+                                                    <li><a href="/UnionCouncil/UnionCouncilOrg"><i class="fa fa-circle-o"></i>Add Organization/Institution </a></li>
+                                                    <li><a href="/UnionCouncil/TourismSpot"><i class="fa fa-circle-o"></i>Add Tourism Spot </a></li>
+                                                    <li><a href="/UnionCouncil/UCStaff"><i class="fa fa-circle-o"></i> Organization staff</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="/AppAdmin/AcceptedRequest"><i class="fa fa-check"></i> Approved Requests </a></li>
+                                    <li><a href="/AppAdmin/RejectedRequest"><i class="fa fa-bolt"></i> Rejected Requests </a></li>
+                                    <li><a href="/Dashboard/Dashboard"><i class="fa fa-ban"></i>Blocked Organizations</a></li>
+                                    <li><a href="#"><i class="fa fa-user"></i> Registered Organizations </a></li>
+                                    <li><a href="index.html"><i class="fa fa-lightbulb-o"></i>Organization Projects</a></li>
+                                    <li><a href="/Dashboard/Dashboard"><i class="fa fa-files-o"></i>Organization Data</a></li>
+                                    <li><a href="/Dashboard/Dashboard"><i class="fa fa-file-text"></i>Surveys Details</a></li>
+                                    <li><a href="/Dashboard/Dashboard"><i class="fa fa-certificate"></i>Top Rated Organizations</a></li>
+                                    <li><a href="/Dashboard/Dashboard"><i class="fa fa-calendar"></i>Events History</a></li>
+                                    <li><a href="/Dashboard/Dashboard"><i class="fa fa-book"></i>Courses</a></li>
+
+                                    <li><a href="/Dashboard/Dashboard"><i class="fa fa-book"></i>New Projects</a></li>
+                                    <li><a href="/Dashboard/Dashboard"><i class="fa fa-book"></i>HRM</a></li>
+                                    <li><a href="/Dashboard/Dashboard"><i class="fa fa-book"></i>IMS</a></li>
+                                    <li><a href="/Dashboard/Dashboard"><i class="fa fa-book"></i>AMS</a></li>
+                                    <li><a href="/Dashboard/Dashboard"><i class="fa fa-sitemap"></i>SDG Tracker Integration</a></li>
+                                    <li><a href="/Dashboard/Dashboard"><i class="fa fa-user"></i>Users</a></li>
+
+                                    <li><a href="/Dashboard/Dashboard"><i class="fa fa-users"></i>Roles</a></li>
+                                    <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+                                </ul>
+                            </li>
+
+                        }
+                        if (User.IsInRole("UC_ADMIN"))
+                        {
+                            <li class="active treeview">
+                                <a href="#">
+                                    <i class="fa fa-dashboard"></i> <span>UC Main Menu</span> <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="/UnionCouncil/UCProfileView"><i class="glyphicon glyphicon-th-large"></i>My Profile</a></li>
+                                    <li><a href="/UnionCouncil/UCStaff"><i class="glyphicon glyphicon-th-large"></i>UC Staff</a></li>
+                                    <li class="treeview">
+                                        <a href="/Organization/EmployeesDetail">
+                                            <i class="glyphicon glyphicon-th-large"></i>UC Organization<i class="fa fa-angle-left pull-right"></i>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="/UnionCouncil/UnionCouncilOrg"><i class="fa fa-circle-o"></i> Organizations/Institution </a></li>
+                                            <li><a href="/UnionCouncil/TourismSpot"><i class="fa fa-circle-o"></i>Add Tourism Spot </a></li>
+                                            <li><a href="/UnionCouncil/UCStaff"><i class="fa fa-circle-o"></i> Organization staff</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-users"></i> <span>Employees</span> <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="/Organization/OrgEmployees"><i class="fa fa-users"></i>Add Employees</a></li>
+                                    <li><a href="/Organization/EmployeesDetail"><i class="glyphicon glyphicon-th-large"></i>All Registered Employees</a></li>
+                                </ul>
+                            </li>
+                        }
+                        if (User.IsInRole("ORGANIZATION_ADMIN"))
+                        {
+                            <li class="active treeview">
+                                <a href="#">
+                                    <i class="fa fa-dashboard"></i> <span>NGO Main Menu</span> <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="/Dashboard/OrganizationAdminDashboard"><i class="fa fa-dashboard"></i>Admin Dashboard</a></li>
+                                    <li><a href="/Organization/OrganizationDetailGrid"><i class="fa fa-users"></i>My Profile</a></li>
+                                    <li><a href="/Registration/OfficeRegistration"><i class="fa fa-circle-o"></i>Office Registration</a></li>
+                                    <li><a href="/Registration/OrgContactEmail"><i class="fa fa-phone-square"></i>Organization Contacts</a></li>
+                                    <li><a href="/AppAdmin/DataUploading"><i class="fa fa-files-o"></i> Data Uploading </a></li>
+                                    <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+
+                                </ul>
+                            </li>
+
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-users"></i> <span>Employees</span> <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="/Organization/OrgEmployees"><i class="fa fa-users"></i>Add Employees</a></li>
+                                    <li><a href="/Organization/EmployeesDetail"><i class="glyphicon glyphicon-th-large"></i>All Registered Employees</a></li>
+                                </ul>
+                            </li>
+                        }
+                        if (User.IsInRole("OFFICE_ADMIN"))
+                        {
+
+                            <li class="active treeview">
+                                <a href="#">
+                                    <i class="fa fa-dashboard"></i> <span>SDG Tracker, Pakistan</span> <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="/Dashboard/OfficeAdminDashboard"><i class="fa fa-dashboard"></i>Admin Dashboard</a></li>
+                                    <li><a href="/Registration/OfficeRegistration"><i class="fa fa-users"></i>Profile</a></li>
+                                    <li><a href="/Registration/OfficeContactEmail"><i class="fa fa-phone-square"></i>Office Contacts</a></li>
+                                    <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+
+                                </ul>
+                            </li>
+                        }
+
+                    }
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Right side column. Contains the navbar and content of the page -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+
+                <label id="lblGUID" style="display:none">@ViewBag.CurrentUserID</label>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li class="active">Dashboard</li>
+                </ol>
+            </section>
+            <!-- Main content -->
+            @RenderBody()
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 2.0
+            </div>
+            <strong>Copyright &copy; 2020-2025 <a href="http://www.sdgsacademy.pk/">SDG Academy</a>.</strong> All rights reserved SDG Academy, Islamabad 2020.
+        </footer>
+    </div><!-- ./wrapper -->
+    <script type="text/javascript">
+        var modal, loading;
+        function ShowProgress() {
+            modal = document.createElement("DIV");
+            modal.className = "modal";
+            document.body.appendChild(modal);
+            loading = document.getElementsByClassName("loading")[0];
+            loading.style.display = "block";
+            var top = Math.max(window.innerHeight / 2 - loading.offsetHeight / 2, 0);
+            var left = Math.max(window.innerWidth / 2 - loading.offsetWidth / 2, 0);
+            loading.style.top = top + "px";
+            loading.style.left = left + "px";
+        };
+        ShowProgress();
+    </script>
+
+    <!-- Keep the Page Content Here.-->
+
+    <script type="text/javascript">
+        window.onload = function () {
+            setTimeout(function () {
+                document.body.removeChild(modal);
+                loading.style.display = "none";
+            }, 2000); //Delay just used for example and must be set to 0.
+        };
+    </script>
+
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#example1").dataTable();
+            $('#example2').dataTable({
+                "bPaginate": true,
+                "bLengthChange": false,
+                "bFilter": false,
+                "bSort": true,
+                "bInfo": true,
+                "bAutoWidth": false
+            });
+        });
+    </script>
+    <script src="~/Scripts/SDGSRegistrarionJS/NGOCompleteRegistration.js"></script>
+    <script src="~/Scripts/SDGSRegistrarionJS/DDLSDGRegistration.js"></script>
+    <script src="~/Scripts/SDGSRegistrarionJS/OfficeRegistration.js"></script>
+    <script src="~/Scripts/SDGSRegistrarionJS/OrganizationProfile.js"></script>
+    <script src="~/Scripts/SDGSRegistrarionJS/Dashboard.js"></script>
+    <script src="~/Scripts/SDGSRegistrarionJS/App_AdminDashboard.js"></script>
+    <script type="text/javascript">
+		$(document).ready(function () {
+			$(function () {
+				$("#example1").dataTable();
+			});
+			var org = $("#AcceptedRequest");
+
+			var id = 1;
+			$.ajax({
+				type: 'Get',
+				url: '@System.Web.Configuration.WebConfigurationManager.AppSettings["ApiBaseUrl"]/Accepted_Request',
+				dataType: 'json',
+				success: function (data) {
+					$.each(data,
+						function (index, val) {
+							var name = val.Organization_Name;
+							var Contact = val.Contact_Number;
+							var email = val.Email_Id;
+
+							org.append('<tr>' +
+								'<td>' +
+								id +
+								'</td>' +
+								'<td>' +
+								name +
+								'</td>' +
+								'<td>' +
+								Contact +
+								'</td>' +
+								'<td>' +
+								email +
+								'</td>' +
+								'</tr>');
+							id++;
+						});
+				}
+			});
+
+
+		});
+
+
+    </script>
+    <script type="text/javascript">
+
+		$(document).ready(function () {
+			$(function () {
+				$("#RejectedRequestTable").dataTable();
+
+			});
+			var org = $("#RejectedRequest");
+			$.ajax({
+				type: 'Get',
+				url: '@System.Web.Configuration.WebConfigurationManager.AppSettings["ApiBaseUrl"]/Rejected_Request',
+				dataType: 'json',
+				success: function (data) {
+
+					$.each(data,
+						function (index, val) {
+							var name = val.Organization_Name;
+							var Contact = val.Contact_Number;
+							var email = val.Email_Id;
+							var id = val.Organization_Id;
+
+							org.append('<tr>' +
+								'<td>' +
+								id +
+								'</td>' +
+								'<td>' +
+								name +
+								'</td>' +
+								'<td>' +
+								Contact +
+								'</td>' +
+								'<td>' +
+								email +
+								'</td>' +
+								'<td>' +
+								'<button class="btn btn-success" id="approve" value="' + id + "/" + email + '" style="margin-right: 9px;" >Accept</button>' +
+								'<button class="btn btn-danger" id="reject" value="' + id + '" >Reject</button>' +
+								'</td>' +
+								'</tr>');
+
+						});
+
+					$('#RejectedRequestTable').on('click', '#approve', function () {
+						var string = $(this).val();
+						var id = string.substr(0, string.indexOf('/'));
+						var email = string.substr(string.indexOf('/') + 1, string.length);
+						$.ajax({
+							url: "@System.Web.Configuration.WebConfigurationManager.AppSettings["ApiBaseUrl"]/Accept",
+							method: "POST",
+							data: {
+								id: id,
+								status: 1
+							},
+							success: function () {
+								sendmail(id, email);
+							}
+						});
+
+
+
+					});
+					function sendmail(id, email) {
+						$.ajax({
+							url: "@System.Web.Configuration.WebConfigurationManager.AppSettings["ApiBaseUrl"]/Api/SendEmail",
+							method: "POST",
+							headers: {
+								'Content-Type': 'application/x-www-form-urlencoded'
+							},
+							dataType: "json",
+							data: {
+								to: email,
+								subject: "Congratulatiuons! Account Approved",
+								body: "<html><body><h2>Congratulations!</h2><br><h4> Your Request to Create an account has been approved Please click on following Button</h4>" +
+								"<a href=\"@System.Web.Configuration.WebConfigurationManager.AppSettings["baseUrl"]/Account/Register?id=" + id + "\">Complete Registration</a></body></html>"
+
+							},
+
+							success: function () {
+								location.reload(true)
+							},
+
+						});
+					}
+					$('#RejectedRequestTable').on('click', '#reject', function () {
+						var id = $(this).val();
+						$.ajax({
+							url: "@System.Web.Configuration.WebConfigurationManager.AppSettings["ApiBaseUrl"]/Reject",
+							method: "POST",
+							data: {
+								id: id,
+								status: 2
+							},
+							success: function () {
+								location.reload(true)
+							}
+						});
+
+
+					});
+					//$('#reject').click(function () {
+					//   var button_val = $(this).val();
+					//    alert(button_val + 'reject')
+					//});
+
+
+				}
+			});
+
+
+		});
+
+
+    </script>
+    <script type="text/javascript">
+		$(document).ready(function () {
+			$(function () {
+				$("#example1").dataTable();
+
+			});
+            var org = $("#PendingRequestDataTable");
+			var id = 1;
+			$.ajax({
+				type: 'Get',
+				url: '@System.Web.Configuration.WebConfigurationManager.AppSettings["ApiBaseUrl"]/Pending_Request',
+				dataType: 'json',
+				success: function (data) {
+
+					$.each(data,
+						function (index, val) {
+							var name = val.Organization_Name;
+							var Contact = val.Contact_Number;
+							var email = val.Email_Id;
+							var Orgid = val.Organization_Id;
+							var Office_Id = val.Office_Id;
+
+							org.append('<tr>' +
+								'<td>' +
+								id +
+								'</td>' +
+								'<td>' +
+								name +
+								'</td>' +
+								'<td>' +
+								Contact +
+								'</td>' +
+								'<td>' +
+								email +
+								'</td>' +
+								'<td>' +
+								'<button class="btn btn-success" id="approve" value="' + Orgid + "/" + Office_Id + "/" + email + '" style="margin-right: 9px;" >Accept</button>' +
+								'<button class="btn btn-danger" id="reject" value="' + Orgid + '" >Reject</button>' +
+								'</td>' +
+								'</tr>');
+							id++;
+						});
+
+					$('#PendingRequestTable').on('click', '#approve', function () {
+						var string = $(this).val();
+						var Orgid = string.substr(0, string.indexOf('/'));
+						var Office_Id = string.substr(5, string.indexOf('/'));
+						var email = string.substr(string.indexOf('/') + 6, string.length);
+						//alert(Orgid);
+						//alert(Office_Id);
+						//alert(email);
+						$.ajax({
+							url: "@System.Web.Configuration.WebConfigurationManager.AppSettings["ApiBaseUrl"]/Accept",
+							method: "POST",
+							data: {
+								id: Orgid,
+								status: 1
+							},
+							success: function () {
+								sendmail(Orgid, Office_Id, email);
+								document.getElementById('approve').style.visibility = 'hidden';
+								document.getElementById('reject').style.visibility = 'hidden';
+							}
+						});
+
+
+
+					});
+					function sendmail(Orgid, Office_Id, email) {
+						$.ajax({
+							url: "@System.Web.Configuration.WebConfigurationManager.AppSettings["ApiBaseUrl"]/Api/SendEmail",
+							method: "POST",
+							headers: {
+								'Content-Type': 'application/x-www-form-urlencoded'
+							},
+							dataType: "json",
+							data: {
+								to: email,
+								subject: "Congratulatiuons! Account Approved",
+								body: "<html><body><h2>Congratulations!</h2><br><h4> Your Request to Create an account has been approved Please click on following Button</h4>" +
+								"<a href=\"@System.Web.Configuration.WebConfigurationManager.AppSettings["baseUrl"]/Account/Register?ID=" + Orgid + "&OfficeId=" + Office_Id + "\">Complete Registration</a></body></html>"
+
+							},
+
+							success: function () {
+								location.reload(true)
+							},
+
+						});
+					}
+					$('#PendingRequestTable').on('click', '#reject', function () {
+						var id = $(this).val();
+						$.ajax({
+							url: "@System.Web.Configuration.WebConfigurationManager.AppSettings["ApiBaseUrl"]/Reject",
+							method: "POST",
+							data: {
+								id: id,
+								status: 2
+							},
+							success: function () {
+								location.reload(true)
+							}
+						});
+
+
+					});
+					//$('#reject').click(function () {
+					//   var button_val = $(this).val();
+					//    alert(button_val + 'reject')
+					//});
+
+
+				}
+			});
+
+
+		});
+
+
+    </script>
+    <!-- jQuery 2.1.3 -->
+    <script src="~/ThemeRelated/plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <!-- jQuery UI 1.11.2 -->
+    <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+    </script>
+    <!-- Bootstrap 3.3.2 JS -->
+    <script src="~/ThemeRelated/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <!-- DATA TABES SCRIPT -->
+    <script src="~/ThemeRelated/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
+    <script src="~/ThemeRelated/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+
+    <!-- Morris.js charts -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="~/ThemeRelated/plugins/morris/morris.min.js" type="text/javascript"></script>
+    <!-- Sparkline -->
+    <script src="~/ThemeRelated/plugins/sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
+    <!-- jvectormap -->
+    <script src="~/ThemeRelated/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js" type="text/javascript"></script>
+    <script src="~/ThemeRelated/plugins/jvectormap/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="~/ThemeRelated/plugins/knob/jquery.knob.js" type="text/javascript"></script>
+    <!-- daterangepicker -->
+    <script src="~/ThemeRelated/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+    <!-- bootstrap time picker -->
+    <script src="~/ThemeRelated/plugins/timepicker/bootstrap-timepicker.min.js" type="text/javascript"></script>
+    <!-- datepicker -->
+    <script src="~/ThemeRelated/plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="~/ThemeRelated/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
+    <!-- iCheck -->
+    <script src="~/ThemeRelated/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+
+    <!-- Slimscroll -->
+    <script src="~/ThemeRelated/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <!-- FastClick -->
+    <script src='~/ThemeRelated/plugins/fastclick/fastclick.min.js'></script>
+    <!-- AdminLTE App -->
+    <script src="~/ThemeRelated/dist/js/app.min.js" type="text/javascript"></script>
+    <!-- AdminLTESDG tracker Pakistan demo (This is only for demo purposes) -->
+    <script src="~/ThemeRelated/dist/js/pages/dashboard.js" type="text/javascript"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/ThemeRelated/dist/js/demo.js" type="text/javascript"></script>
+    
+
+</body>
+</html>

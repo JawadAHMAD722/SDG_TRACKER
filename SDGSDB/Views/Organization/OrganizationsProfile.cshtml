@@ -1,0 +1,376 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>SDG tracker Pakistan</title>
+
+	<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+	<link rel="shortcut icon" type="image/x-icon" href="~/SDG-Icon.ico" />
+	<!-- Bootstrap 3.3.2 -->
+	<link href="~/ThemeRelated/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<!-- FontAwesome 4.3.0 -->
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+	<!-- Ionicons 2.0.0 -->
+	<link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+	<!-- DATA TABLES -->
+	<link href="~/ThemeRelated/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+	<!-- Theme style -->
+	<link href="~/ThemeRelated/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+	<!-- AdminLTE Skins. Choose a skin from the css/skins
+		 folder instead of downloading all of them to reduce the load. -->
+	<link href="~/ThemeRelated/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+	<!-- iCheck -->
+	<link href="~/ThemeRelated/plugins/iCheck/flat/blue.css" rel="stylesheet" type="text/css" />
+	<!-- bootstrap wysihtml5 - text editor -->
+	<link href="~/ThemeRelated/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
+	<style type="text/css">
+		.modal {
+			margin-top: 5px;
+			position: fixed;
+			z-index: 99;
+			opacity: 0.8;
+			filter: alpha(opacity=80);
+			min-height: 100%;
+			width: 100%;
+		}
+
+		.loading {
+			margin-top: 50px;
+			display: none;
+			position: fixed;
+			z-index: 999;
+		}
+	</style>
+</head>
+<body class="skin-blue">
+	<div class="loading" align="center">
+		SDG-Tracker Pakistan.<br />
+		<br />
+		<img style="width:150px;height:150px;" src="~/Img/Pre-loading-sdg.gif" />
+	</div>
+	<label hidden="hidden" id="ApiBaseURL">@System.Web.Configuration.WebConfigurationManager.AppSettings["ApiBaseUrl"]</label>
+	<label hidden="hidden" id="BaseURL">@System.Web.Configuration.WebConfigurationManager.AppSettings["baseUrl"]</label>
+	<div class="wrapper">
+
+		<header class="main-header" style="max-height: 130px;">
+			<!-- Logo -->
+			<a style="height:120px;color:white;padding:15px 15px;font-size:18px" href="/">
+				<div style="float:left;"><img src="~/Img/SDGs-Academy-white-logo.png" height="90px" width="90px" /></div>
+				<div style="float:left;padding-left:20px;padding-top:22px;">
+					SDG Tracker-Pakistan<br />
+					a data-driven initiative to luanch National Database for SDGs<br />
+				</div>
+			</a>
+
+			<!-- Header Navbar: style can be found in header.less -->
+			<nav class="navbar navbar-static-top" style="background-color:transparent" role="navigation">
+				<!-- Sidebar toggle button-->
+
+				<div class="navbar-custom-menu">
+					<div class="nav navbar-nav">
+						<div class="col-sm-12">
+							<div class="row">
+								<div class="col-sm-6">
+									<input class="form-control" type="search" placeholder="Search" aria-label="Search">
+								</div>
+								<div class="col-sm-6">
+									<button class="btn btn-success" onclick="window.location.href ='/SearchData/Index';" type="button">Search</button>
+									<button class="btn btn-info" onclick="window.location.href ='/Account/Login';" style="margin-left:10px" type="button">Login</button>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</nav>
+		</header>
+		<!-- Left side column. contains the logo and sidebar -->
+
+		<div class="content-wrapper" style="margin-left:0px;">
+			<!-- Content Header (Page header) -->
+			<label id="lblGUID" style="display:none">@ViewBag.CurrentUserID</label>
+			<!-- Main content -->
+			<link href="~/Content/Style.css" rel="stylesheet" />
+			<!-- Main content -->
+			<section class="content" style="padding:0px;margin:0px;">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="box box-primary">
+							<div style="margin-bottom:0px;" class="box-header">
+								<div style="margin-bottom:0px;" class="well"><h2 style="margin-bottom:0px;text-align:center; margin-top:0px;"><label id="NGONAMEHEADER"></label> Profile</h2></div>
+							</div><!-- /.box-header -->
+							<div class="box-body container">
+
+								<div class="col-xs-12">
+									<div class=" text-center">
+										<div class="col-sm-3 sidenav leftimg">
+											<img class="col-sm-12" id="lblOrgLogo" style="border:solid;border-radius:10px;" width="100" />
+											@*<label id="lblOrgLogo" style="margin-bottom:10px;margin-top:20px;"></label>*@
+											<label id="lblOrgName" style="margin-bottom:10px;margin-top:20px;font-size:large;color:green"></label>
+											<div style="margin-top:20px;text-align:left">
+												<h3 class=" well well-sm" style="text-align:center;font-size: small">Miscellaneous Information</h3>
+												<p style="margin-bottom:15px;"><strong>Organization Type:</strong><label id="lblOrgType" style="margin-left:10px;text-align:justify"></label></p>
+												<p class=" well well-sm" style="text-align:center;font-size:medium;margin-bottom:30px;">Address Information</p>
+												<p>Province:<label id="lblOrgProvince" style="margin-left:30px;text-align:justify"></label> </p>
+												<p>Division: <label id="lblOrgDivision" style="margin-left:30px;text-align:justify"></label></p>
+												<p>District: <label id="lblOrgDistrict" style="margin-left:35px;text-align:justify"></label></p>
+												<p>Street:<label id="lblOrgstreet" style="margin-left:43px"></label></p>
+												<p>House:<label id="lblOrHouse" style="margin-left:41px"></label></p>
+												<p>Postal Code:<label id="lblOrgCode" style="margin-left:8px"></label></p>
+											</div>
+
+
+										</div>
+										<div class="col-sm-6 text-left">
+											<section id="sdgs">
+												<h3 class=" well well-sm" style="text-align:center">SDGS we are working on</h3>
+												<div id="carddeck" class="card-deck ">
+													<div class="row">
+														<div class="cols-md-12" style="margin-left:20px;" id="SDGS">
+
+														</div>
+													</div>
+													@*<table class="table">
+															<tbody id="SDGS"></tbody>
+														</table>*@
+												</div>
+											</section>
+
+
+											<br />
+
+											<section id="offices">
+												<h4 class=" well well-sm" style="text-align:center;font-size:medium;padding: 10px;">Our Registered Offices</h4>
+												<div class="row" style="padding:10px 5px;">
+													<div class="col-md-12" style="text-align:center;color:blue;" id="OfficesOrg">
+
+													</div>
+												</div>
+											</section>
+											<br />
+
+										</div>
+										<div style="height:auto" class="col-sm-3 sidenav">
+											<div style="height:100%;text-align:justify;font-family:Arial;">
+												<h3 class=" well well-sm" style="text-align:center;font-size:medium">Personal Information</h3>
+												<h4 style="margin-top:60px;color:blue"><strong>Focal Person:</strong></h4><label id="lblOrgFocalPerson"></label><h5 style="text-align:left;margin-left:100px;"></h5>
+												<h4 style="color:blue"><strong>Designation:</strong></h4><label id="lblOrgDesignation"></label>
+												<h5 style="text-align:left;margin-left:100px"></h5>
+												<h4 style="color:blue"><strong>Email:</strong></h4><label id="lblOrgEmail"></label>
+												<h5 style="text-align:left;margin-left:100px"></h5>
+												<h4 style="color:blue"><strong>Contact:</strong></h4><label id="lblOrgFPContact"></label>
+												<h5 style="text-align:left;margin-left:100px"></h5>
+												<h3 class="fa fa-star"></h3>
+											</div>
+											<div>
+												<h3 class=" well well-sm" style="text-align:center;font-size:medium">Our Projects</h3>
+												<h3 class=" well well-sm" style="text-align:center;font-size:medium">Our Activities</h3>
+												<h3 class=" well well-sm" style="text-align:center;font-size:medium">Tasks</h3>
+											</div>
+										</div>
+
+
+									</div>
+								</div>
+							</div><!-- /.box-body -->
+						</div>
+					</div>
+					<!-- /.box --><!-- /.col -->
+				</div>
+			</section><!-- /.content -->
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+	</div><!-- ./wrapper -->
+	<footer class="main-footer" style="margin-left:0px;background-color: black;color: white !important;">
+
+		<div style="padding-left:350px;">
+			<strong>Copyright &copy; 2020-2025 <a style="color:white !importantwww.win2.cn/g9" href="http://www.sdgsacademy.pk/">SDGs Academy </a>.</strong> All rights reserved SDG Academy, Islamabad Pakistan 2020.
+		</div>
+
+	</footer>
+	<script type="text/javascript">
+		var modal, loading;
+		function ShowProgress() {
+			modal = document.createElement("DIV");
+			modal.className = "modal";
+			document.body.appendChild(modal);
+			loading = document.getElementsByClassName("loading")[0];
+			loading.style.display = "block";
+			var top = Math.max(window.innerHeight / 2 - loading.offsetHeight / 2, 0);
+			var left = Math.max(window.innerWidth / 2 - loading.offsetWidth / 2, 0);
+			loading.style.top = top + "px";
+			loading.style.left = left + "px";
+		};
+		ShowProgress();
+	</script>
+
+	<!-- Keep the Page Content Here.-->
+
+	<script type="text/javascript">
+		window.onload = function () {
+			setTimeout(function () {
+				document.body.removeChild(modal);
+				loading.style.display = "none";
+			}, 2000); //Delay just used for example and must be set to 0.
+		};
+	</script>
+
+	<script src="~/Scripts/jquery-3.4.1.js"></script>
+	<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript">
+    $(document).ready(function () {
+        var apiBaseUrl = document.getElementById('ApiBaseURL').innerHTML;
+        if (@ViewBag.OrgID != null) {
+          var OrgID = "@ViewBag.OrgID";
+        var OfficeID = "@ViewBag.OfficeID";
+        }
+        //alert(OrgID);
+        //alert(OfficeID);
+        $.ajax({
+            type: 'Get',
+            url: apiBaseUrl +'/GetOrganizationProfileBYID?OrgID=' + OrgID + '&OfficeID=' + OfficeID,
+            dataType: 'json',
+            success: function (result) {
+                var arraySDG = [];
+                var JSONDATA = JSON.parse(result);
+                //alert(JSONDATA);
+                $.each(JSONDATA, function (index, val) {
+                    var SDGLIST = val.SDG_Id;
+                    arraySDG.push(SDGLIST);
+                    var Organization_Type = val.Organization_Type_Id;
+                    document.getElementById('lblOrgName').innerText = val.Organization_Name;
+                    document.getElementById('NGONAMEHEADER').innerText = val.Organization_Name;
+                    document.getElementById('lblOrgType').innerText = Organization_Type;
+                    document.getElementById('lblOrgProvince').innerText = val.Province_Name;
+                    document.getElementById('lblOrgDivision').innerText = val.Division_Name;
+                    document.getElementById('lblOrgDistrict').innerText = val.District_Name;
+                    document.getElementById('lblOrgstreet').innerText = val.Street;
+                    document.getElementById('lblOrHouse').innerText = val.House;
+                    document.getElementById('lblOrgCode').innerText = val.PostalCode;
+                    document.getElementById('lblOrgLogo').src = apiBaseUrl +'/NGOLogos/' + val.Logo_Image;
+
+                    //alert(val.SDG_Id);
+                    document.getElementById('lblOrgFocalPerson').innerText = val.Person_Contact_Name;
+                    document.getElementById('lblOrgDesignation').innerText = val.Person_Contact_Title;
+                    document.getElementById('lblOrgEmail').innerText = val.Person_Contact_Email;
+                    document.getElementById('lblOrgFPContact').innerText = val.Person_Contact_Number;
+                });
+                //alert(arraySDG);
+                if (arraySDG.some(SDG => SDG == 1)) {
+                    $("#SDGS").append('<a href="/Home/No_Poverty"><img src="/Images/SDG-1.png" height="150" style="margin:10px;border-radius:20px;" /></a>')
+                    //document.getElementById('SDG1').style.visibility = "visible";
+                }
+                if (arraySDG.some(SDG => SDG == 2)) {
+                    $("#SDGS").append('<a href="/Home/Zero_Hunger"><img src="/Images/SDG-2.png" height="150" style="margin:10px;border-radius:20px;" /></a>')
+                    //document.getElementById('SDG2').style.visibility = "visible";
+                }
+                if (arraySDG.some(SDG => SDG == 3)) {
+                    $("#SDGS").append('<a href="/Home/Good_Health"><img src="/Images/SDG-3.png" height="150" style="margin:10px;border-radius:20px;" /></a>')
+                    //document.getElementById('SDG3').style.visibility = "visible";
+                }
+                if (arraySDG.some(SDG => SDG == 4)) {
+                    $("#SDGS").append('<a href="/Home/Quality_Education"><img src="/Images/SDG-4.png" height="150" style="margin:10px;border-radius:20px;" /></a>')
+                    //document.getElementById('SDG4').style.visibility = "visible";
+                }
+                if (arraySDG.some(SDG => SDG == 5)) {
+                    $("#SDGS").append('<a href="/Home/Gender_Equality"><img src="/Images/SDG-5.png" height="150" style="margin:10px;border-radius:20px;" /></a>')
+                    //document.getElementById('SDG5').style.visibility = "visible";
+                }
+                if (arraySDG.some(SDG => SDG == 6)) {
+                    $("#SDGS").append('<a href="/Home/Clean_Water"><img src="/Images/SDG-6.png" height="150" style="margin:10px;border-radius:20px;" /></a>')
+                    //document.getElementById('SDG6').style.visibility = "visible";
+                }
+                if (arraySDG.some(SDG => SDG == 7)) {
+                    $("#SDGS").append('<a href="/Home/Affordable_Clean_Energy"><img src="/Images/SDG-7.png" height="150" style="margin:10px;border-radius:20px;" /></a>')
+                    // document.getElementById('SDG7').style.visibility = "visible";
+                }
+                if (arraySDG.some(SDG => SDG == 8)) {
+                    $("#SDGS").append('<a href="/Home/Decent_Work"><img src="/Images/SDG-8.png" height="150" style="margin:10px;border-radius:20px;" /></a>')
+                    //document.getElementById('SDG8').style.visibility = "visible";
+                }
+                if (arraySDG.some(SDG => SDG == 9)) {
+                    $("#SDGS").append('<a href="/Home/Industry_Innovation_Infrastructure"><img src="/Images/SDG-9.png" height="150" style="margin:10px;border-radius:20px;" /></a>')
+                }
+                if (arraySDG.some(SDG => SDG == 10)) {
+                    $("#SDGS").append('<a href="/Home/Reduced_Inequalities"><img src="/Images/SDG-10.png" height="150" style="margin:10px;border-radius:20px;" /></a>')
+                }
+                if (arraySDG.some(SDG => SDG == 11)) {
+                    $("#SDGS").append('<a href="/Home/Sustainable_Cities"><img src="/Images/SDG-11.png" height="150" style="margin:10px;border-radius:20px;" /></a>')
+                }
+                if (arraySDG.some(SDG => SDG == 12)) {
+                    $("#SDGS").append('<a href="/Home/Responsible_Consuption_Production"><img src="/Images/SDG-12.png" height="150" style="margin:10px;border-radius:20px;" /></a>')
+                }
+                if (arraySDG.some(SDG => SDG == 13)) {
+                    $("#SDGS").append('<a href="/Home/Climate_Action"><img src="/Images/SDG-13.png" height="150" style="margin:10px;border-radius:20px;" /></a>')
+                }
+                if (arraySDG.some(SDG => SDG == 14)) {
+                    $("#SDGS").append('<a href="/Home/Life_Below_Water"><img src="/Images/SDG-14.png" height="150" style="margin:10px;border-radius:20px;" /></a>')
+                }
+                if (arraySDG.some(SDG => SDG == 15)) {
+                    $("#SDGS").append('<a href="/Home/Life_On_Land"><img src="/Images/SDG-15.png" height="150" style="margin:10px;border-radius:20px;" /></a>')
+                }
+                if (arraySDG.some(SDG => SDG == 16)) {
+                    $("#SDGS").append('<a href="/Home/Peace_Justice"><img src="/Images/SDG-16.png" height="150" style="margin:10px;border-radius:20px;" /></a>')
+                }
+                if (arraySDG.some(SDG => SDG == 17)) {
+                    $("#SDGS").append('<a href="/Home/Partnership"><img src="/Images/SDG-17.png" height="150" style="margin:10px;border-radius:20px;" /></a>')
+                }
+            }
+        });
+        //Registerd Offices
+        $.ajax({
+            type: 'Get',
+            url: apiBaseUrl + '/GetAllRegisteredOfficesByOrg?OrgID=' + OrgID,
+            dataType: 'json',
+            success: function (result) {
+                var JSONDATA = JSON.parse(result);
+                //alert(result);
+                //alert(JSONDATA);
+                $.each(JSONDATA, function (index, val) {
+                    //alert(val.HeadOffice_Name);
+                    $("#OfficesOrg").append(' <ul><li><button style="border-radius: 30px;" title="Office Profile" class="btn btn-block btn-default btn-lg" href="#"><i class="glyphicon glyphicon-user"></i>'+'  '+ val.HeadOffice_Name +'</button></li></ul>')
+                    //document.getElementById('OrgOfficeslbl').innerText = val.HeadOffice_Name;
+                });
+            }
+        });
+    });
+	</script>
+	<script type="text/javascript">
+		$(function () {
+			$("#example1").dataTable();
+		});
+	</script>
+
+
+	<!-- jQuery 2.1.3 -->
+	<script src="~/ThemeRelated/plugins/jQuery/jQuery-2.1.3.min.js"></script>
+	<!-- jQuery UI 1.11.2 -->
+	<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
+	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+	<script>
+		$.widget.bridge('uibutton', $.ui.button);
+	</script>
+	<!-- Bootstrap 3.3.2 JS -->
+	<script src="~/ThemeRelated/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<!-- DATA TABES SCRIPT -->
+	<script src="~/ThemeRelated/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
+	<script src="~/ThemeRelated/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+	<!-- Bootstrap WYSIHTML5 -->
+	<script src="~/ThemeRelated/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
+	<!-- iCheck -->
+	<script src="~/ThemeRelated/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+
+	<!-- Slimscroll -->
+	<script src="~/ThemeRelated/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+	<!-- FastClick -->
+	<script src='~/ThemeRelated/plugins/fastclick/fastclick.min.js'></script>
+	<!-- AdminLTE App -->
+	<script src="~/ThemeRelated/dist/js/app.min.js" type="text/javascript"></script>
+</body>
+</html>
+
+
+

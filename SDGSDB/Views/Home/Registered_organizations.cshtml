@@ -1,0 +1,230 @@
+﻿@{
+	Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>SDG tracker Pakistan</title>
+
+	<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+	<link rel="shortcut icon" type="image/x-icon" href="~/SDG-Icon.ico" />
+	<!-- Bootstrap 3.3.2 -->
+	<link href="~/ThemeRelated/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<!-- FontAwesome 4.3.0 -->
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+	<!-- Ionicons 2.0.0 -->
+	<link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+	<!-- DATA TABLES -->
+	<link href="~/ThemeRelated/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+	<!-- Theme style -->
+	<link href="~/ThemeRelated/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+	<!-- AdminLTE Skins. Choose a skin from the css/skins
+		 folder instead of downloading all of them to reduce the load. -->
+	<link href="~/ThemeRelated/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+	<!-- iCheck -->
+	<link href="~/ThemeRelated/plugins/iCheck/flat/blue.css" rel="stylesheet" type="text/css" />
+	<!-- bootstrap wysihtml5 - text editor -->
+	<link href="~/ThemeRelated/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
+	<style type="text/css">
+		.modal {
+			margin-top: 5px;
+			position: fixed;
+			z-index: 99;
+			opacity: 0.8;
+			filter: alpha(opacity=80);
+			min-height: 100%;
+			width: 100%;
+		}
+
+		.loading {
+			margin-top: 50px;
+			display: none;
+			position: fixed;
+			z-index: 999;
+		}
+	</style>
+</head>
+<body class="skin-blue">
+	<div class="loading" align="center">
+		SDG-Tracker Pakistan.<br />
+		<br />
+		<img style="width:150px;height:150px;" src="~/Img/Pre-loading-sdg.gif" />
+	</div>
+	<label hidden="hidden" id="ApiBaseURL">@System.Web.Configuration.WebConfigurationManager.AppSettings["ApiBaseUrl"]</label>
+	<label hidden="hidden" id="BaseURL">@System.Web.Configuration.WebConfigurationManager.AppSettings["baseUrl"]</label>
+	<div class="wrapper">
+
+		<header class="main-header" style="max-height: 130px;">
+			<!-- Logo -->
+			<a style="height:120px;color:white;padding:15px 15px;font-size:18px" href="/">
+				<div style="float:left;"><img src="~/Img/SDGs-Academy-white-logo.png" height="90px" width="90px" /></div>
+				<div style="float:left;padding-left:20px;padding-top:22px;">
+					SDG Tracker-Pakistan<br />
+					a data-driven initiative to launch National Database for SDGs<br />
+				</div>
+			</a>
+
+			<!-- Header Navbar: style can be found in header.less -->
+			<nav class="navbar navbar-static-top" style="background-color:transparent" role="navigation">
+				<!-- Sidebar toggle button-->
+
+				<div class="navbar-custom-menu">
+					<div class="nav navbar-nav">
+						<div class="col-sm-12">
+							<div class="row">
+								<div class="col-sm-6">
+									<input class="form-control" type="search" placeholder="Search" aria-label="Search">
+								</div>
+								<div class="col-sm-6">
+									<button class="btn btn-success" onclick="window.location.href ='/SearchData/Index';" type="button">Search</button>
+									<button class="btn btn-info" onclick="window.location.href ='/Account/Login';" style="margin-left:10px" type="button">Login</button>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</nav>
+		</header>
+		<!-- Left side column. contains the logo and sidebar -->
+
+		<div class="content-wrapper" style="margin-left:0px;">
+			<!-- Content Header (Page header) -->
+			<!-- Main content -->
+			<section class="content" style="padding:0px;margin:0px;">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="box box-primary">
+							<div class="box-header">
+								<h2 class="well-sm" style="padding:10px;text-align:center;border-radius:10px">Registered Organizations</h2>
+								<div class="row">
+									<div class="cols-md-12">
+										<h3 class="well container" style="padding:10px;text-align:center;border-radius:30px;">Organization Registred with SDG tracker to attain SDGs implementation</h3>
+									</div>
+								</div><!-- /.box-header -->
+							</div>
+							<div class="box-body container">
+								<table id="example1" class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th scope="col">Sr.#</th>
+											<th scope="col">Organization Name</th>
+											<th scope="col">Type</th>
+											<th scope="col">Address</th>
+											<th scope="col">Profile</th>
+										</tr>
+									</thead>
+									<tbody>
+										@if (ViewBag.AllRegisteredOrg != null)
+									{
+										int id = 1;
+										foreach (var item in ViewBag.AllRegisteredOrg)
+										{
+											<tr id="row_@item.Organization_Id">
+												<td>@id</td>
+												<td>@item.Organization_Name</td>
+												<td>@item.Organization_Type_Id</td>
+												<td>@item.Address</td>
+												<td>
+													<button value="@item.Organization_Id/@item.Office_Id" id="btn_OrgProfile" title="Profile" class="btn btn-warning" data-toggle="modal" data-target="#OrgProfileModal"> View Profile <i class="glyphicon glyphicon-user"></i></button>
+												</td>
+
+											</tr>
+										id++;
+									}
+								}
+									</tbody>
+								</table>
+							</div><!-- /.box-body -->
+						</div><!-- /.box -->
+
+					</div><!-- /.col -->
+
+				</div><!-- /.row -->
+			</section><!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+		
+
+	</div><!-- ./wrapper -->
+	<footer class="main-footer" style="margin-left:0px;background-color: black;color: white !important;">
+		
+		<div style="padding-left:350px;">
+			<strong>Copyright &copy; 2020-2025 <a href="http://www.sdgsacademy.pk/">SDGs Academy </a>.</strong> All rights reserved SDG Academy, Islamabad Pakistan 2020.
+		</div>
+		
+	</footer>
+	<script type="text/javascript">
+		var modal, loading;
+		function ShowProgress() {
+			modal = document.createElement("DIV");
+			modal.className = "modal";
+			document.body.appendChild(modal);
+			loading = document.getElementsByClassName("loading")[0];
+			loading.style.display = "block";
+			var top = Math.max(window.innerHeight / 2 - loading.offsetHeight / 2, 0);
+			var left = Math.max(window.innerWidth / 2 - loading.offsetWidth / 2, 0);
+			loading.style.top = top + "px";
+			loading.style.left = left + "px";
+		};
+		ShowProgress();
+	</script>
+
+	<!-- Keep the Page Content Here.-->
+
+	<script type="text/javascript">
+		window.onload = function () {
+			setTimeout(function () {
+				document.body.removeChild(modal);
+				loading.style.display = "none";
+			}, 2000); //Delay just used for example and must be set to 0.
+		};
+	</script>
+
+	<script src="~/Scripts/jquery-3.4.1.js"></script>
+	<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#example1').on('click', '#btn_OrgProfile', function (e) {
+				e.preventDefault();
+				var string = $(this).val();
+				var OrgID = string.substr(0, string.indexOf('/'));
+				var OfficeID = string.substr(string.indexOf('/') + 1, string.length);
+				window.location.href = '/Organization/OrganizationsProfile?OrgID=' + OrgID + '&OfficeID=' + OfficeID;
+			});
+		});
+	</script>
+	<!-- page script -->
+	<script type="text/javascript">
+		$(function () {
+			$("#example1").dataTable();
+		});
+	</script>
+	<!-- jQuery 2.1.3 -->
+	<script src="~/ThemeRelated/plugins/jQuery/jQuery-2.1.3.min.js"></script>
+	<!-- jQuery UI 1.11.2 -->
+	<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
+	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+	<script>
+		$.widget.bridge('uibutton', $.ui.button);
+	</script>
+	<!-- Bootstrap 3.3.2 JS -->
+	<script src="~/ThemeRelated/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<!-- DATA TABES SCRIPT -->
+	<script src="~/ThemeRelated/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
+	<script src="~/ThemeRelated/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+	<!-- Bootstrap WYSIHTML5 -->
+	<script src="~/ThemeRelated/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
+	<!-- iCheck -->
+	<script src="~/ThemeRelated/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+
+	<!-- Slimscroll -->
+	<script src="~/ThemeRelated/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+	<!-- FastClick -->
+	<script src='~/ThemeRelated/plugins/fastclick/fastclick.min.js'></script>
+	<!-- AdminLTE App -->
+	<script src="~/ThemeRelated/dist/js/app.min.js" type="text/javascript"></script>
+</body>
+</html>

@@ -1,0 +1,1033 @@
+﻿@using SDGSDB.Models.ViewModels
+@model TourismSpotViewModel
+@{
+    ViewBag.Title = "TourismSpot";
+    Layout = "~/Views/Layouts/_DashboardLayout.cshtml";
+}
+    
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="modal fade" tabindex="-1" id="successUCTourismSpotModal" data-keyboard="false" data-backdrop="static">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <h4>Congratulation!</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <h2>UC Tourism Spot Added Successfully!</h2>
+                        </div>
+                        <div class="modal-footer">
+                            <button data-dismiss="modal" class="btn btn-success">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="divError" class="alert alert-danger collapse">
+                    <a id="linkClose" class="close" href="#">$times;</a>
+                    <div id="divErrorText"></div>
+                </div>
+            </div>
+            <div class="modal fade" tabindex="-1" id="UpdateUCTourismSpotModal" data-keyboard="false" data-backdrop="static">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <h4>Congratulation!</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <h2>UC Tourism Spot Updated Successfully!</h2>
+                        </div>
+                        <div class="modal-footer">
+                            <button data-dismiss="modal" class="btn btn-success">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="divError" class="alert alert-danger collapse">
+                    <a id="linkClose" class="close" href="#">$times;</a>
+                    <div id="divErrorText"></div>
+                </div>
+            </div>
+            <div class="modal fade" tabindex="-1" id="DeleteUCTourismSpotModal" data-keyboard="false" data-backdrop="static">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <h4>Congratulation!</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <i class="fa fa-trash-o"></i><h2>UC Tourism Spot Deleted Successfully!</h2>
+                        </div>
+                        <div class="modal-footer">
+                            <button data-dismiss="modal" class="btn btn-success">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="divError" class="alert alert-danger collapse">
+                    <a id="linkClose" class="close" href="#">$times;</a>
+                    <div id="divErrorText"></div>
+                </div>
+            </div>
+
+            <div class="modal fade" tabindex="-1" id="successTourismSpotGallaryImageModal" data-keyboard="false" data-backdrop="static">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <h4>Congratulation!</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <h2>Tourism Spot Image Uploaded Successfully!</h2>
+                        </div>
+                        <div class="modal-footer">
+                            <button data-dismiss="modal" class="btn btn-success">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="divError" class="alert alert-danger collapse">
+                    <a id="linkClose" class="close" href="#">$times;</a>
+                    <div id="divErrorText"></div>
+                </div>
+            </div>
+            <!-- form start -->
+            @using (Html.BeginForm("TourismSpot", "UnionCouncil", FormMethod.Post, new { @class = "form", role = "form", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <fieldset>
+                    <div class="box box-success">
+                        <div class="box-header with-border">
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-10">
+                                    <div class="well" style="padding:10px;border-radius:20px;">
+                                        <h3><img width="50" src="~/Images/sdgs_circle.png" />Union Council Tourism Spot</h3>
+                                    </div>
+                                </div>
+                                <div class="col-sm-1"></div>
+
+                            </div>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-12" style="padding:20px;margin-top:20px;">
+                                            <!-- Custom Tabs -->
+                                            <div class="nav-tabs-custom">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="pull-right header" style="color:red"><i class="fa fa-files-o"></i><strong> UC Tourism Spot Detail</strong></li>
+                                                    <li id="tab3" class="active"><a href="#tab_3" data-toggle="tab">Tourism Spots Detail</a></li>
+                                                    <li id="tab1"><a id="NewTourismSpot" href="#tab_1" data-toggle="tab">New Tourism Spot</a></li>
+                                                    <li><a href="#tab_2" data-toggle="tab">Tourism Spot Gallery</a></li>
+
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <div class="tab-pane" id="tab_1">
+                                                        <label id="lblTourismSpotID" style="display:none"></label>
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">Tourist Spot Name</label>
+                                                                    <font size="5">@Html.ValidationMessageFor(m => m.TourismSpotModel.TouristSpotName, "", new { @class = "text-danger", @Style = "color:Red" })</font>
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-addon"><i class="fa fa-magnet"></i></span>
+                                                                        @Html.EditorFor(m => m.TourismSpotModel.TouristSpotName, new { htmlattributes = new { @class = "form-control", id = "txtTouristSpotName", placeholder = "Tourist Spot Name" } })
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">Tourist Spot Category</label>
+                                                                    <font size="5">@Html.ValidationMessageFor(m => m.TourismSpotModel.TouristSpotName, "", new { @class = "text-danger", @Style = "color:Red" })</font>
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-addon"><i class="fa fa-magnet"></i></span>
+                                                                        <select class="form-control " id="drpSpotCategory" name="drpSpotCategory">
+                                                                            <option value="" selected="selected">---Choose Spot Category----</option>
+                                                                            @*<option value="1">Education</option>
+                                                                        <option value="2">Health</option>
+                                                                        <option value="3">Banking</option>
+                                                                        <option value="4">Industrial</option>
+                                                                        <option value="5">Agricultural</option>
+                                                                        <option value="6">NGO</option>
+                                                                        <option value="7">SME</option>
+                                                                        <option value="8">MSME</option>
+                                                                        <option value="9">Others</option>*@
+                                                                        </select>
+                                                                        @*<span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddSectorModal">
+                                                                            <i class="fa fa-plus"></i> Add New
+                                                                        </button>
+                                                                    </span>*@
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">Popularity</label>
+                                                                    @Html.ValidationMessageFor(model => model.TourismSpotModel.Popularity, "", new { @class = "text-danger" })
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                                                                        @Html.TextAreaFor(m => m.TourismSpotModel.Popularity, 3, 157, new { placeholder = "Popularity", @class = "form-control", id = "txtPopularity" })
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">Address</label>
+                                                                    @Html.ValidationMessageFor(model => model.TourismSpotModel.Address, "", new { @class = "text-danger" })
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-addon"><i class="fa fa-cloud"></i></span>
+                                                                        @Html.TextAreaFor(m => m.TourismSpotModel.Address, 3, 157, new { placeholder = "Address", @class = "form-control", id = "txtAddress" })
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <!-- Primary box -->
+                                                                <div class="box box-solid box-primary">
+                                                                    <div class="box-header">
+                                                                        <h3 class="box-title">Any Facilities at Tourism Spot:</h3>
+                                                                        <div class="box-tools pull-right">
+                                                                            <button class="btn btn-primary btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="box-body">
+                                                                        <div class="row">
+                                                                            <div class="col-xs-12">
+                                                                                <div class="box">
+                                                                                    <div class="box-header">
+                                                                                        <div class="box-tools">
+                                                                                        </div>
+                                                                                    </div><!-- /.box-header -->
+                                                                                    <div class="box-body">
+                                                                                        <div class="row">
+                                                                                            <div class="col-sm-4">
+                                                                                                <div class="form-group">
+                                                                                                    <label class="checkbox">
+                                                                                                        <input type="checkbox" id="ChkHotel" value="0" name="ChkHotel">
+                                                                                                        <i></i><strong>Hotel</strong>
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col-sm-4">
+                                                                                                <div class="form-group">
+                                                                                                    <label class="checkbox">
+                                                                                                        <input type="checkbox" id="ChkRestaurant" value="0" name="ChkRestaurant">
+                                                                                                        <i></i><strong>Restaurant</strong>
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col-sm-4">
+                                                                                                <div class="form-group">
+                                                                                                    <label class="checkbox">
+                                                                                                        <input type="checkbox" id="ChkAccommodation" value="0" name="ChkAccommodation">
+                                                                                                        <i></i><strong>Accommodation</strong>
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col-sm-4">
+                                                                                                <div class="form-group">
+                                                                                                    <label class="checkbox">
+                                                                                                        <input type="checkbox" id="ChkShops" value="0" name="ChkShops">
+                                                                                                        <i></i><strong>Shops</strong>
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+
+
+                                                                                    </div><!-- /.box-body -->
+                                                                                </div><!-- /.box -->
+                                                                            </div>
+                                                                        </div>
+                                                                    </div><!-- /.box-body -->
+                                                                    <div class="box-footer">
+
+                                                                    </div>
+                                                                </div><!-- /.box -->
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <!-- time Picker -->
+                                                                <div class="bootstrap-timepicker">
+                                                                    <div class="form-group">
+                                                                        <label>Time Open</label>
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-addon">
+                                                                                <i class="fa fa-clock-o"></i>
+                                                                            </div>
+                                                                            @Html.EditorFor(m => m.TourismSpotModel.TimeOpen, new { htmlattributes = new { @class = "form-control timepicker", id = "txtTimeOpen", placeholder = "Time Open" } })
+                                                                            @*<input type="text" class="form-control timepicker" />*@
+
+                                                                        </div><!-- /.input group -->
+                                                                    </div><!-- /.form group -->
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <!-- time Picker -->
+                                                                <div class="bootstrap-timepicker">
+                                                                    <div class="form-group">
+                                                                        <label>Time Close</label>
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-addon">
+                                                                                <i class="fa fa-clock-o"></i>
+                                                                            </div>
+                                                                            @Html.EditorFor(m => m.TourismSpotModel.TimeClose, new { htmlattributes = new { @class = "form-control timepicker", id = "txtTimeClose", placeholder = "Time Close" } })
+                                                                            @*<input type="text" class="form-control timepicker" />*@
+
+                                                                        </div><!-- /.input group -->
+                                                                    </div><!-- /.form group -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">Additional Comments/Description</label>
+                                                                    @Html.ValidationMessageFor(model => model.TourismSpotModel.Description, "", new { @class = "text-danger" })
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                                                                        @Html.TextAreaFor(m => m.TourismSpotModel.Description, 3, 157, new { placeholder = "Description", @class = "form-control", id = "txtDescription" })
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="box-footer" style="text-align:center">
+                                                            <button type="submit" style="border-radius:10px;text-align: center;" id="btnUCTourismSpotSubmit" class="btn btn-primary"><i class="glyphicon glyphicon-save"></i> Submit</button>
+                                                            <button type="submit" style="border-radius:10px;text-align: center;visibility:hidden" id="btnUCTourismSpotUpdate" class="btn btn-primary"><i class="glyphicon glyphicon-save"></i> Update</button>
+                                                            @*<a href="/Organization/EmployeesDetail" style="margin-left:10px" class="btn btn-success"><i class="glyphicon glyphicon-th-large"></i> Detail</a>*@
+                                                        </div>
+                                                    </div><!-- /.tab-pane -->
+                                                    <div class="tab-pane" id="tab_2">
+
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <!-- Primary box -->
+                                                                <div class="box box-solid box-primary">
+                                                                    <div class="box-header">
+                                                                        <h3 class="box-title">Tourism Spot Gallery:</h3>
+                                                                        <div class="box-tools pull-right">
+                                                                            <button class="btn btn-primary btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="box-body">
+                                                                        <div class="row">
+                                                                            <div class="col-xs-12">
+                                                                                <div class="box">
+                                                                                    <div class="box-header">
+                                                                                        <h3 class="box-title">All Images are related to this Tourist Spot:</h3>
+                                                                                        <div class="box-tools">
+                                                                                        </div>
+                                                                                    </div><!-- /.box-header -->
+                                                                                    <div class="box-body">
+
+                                                                                        <div class="row">
+                                                                                            <div class="col-sm-1"></div>
+                                                                                            <div class="col-sm-11">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-sm-8">
+                                                                                                        <div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label for="exampleInputEmail1">Tourist Spot</label>
+
+                                                                                                                <div class="input-group">
+                                                                                                                    <span class="input-group-addon"><i class="fa fa-magnet"></i></span>
+                                                                                                                    <select class="form-control " id="drpTourismSpots" name="drpTourismSpots">
+                                                                                                                        <option value="" selected="selected">---Choose Tourism Spot----</option>
+
+                                                                                                                    </select>
+                                                                                                                </div>
+
+                                                                                                            </div>
+                                                                                                        </div>
+
+                                                                                                        <div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label class=" control-label">Upload Image</label>
+                                                                                                                @Html.EditorFor(m => m.TourismSpotGallaryModel.SpotImage, new { htmlattributes = new { accept = "image/*", onchange = "showMyImage(this)", type = "file", @class = "btn btn-default btn-block", id = "exampleInputFile1", multiple = "multiple" } })
+                                                                                                                @*<input type="file" accept="image/*" onchange="showMyImage(this)" class="btn btn-default" id="exampleInputFile1">*@
+
+                                                                                                            </div>
+                                                                                                            @Html.ValidationMessageFor(m => m.TourismSpotGallaryModel.SpotImage, "", new { @class = "text-danger" })
+                                                                                                        </div>
+
+
+                                                                                                    </div>
+                                                                                                    <div class="col-md-3">
+
+                                                                                                        <img id="thumbnil" style="width:70%; margin-top:0px;" src="~/Images/your-logo-here-512.png" alt="image" />
+                                                                                                        <p style="margin-left:24px;" class="help-block">Uploaded Image</p>
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col-sm-1"></div>
+                                                                                            <div class="col-sm-6">
+                                                                                                <button type="submit" style="border-radius:10px;text-align:center;margin-left: 80px;" id="btnUCTourismSpotImgUpload" class="btn btn-block btn-success"><i class="glyphicon glyphicon-save"></i> Upload Image</button>
+                                                                                            </div>
+                                                                                            <div class="col-sm-1"></div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-12">
+                                                                                                <div class="timeline-body">
+                                                                                                    <div id="carddeck" class="card-deck ">
+                                                                                                        <div class="row">
+                                                                                                            <div class="col-md-12">
+                                                                                                                @*<div class="col-md-3" style="margin-top: 50px;">
+                                                                                                                    <table id="tableCategories" style="border: groove;" class="table table-bordered text-center">
+                                                                                                                        <tr>
+                                                                                                                            <td>
+                                                                                                                                <button class="btn btn-block btn-primary"
+                                                                                                                                        style="border-radius:50px;">
+                                                                                                                                    All Categories
+                                                                                                                                </button>
+                                                                                                                            </td>
+                                                                                                                        </tr>
+                                                                                                                    </table>
+                                                                                                                </div>*@
+                                                                                                                <div class="col-md-12" style="margin-top: 50px;">
+                                                                                                                    <div class="well" style="text-align:center;"><b style="font-size:large">UC All Tourism Spot's Gallery</b></div>
+                                                                                                                    <table id="ImagesSpot" style="border: groove;" class="table table-bordered text-center">
+                                                                                                                    </table>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    @*<img src="http://placehold.it/150x100" alt="..." class='margin' />
+                                                                                                <img src="http://placehold.it/150x100" alt="..." class='margin' />
+                                                                                                <img src="http://placehold.it/150x100" alt="..." class='margin' />
+                                                                                                <img src="http://placehold.it/150x100" alt="..." class='margin' />*@
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </div>
+
+
+
+                                                                                    </div><!-- /.box-body -->
+                                                                                </div><!-- /.box -->
+                                                                            </div>
+                                                                        </div>
+                                                                    </div><!-- /.box-body -->
+
+                                                                </div><!-- /.box -->
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- /.tab-pane -->
+                                                    <!-- /.tab-pane -->
+                                                    <div class="tab-pane active" id="tab_3">
+
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <div class="box">
+                                                                    <div class="box-header">
+                                                                        <h3 class="box-title">Tourism Spots Detail</h3>
+                                                                        <button type="submit" style="border-radius:10px;text-align:center;float:right;" id="btnAddNew" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Add New</button>
+                                                                    </div><!-- /.box-header -->
+                                                                    <div class="box-body">
+                                                                        <table id="example23" class="table table-bordered table-hover">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Sr#</th>
+                                                                                    <th>Tourist Spot</th>
+                                                                                    <th>Category</th>
+                                                                                    <th>Popularity</th>
+                                                                                    <th>Time Open</th>
+                                                                                    <th>Time Close</th>
+                                                                                    <th>Address</th>
+                                                                                    <th>Action</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody id="TourismSpotGridBody">
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div><!-- /.box-body -->
+                                                                </div><!-- /.box -->
+
+                                                            </div><!-- /.col -->
+                                                        </div>
+                                                    </div><!-- /.tab-pane -->
+                                                </div><!-- /.tab-content -->
+                                            </div><!-- nav-tabs-custom -->
+                                        </div><!-- /.col -->
+                                    </div>
+                                </div>
+                                <div class="col-sm-1"></div>
+                            </div>
+
+
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer" style="text-align:center">
+
+                        </div>
+
+                    </div><!-- /.box -->
+                </fieldset>
+
+            }
+        </div>
+        <!-- left column -->
+        <div class="col-md-12">
+            <div class="row">
+
+            </div>
+        </div><!--/.col (left) -->
+        <!-- right column -->
+    </div>   <!-- /.row -->
+</section>
+
+@Scripts.Render("~/Scripts/jquery-3.4.1.js")
+@Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    function showMyImage(fileInput) {
+        var files = fileInput.files;
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var imageType = /image.*/;
+            if (!file.type.match(imageType)) {
+                continue;
+            }
+            var img = document.getElementById("thumbnil");
+            img.file = file;
+            var reader = new FileReader();
+            reader.onload = (function (aImg) {
+                return function (e) {
+                    aImg.src = e.target.result;
+                };
+            })(img);
+            reader.readAsDataURL(file);
+        }
+    }
+    $(document).ready(function () {
+        $(".timepicker").timepicker({
+            showInputs: false
+        });
+              
+        var apiBaseUrl = document.getElementById('ApiBaseURL').innerHTML;
+        var BaseUrl = document.getElementById('BaseURL').innerHTML;
+        var UserID = document.getElementById('lblGUID').innerHTML;
+        //DDL Province Biding
+        var TourismSpots = $("#drpTourismSpots")
+        $.ajax({
+            type: 'Get',
+            url: apiBaseUrl + '/GetTourismSpots',
+            dataType: 'json',
+            success: function (result) {
+                //alert(result);
+                var JSONDATA = JSON.parse(result);
+                //alert(JSONDATA);
+                $.each(JSONDATA, function (index, val) {
+                    var T_Spotid = val.TouristSpotId;
+                    var T_SpotName = val.TouristSpotName;
+                    TourismSpots.append("<option value=" + T_Spotid + ">" + T_SpotName + "</option>");
+                });
+            }
+        }); 
+        //DDL Tourism Spot Categories Biding
+        var TourismSpotsCategories = $("#drpSpotCategory")
+        $.ajax({
+            type: 'Get',
+            url: apiBaseUrl + '/GetTourismSpotsCategories',
+            dataType: 'json',
+            success: function (result) {
+                //alert(result);
+                var JSONDATA = JSON.parse(result);
+                //alert(JSONDATA);
+                $.each(JSONDATA, function (index, val) {
+                    var TourismSpotCatgId = val.TourismSpotCatgId;
+                    var TourismSportCategory = val.TourismSportCategory;
+                    TourismSpotsCategories.append("<option value=" + TourismSpotCatgId + ">" + TourismSportCategory + "</option>");
+                    $("#tableCategories").append('<tr><td><button class="btn btn-block btn-primary"'+
+                        'style="border-radius:50px;value="' + TourismSpotCatgId + '">' + TourismSportCategory+'</button></td></tr>')
+                });
+            }
+        }); 
+        //Add Tourism Spot Gallary and  Image Insert
+        $("#btnUCTourismSpotImgUpload").click(function (e) {
+            e.preventDefault();
+            //Image save to folder
+            var data = new FormData();
+            var file = document.getElementById('exampleInputFile1').files[0];
+            data.append("Imgpathsave", file);
+            $.ajax({
+                type: 'Post',
+                url: apiBaseUrl + '/TourismSpotImageSave',
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function (data) {
+                    //alert(data);
+                    //alert("Image Save Succesfully"); 
+                    var TourismSpots = $("#drpTourismSpots").val();
+                    var Image = $("#exampleInputFile1").val();
+                   
+                    var data = {
+                        ToursimSpotId: TourismSpots,
+                        SpotImage: Image
+
+                    };
+                    var JSONDATA = JSON.stringify(data);
+                    //alert(JSONDATA);
+                    $.ajax({
+                        type: 'POST',
+                        url: apiBaseUrl + '/AddUCTourismSpotGallary?UserID=' + UserID,
+                        contentType: 'application/json',
+                        dataType: 'json',
+                        data: JSONDATA,
+                        success: function () {
+                            //alert("OK");
+                            $("#successTourismSpotGallaryImageModal").modal("show");
+                            $("#drpTourismSpots").val("");
+                            $("#exampleInputFile1").val("");
+                            $("#ImagesSpot").empty();
+                            //Get Tourism Spot Gallery
+                            $.ajax({
+                                type: 'Get',
+                                url: apiBaseUrl + '/GetAllUCTourismSpotsGalleryByUC?UserID=' + UserID,
+                                dataType: 'json',
+                                success: function (result) {
+                                    // var JSONDATA = JSON.parse(result);
+                                    //alert(result);
+                                    $.each(result, function (index, val) {
+                                        var SpotImage = val.SpotImage;
+                                        $("#ImagesSpot").append('<img src="' + apiBaseUrl + '/TourismSpot/' + SpotImage + '"height="150" style="margin:10px;border-radius:20px;" />')
+                                        //document.getElementById('lblOrgLogo').src = apiBaseUrl + '/TourismSpot/' + SpotImage;
+                                    });
+
+                                }
+                            });
+                        },
+                        error: function (jqXHR) {
+                            $("#divErrorText").text(jqXHR.responseText);
+                            $('#divError').show('fade');
+                        }
+
+                    });
+                },
+                error: function (jqXHR) {
+                    $("#divErrorText").text(jqXHR.responseText);
+                    $('#divError').show('fade');
+                }
+            });
+        });
+        //ADD UC Tourism Spots
+        $("#btnUCTourismSpotSubmit").click(function (e) {
+            e.preventDefault();
+            if ($("txtTouristSpotName").val() != '') {
+                var TouristSpotName = $("#txtTouristSpotName").val();
+                var TouristSpotCategory = $("#drpSpotCategory").val();
+                var Popularity = $("#txtPopularity").val();
+                var Address = $("#txtAddress").val();
+                var TimeOpen = $("#txtTimeOpen").val();
+                var TimeClose = $("#txtTimeClose").val();
+                var Description = $("#txtDescription").val();
+                var Hotel = document.getElementById("ChkHotel").checked;
+                var Restaurant = document.getElementById("ChkRestaurant").checked;
+                var Accommodation = document.getElementById("ChkAccommodation").checked;
+                var Shops = document.getElementById("ChkShops").checked;
+
+                var data = {
+                    TouristSpotName: TouristSpotName,
+                    TouristSpotCategory: TouristSpotCategory,
+                    Popularity: Popularity,
+                    Address: Address,
+                    IsHotel: Hotel,
+                    IsRestaurant: Restaurant,
+                    IsAccommodation: Accommodation,
+                    IsShop: Shops,
+                    TimeOpen: TimeOpen,
+                    TimeClose: TimeClose,
+                    Description: Description
+                };
+                var JSONDATA = JSON.stringify(data);
+                //alert(JSONDATA);
+                $.ajax({
+                    type: 'POST',
+                    url: apiBaseUrl + '/AddUCTourismSpot?UserID=' + UserID,
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSONDATA,
+                    success: function () {
+                        //alert(JSONDATA);
+                        $("#successUCTourismSpotModal").modal("show");
+                        $("#txtTouristSpotName").val("");
+                        $("#drpSpotCategory").val("");
+                        $("#txtPopularity").val("");
+                        $("#txtAddress").val("");
+                        $("#txtDescription").val("");
+                        $('input#ChkHotel').iCheck('uncheck');
+                        $('input#ChkRestaurant').iCheck('uncheck');
+                        $('input#ChkAccommodation').iCheck('uncheck');
+                        $('input#ChkShops').iCheck('uncheck');
+                        $("#TourismSpotGridBody").empty();
+                        var TourismSpotGrid = $("#TourismSpotGridBody");
+                        var id1 = 1;
+                        $.ajax({
+                            type: 'Get',
+                            url: apiBaseUrl + '/GetAllUCTourismSpotsByUC?UserID=' + UserID,
+                            dataType: 'json',
+                            success: function (data) {
+                                //var JSONDATA = JSON.parse(data);
+                                //alert(JSONDATA);
+                                $.each(data, function (index, val) {
+                                    // alert(val.Contact_Number);
+                                    var TouristSpotId = val.TouristSpotId;
+                                    var TouristSpotName = val.TouristSpotName;
+                                    var TouristSpotCategory = val.TouristSpotCategory;
+                                    var Popularity = val.Popularity;
+                                    var TimeOpen = val.TimeOpen;
+                                    var TimeClose = val.TimeClose;
+                                    var Address = val.Address;
+                                    TourismSpotGrid.append('<tr>' +
+                                        '<th>' + id1 + '</th>' +
+                                        '<td>' + TouristSpotName + '</td>' +
+                                        '<td>' + TouristSpotCategory + '</td>' +
+                                        '<td>' + Popularity + '</td>' +
+                                        '<td>' + TimeOpen + '</td>' +
+                                        '<td>' + TimeClose + '</td>' +
+                                        '<td>' + Address + '</td>' +
+                                        '<td> <button type="button" class="btn btn-dropbox" id="btnTourismSpotEdit" title="Edit" value="' + TouristSpotId + '"><i class="fa fa-pencil"></i></button >' +
+                                        ' ' + '<button class="btn btn-danger" id="btnTourismSpotDelete" title="Delete' +
+                                        '" value="' + TouristSpotId + '"><i class="fa fa-trash-o"></i></button> </td>' + '</tr>');
+                                    id1++;
+                                });
+                            }
+                        });
+                        $("#tab_1").removeClass("active");
+                        $("#tab1").removeClass("active");
+                        $("#tab_3").addClass("active");
+                        $("#tab3").addClass("active");
+                    },
+                    error: function (jqXHR) {
+                        $("#divErrorText").text(jqXHR.responseText);
+                        $('#divError').show('fade');
+                    }
+
+                });
+            }
+
+        });
+        //Update UC Tourism Spots
+        $("#btnUCTourismSpotUpdate").click(function (e) {
+            e.preventDefault();
+            if ($("txtTouristSpotName").val() != '') {
+                var TouristSpotName = $("#txtTouristSpotName").val();
+                var TouristSpotCategory = $("#drpSpotCategory").val();
+                var Popularity = $("#txtPopularity").val();
+                var Address = $("#txtAddress").val();
+                var TimeOpen = $("#txtTimeOpen").val();
+                var TimeClose = $("#txtTimeClose").val();
+                var Description = $("#txtDescription").val();
+                var Hotel = document.getElementById("ChkHotel").checked;
+                var Restaurant = document.getElementById("ChkRestaurant").checked;
+                var Accommodation = document.getElementById("ChkAccommodation").checked;
+                var Shops = document.getElementById("ChkShops").checked;
+                var TouristSpotId = document.getElementById('lblTourismSpotID').innerHTML;
+                var data = {
+                    TouristSpotName: TouristSpotName,
+                    TouristSpotCategory: TouristSpotCategory,
+                    Popularity: Popularity,
+                    Address: Address,
+                    IsHotel: Hotel,
+                    IsRestaurant: Restaurant,
+                    IsAccommodation: Accommodation,
+                    IsShop: Shops,
+                    TimeOpen: TimeOpen,
+                    TimeClose: TimeClose,
+                    Description: Description
+                };
+                var JSONDATA = JSON.stringify(data);
+                //alert(JSONDATA);
+                $.ajax({
+                    type: 'POST',
+                    url: apiBaseUrl + '/UpdateUCTourismSpot?UserID=' + UserID + '&TouristSpotId=' + TouristSpotId,
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSONDATA,
+                    success: function () {
+                        //alert(JSONDATA);
+                        $("#UpdateUCTourismSpotModal").modal("show");
+                        $("#txtTouristSpotName").val("");
+                        $("#drpSpotCategory").val("");
+                        $("#txtPopularity").val("");
+                        $("#txtAddress").val("");
+                        $("#txtDescription").val("");
+                        $('input#ChkHotel').iCheck('uncheck');
+                        $('input#ChkRestaurant').iCheck('uncheck');
+                        $('input#ChkAccommodation').iCheck('uncheck');
+                        $('input#ChkShops').iCheck('uncheck');
+                        $("#TourismSpotGridBody").empty();
+                        var TourismSpotGrid = $("#TourismSpotGridBody");
+                        var id1 = 1;
+                        $.ajax({
+                            type: 'Get',
+                            url: apiBaseUrl + '/GetAllUCTourismSpotsByUC?UserID=' + UserID,
+                            dataType: 'json',
+                            success: function (data) {
+                                //var JSONDATA = JSON.parse(data);
+                                //alert(JSONDATA);
+                                $.each(data, function (index, val) {
+                                    // alert(val.Contact_Number);
+                                    var TouristSpotId = val.TouristSpotId;
+                                    var TouristSpotName = val.TouristSpotName;
+                                    var TouristSpotCategory = val.TouristSpotCategory;
+                                    var Popularity = val.Popularity;
+                                    var TimeOpen = val.TimeOpen;
+                                    var TimeClose = val.TimeClose;
+                                    var Address = val.Address;
+                                    TourismSpotGrid.append('<tr>' +
+                                        '<th>' + id1 + '</th>' +
+                                        '<td>' + TouristSpotName + '</td>' +
+                                        '<td>' + TouristSpotCategory + '</td>' +
+                                        '<td>' + Popularity + '</td>' +
+                                        '<td>' + TimeOpen + '</td>' +
+                                        '<td>' + TimeClose + '</td>' +
+                                        '<td>' + Address + '</td>' +
+                                        '<td> <button type="button" class="btn btn-dropbox" id="btnTourismSpotEdit" title="Edit" value="' + TouristSpotId + '"><i class="fa fa-pencil"></i></button >' +
+                                        ' ' + '<button class="btn btn-danger" id="btnTourismSpotDelete" title="Delete' +
+                                        '" value="' + TouristSpotId + '"><i class="fa fa-trash-o"></i></button> </td>' + '</tr>');
+                                    id1++;
+                                });
+                            }
+                        });
+                        $("#tab_1").removeClass("active");
+                        $("#tab1").removeClass("active");
+                        $("#tab_3").addClass("active");
+                        $("#tab3").addClass("active");
+                        $("#tab3").removeClass("hidden");
+                    },
+                    error: function (jqXHR) {
+                        $("#divErrorText").text(jqXHR.responseText);
+                        $('#divError').show('fade');
+                    }
+
+                });
+            }
+
+        });
+        //Edit UC Staff 
+        $(document).on("click", "#btnTourismSpotEdit", function (e) {
+            e.preventDefault();
+            $("#tab_1").addClass("active");
+            $("#tab1").addClass("active");
+            $("#tab_3").removeClass("active");
+            $("#tab3").removeClass("active");
+            $("#tab3").addClass("hidden");
+            //$('a[id="NewTourismSpot"]').attr('href', '#');
+            //$('#NewTourismSpot').attr('href', '#');
+            var TouristSpotId = $(this).val();
+            //alert(ContactId);
+            $.ajax({
+                type: 'Get',
+                url: apiBaseUrl + '/GetUCTourismSpotsByID?UserID=' + UserID + '&TouristSpotId=' + TouristSpotId,
+                dataType: 'json',
+                success: function (data) {
+                    //alert(data);
+                    //var JSONDATA = JSON.parse(data);
+                    $.each(data, function (index, val) {
+                        var TouristSpotId = val.TouristSpotId;
+                        var TouristSpotName = val.TouristSpotName;
+                        var TouristSpotCategory = val.TouristSpotCategory;
+                        var Address = val.Address;
+                        var Popularity = val.Popularity;
+                        var IsHotel = val.IsHotel;
+                        var IsRestaurant = val.IsRestaurant;
+                        var IsAccommodation = val.IsAccommodation;
+                        var IsShop = val.IsShop;
+                        var TimeOpen = val.TimeOpen;
+                        var TimeClose = val.TimeClose;
+                        var Description = val.Description;
+                        document.getElementById('lblTourismSpotID').innerHTML = TouristSpotId;
+                        $("#txtTouristSpotName").val(TouristSpotName);
+                        $("#drpSpotCategory").val(TouristSpotCategory);
+                        $("#txtPopularity").val(Popularity);
+                        $("#txtAddress").val(Address);
+                        $("#txtTimeOpen").val(TimeOpen);
+                        $("#txtTimeClose").val(TimeClose);
+                        $("#txtDescription").val(Description);
+                        if (IsHotel == true) {
+                            $("input[name=ChkHotel]").iCheck('check');
+                        }
+                        if (IsHotel == false) {
+                            $("input[name=ChkHotel]").iCheck('uncheck');
+                        }
+                        if (IsRestaurant == true) {
+                            $("input[name=ChkRestaurant]").iCheck('check');
+                        }
+                        if (IsRestaurant == false) {
+                            $("input[name=ChkRestaurant]").iCheck('uncheck');
+                        }
+                        if (IsAccommodation == true) {
+                            $("input[name=ChkAccommodation]").iCheck('check');
+                        }
+                        if (IsAccommodation == false) {
+                            $("input[name=ChkAccommodation]").iCheck('uncheck');
+                        }
+                        if (IsShop == true) {
+                            $("input[name=ChkShops]").iCheck('check');
+                        }
+                        if (IsShop == false) {
+                            $("input[name=ChkShops]").iCheck('uncheck');
+                        }
+                    });
+                    document.getElementById('btnUCTourismSpotSubmit').style.visibility = 'hidden';
+                    document.getElementById('btnUCTourismSpotUpdate').style.visibility = 'visible';
+
+                }
+            });
+        });
+        //Delete UC Staff 
+        $(document).on("click", "#btnTourismSpotDelete", function (e) {
+            e.preventDefault();
+
+            var TouristSpotId = $(this).val();
+                $.ajax({
+                    type: 'POST',
+                    url: apiBaseUrl + '/DeleteUCTourismSpot?UserID=' + UserID + '&TouristSpotId=' + TouristSpotId,
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    //data: JSONDATA,
+                    success: function () {
+                        //alert(JSONDATA);
+                        $("#DeleteUCTourismSpotModal").modal("show");
+                        
+                        $("#TourismSpotGridBody").empty();
+                        var TourismSpotGrid = $("#TourismSpotGridBody");
+                        var id1 = 1;
+                        $.ajax({
+                            type: 'Get',
+                            url: apiBaseUrl + '/GetAllUCTourismSpotsByUC?UserID=' + UserID,
+                            dataType: 'json',
+                            success: function (data) {
+                                //var JSONDATA = JSON.parse(data);
+                                //alert(JSONDATA);
+                                $.each(data, function (index, val) {
+                                    // alert(val.Contact_Number);
+                                    var TouristSpotId = val.TouristSpotId;
+                                    var TouristSpotName = val.TouristSpotName;
+                                    var TouristSpotCategory = val.TouristSpotCategory;
+                                    var Popularity = val.Popularity;
+                                    var TimeOpen = val.TimeOpen;
+                                    var TimeClose = val.TimeClose;
+                                    var Address = val.Address;
+                                    TourismSpotGrid.append('<tr>' +
+                                        '<th>' + id1 + '</th>' +
+                                        '<td>' + TouristSpotName + '</td>' +
+                                        '<td>' + TouristSpotCategory + '</td>' +
+                                        '<td>' + Popularity + '</td>' +
+                                        '<td>' + TimeOpen + '</td>' +
+                                        '<td>' + TimeClose + '</td>' +
+                                        '<td>' + Address + '</td>' +
+                                        '<td> <button type="button" class="btn btn-dropbox" id="btnTourismSpotEdit" title="Edit" value="' + TouristSpotId + '"><i class="fa fa-pencil"></i></button >' +
+                                        ' ' + '<button class="btn btn-danger" id="btnTourismSpotDelete" title="Delete' +
+                                        '" value="' + TouristSpotId + '"><i class="fa fa-trash-o"></i></button> </td>' + '</tr>');
+                                    id1++;
+                                });
+                            }
+                        });
+                    },
+                    error: function (jqXHR) {
+                        $("#divErrorText").text(jqXHR.responseText);
+                        $('#divError').show('fade');
+                    }
+
+                });
+        });
+        //Move on tab
+        $("#btnAddNew").click(function (e) {
+            e.preventDefault();
+            $("#tab_1").addClass("active");
+            $("#tab1").addClass("active");
+            $("#tab_3").removeClass("active");
+            $("#tab3").removeClass("active");
+
+        });
+        //Grid Bind Uc's Tourism Spots
+        var TourismSpotGrid = $("#TourismSpotGridBody");
+        var id1 = 1;
+        $.ajax({
+            type: 'Get',
+            url: apiBaseUrl + '/GetAllUCTourismSpotsByUC?UserID=' + UserID,
+            dataType: 'json',
+            success: function (data) {
+                //var JSONDATA = JSON.parse(data);
+                //alert(JSONDATA);
+                $.each(data, function (index, val) {
+                    // alert(val.Contact_Number);
+                    var TouristSpotId = val.TouristSpotId;
+                    var TouristSpotName = val.TouristSpotName;
+                    var TouristSpotCategory = val.TouristSpotCategory;
+                    var Popularity = val.Popularity;
+                    var TimeOpen = val.TimeOpen;
+                    var TimeClose = val.TimeClose;
+                    var Address = val.Address;
+                    TourismSpotGrid.append('<tr>' +
+                        '<th>' + id1 + '</th>' +
+                        '<td>' + TouristSpotName + '</td>' +
+                        '<td>' + TouristSpotCategory + '</td>' +
+                        '<td>' + Popularity + '</td>' +
+                        '<td>' + TimeOpen + '</td>' +
+                        '<td>' + TimeClose + '</td>' +
+                        '<td>' + Address + '</td>' +
+                        '<td> <button type="button" class="btn btn-dropbox" id="btnTourismSpotEdit" title="Edit" value="' + TouristSpotId + '"><i class="fa fa-pencil"></i></button >' +
+                        ' ' + '<button class="btn btn-danger" id="btnTourismSpotDelete" title="Delete' +
+                        '" value="' + TouristSpotId + '"><i class="fa fa-trash-o"></i></button> </td>' + '</tr>');
+                    id1++;
+                });
+            }
+        });
+
+        //Get Tourism Spot Gallery
+        $.ajax({
+            type: 'Get',
+            url: apiBaseUrl + '/GetAllUCTourismSpotsGalleryByUC?UserID=' + UserID,
+            dataType: 'json',
+            success: function (result) {
+                // var JSONDATA = JSON.parse(result);
+                //alert(result);
+                $.each(result, function (index, val) {
+                    var SpotImage = val.SpotImage;
+                    $("#ImagesSpot").append('<img src="' + apiBaseUrl + '/TourismSpot/' + SpotImage + '"height="150" style="margin:10px;border-radius:20px;" />')
+                    //document.getElementById('lblOrgLogo').src = apiBaseUrl + '/TourismSpot/' + SpotImage;
+                });
+                
+            }
+        });
+    });
+</script>

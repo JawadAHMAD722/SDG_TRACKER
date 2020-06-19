@@ -1,0 +1,160 @@
+﻿@using SDGSDB.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SDG tracker Pakistan| Log in</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link rel="shortcut icon" type="image/x-icon" href="~/SDG-Icon.ico" />
+    <!-- Bootstrap 3.3.2 -->
+    <link href="~/ThemeRelated/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome Icons -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Theme style -->
+    <link href="~/ThemeRelated/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- iCheck -->
+    <link href="~/ThemeRelated/plugins/iCheck/square/blue.css" rel="stylesheet" type="text/css" />
+
+    <style type="text/css">
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: black;
+            z-index: 99;
+            opacity: 0.8;
+            filter: alpha(opacity=80);
+            min-height: 100%;
+            width: 100%;
+        }
+
+        .loading {
+            margin-top: 50px;
+            display: none;
+            position: fixed;
+            z-index: 999;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+</head>
+<body class="login-page" style="background-image:url('/Img/FrmBackGround.png');background-repeat:no-repeat;
+  background-attachment:fixed;
+  background-size: cover;">
+    <div class="loading" align="center">
+        SDG-Tracker Pakistan.<br />
+        <br />
+        <img src="~/Img/Pre-loading-sdg.gif" />
+    </div>
+    <script type="text/javascript">
+        var modal, loading;
+        function ShowProgress() {
+            modal = document.createElement("DIV");
+            modal.className = "modal";
+            document.body.appendChild(modal);
+            loading = document.getElementsByClassName("loading")[0];
+            loading.style.display = "block";
+            var top = Math.max(window.innerHeight / 2 - loading.offsetHeight / 2, 0);
+            var left = Math.max(window.innerWidth / 2 - loading.offsetWidth / 2, 0);
+            loading.style.top = top + "px";
+            loading.style.left = left + "px";
+        };
+        ShowProgress();
+    </script>
+    <!-- Keep the Page Content Here.-->
+    <script type="text/javascript">
+        window.onload = function () {
+            setTimeout(function () {
+                document.body.removeChild(modal);
+                loading.style.display = "none";
+            }, 2000); //Delay just used for example and must be set to 0.
+        };
+    </script>
+    <img width="200" height="200" src="~/Img/SDGs-Academy-white-logo.png" />
+    <div class="login-box" style="width:33%;margin-top:0px;">
+        <div class="login-logo">
+            <a href="~/Account/Login">
+                
+                <b style="color:white">SDG tracker Pakistan|</b> <p style="color:white">Log in</p>
+            </a>
+        </div><!-- /.login-logo -->
+        <div class="login-box-body" style="border-radius: 25px;">
+            <h3 class="well" style="color:white;margin-bottom:30px;margin-left:0px">Login to your account</h3>
+            <div class="row">
+                <div class="col-md-12">
+                    <section id="loginForm">
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group has-feedback">
+                                @Html.LabelFor(m => m.Email, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-9">
+                                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback">
+                                @Html.LabelFor(m => m.Password, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-9">
+                                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            @*<div class="form-group has-feedback">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <div class="checkbox">
+                                        @Html.CheckBoxFor(m => m.RememberMe)
+                                        @Html.LabelFor(m => m.RememberMe)
+                                    </div>
+                                </div>
+                            </div>*@
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="submit" class="btn btn-foursquare" style="display:block;width:100%;margin-left:0px" value="Log in" />
+                                </div>
+                            </div>
+                            @*<p>
+                                @Html.ActionLink("Register as a new user", "Register")
+                            </p>*@
+                            @* Enable this once you have account confirmation enabled for password reset functionality
+                            <p>
+                                @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                            </p>*@
+                        }
+                    </section>
+                </div>
+                @*<div class="col-md-4">
+                    <section id="socialLoginForm">
+                        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                    </section>
+                </div>*@
+            </div>
+
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+            }
+
+            <a href="#">I forgot my password</a><br>
+        </div><!-- /.login-box-body -->
+        @*<div class="login-logo" style="margin-top:20px;">
+            <a href="~/Account/Login">
+                <img src="~/Images/SDG-Tracker-.gif" style="border-radius: 10px 50px 10px 50px ;" width="330" height="150" />
+                
+            </a>
+        </div>*@
+    </div><!-- /.login-box -->
+    <!-- jQuery 2.1.3 -->
+    <script src="~/ThemeRelated/plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <!-- Bootstrap 3.3.2 JS -->
+    <script src="~/ThemeRelated/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <!-- iCheck -->
+    <script src="~/ThemeRelated/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+
+</body>
+</html>

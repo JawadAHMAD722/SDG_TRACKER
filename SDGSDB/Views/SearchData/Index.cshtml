@@ -1,0 +1,170 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="~/Scripts/SDGSRegistrarionJS/DDLSDGRegistration.js"></script>"
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link href="~/Content/Style.css" rel="stylesheet" />
+<br />
+<br />
+<br />
+<h2>Search Organization</h2>
+<div class="tab">
+    <div class="row"></div>
+   
+        <button class="col-6 tablinks" onclick="openCity(event, 'Org')">By Organization</button>
+    
+   
+        <button class="col-6 tablinks" onclick="openCity(event, 'Sdg')">By SDGS</button>
+    
+    
+    
+
+</div>
+
+<div id="Org" class="tabcontent">
+     <label for="autocomplete">Type Organization Name </label>
+    <input id="autocomplete">
+    <input type="submit" id="submit" />
+    <div class="table">
+        <div class="row" id="ORG_DIV">
+            <img src="~/Images/SDG-1.png" height="200" width="200" alt="Organization_DP" hidden />
+            <div id="OrganizationName"></div>
+        </div>
+        <div class="dropdown-divider"></div>
+        <div class="row">
+            <div class="cols-md-12" id="sdgs">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="Sdg" class="tabcontent">
+
+
+    <select id="drpSDG" class="form-control">
+        <option selected>SDGs</option>
+    </select>
+
+    <table id="org_table" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <td>SR#</td>
+                <td>Org Name</td>
+                <td>Profile</td>
+            </tr>
+        </thead>
+        <tbody id="Data"></tbody>
+        
+    </table>
+
+
+</div>
+
+<script>
+    function openCity(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    $("#autocomplete").autocomplete({
+
+
+        source: function (request, response) {
+            $.ajax({
+                type: 'Get',
+                url: '@System.Web.Configuration.WebConfigurationManager.AppSettings["ApiBaseUrl"]/GetOrg',
+                dataType: 'json',
+                data: {
+                    term: request.term
+                },
+                success: function (data) {
+                    var orga = [];
+                    for (i in data) {
+                        orga.push(JSON.parse(JSON.stringify(data[i])).Org);
+                    }
+                    response(orga);
+
+                },
+                error: function () {
+                    alert("Error")
+                }
+
+            })
+        }
+
+    });
+
+    $("#submit").click(function () {
+
+
+        var org = $("#autocomplete").val();
+        $("#OrganizationName").append("<h1>" + org + "</h1>");
+
+        $.ajax({
+            type: 'Get',
+            url: '@System.Web.Configuration.WebConfigurationManager.AppSettings["ApiBaseUrl"]/SearchSdgs?name=' + org,
+            dataType: 'json',
+            success: function (data) {
+                var json = "[";
+                for (i in data) {
+
+                    json += JSON.stringify(data[i]);
+
+                    json += ","
+
+                }
+                json = json.substr(0, json.length - 1)
+                json += ']';
+                var myObj;
+                myObj = JSON.parse(json);
+
+                for (var k in myObj) {
+
+                    $("#sdgs").append("<a href=\"#\"><img style=\"padding: 5px; border-radius: 20px;\" src=\"" + myObj[k].SDGS + "\" height = \"200px\" width = \"200px\" /></a >")
+                }
+
+            }
+        });
+
+    })
+
+    $("#drpSDG").on("change", function () {
+        var SDGID = $("#drpSDG :selected").val()
+        var tag = $("#Data");
+        $.ajax({
+            type: 'Get',
+            url: '@System.Web.Configuration.WebConfigurationManager.AppSettings["ApiBaseUrl"]/GetOrgBySDG?id=' + SDGID,
+            dataType: 'json',
+            success: function (data) {
+                j = 1
+                for (var i in data) {
+                    tag.append("<tr>")
+                    tag.append("<td>" + j + "</td>")
+                    tag.append("<td>" + JSON.parse(JSON.stringify(data[i])).Org + "</td>")
+                    tag.append("<td> <a href='/'>View Profile</a></td>")
+                    tag.append("</tr>")
+                    j++
+                }
+            }
+        });
+    })
+
+
+
+</script>
+

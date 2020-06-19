@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<link rel="shortcut icon" type="image/x-icon" href="~/SDG-Icon.ico" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewBag.Title - SDG Tracker Pakistan</title>
+	<link href="~/Content/SDGS.css" rel="stylesheet" />
+	@{
+		var BaseUrl = System.Configuration.ConfigurationManager.AppSettings.Get("baseUrl");
+	}
+
+	@{
+		var apiBaseUrl = System.Configuration.ConfigurationManager.AppSettings.Get("ApiBaseUrl");
+	}
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/modernizr")
+	@Scripts.Render("~/Scripts/jquery-3.4.1.js")
+	@Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+	@Scripts.Render("~/Scripts/bootstrap.min.js")
+
+	<script>
+		$(document).ready(function () {
+
+			$("#chk_box").click(function () {
+				if ($(this).prop("checked") == true) {
+					$("#reg_form").show();
+					$('html, body').animate({
+						scrollTop: $("#reg_form").offset().top
+					}, 1000);
+				}
+
+				else
+					$("#reg_form").hide();
+			})
+		})
+
+	</script>
+	@*<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+		<script>
+			var onloadCallback=function() {
+				grecaptcha.render('divcaptcha',
+					{ 'sitekey': '6LcSddgUAAAAAOhANHDWZa8ITYWkGl8Z6ouwsIgd'});
+			}
+		</script>*@
+</head>
+<body>
+	<label hidden="hidden" id="ApiBaseURL">@System.Web.Configuration.WebConfigurationManager.AppSettings["ApiBaseUrl"]</label>
+	<label hidden="hidden" id="BaseURL">@System.Web.Configuration.WebConfigurationManager.AppSettings["baseUrl"]</label>
+	<div class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+		<div class="container">
+
+
+			<a class="navbar-brand" href="/">
+
+				<div style="float:left;"><img src="~/Img/SDGs-Academy-white-logo.png" height="90px" width="90px" /></div>
+				<div style="float:left;padding-left:20px;padding-top:22px;">
+
+					SDG Tracker-Pakistan<br />
+					a data-driven initiative to launch National Database for SDGs<br />
+
+
+
+
+				</div>
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			@*<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item active">
+							<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Link</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Dropdown
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="#">Action</a>
+								<a class="dropdown-item" href="#">Another action</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">Something else here</a>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link disabled" href="#">Disabled</a>
+						</li>
+					</ul>
+					<form class="form-inline my-2 my-lg-0">
+						<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+					</form>
+				</div>*@
+			<form class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-success" onclick="window.location.href ='/SearchData/Index';" type="button">Search</button>
+				<button class="btn btn-outline-info my-2 my-sm-0" onclick="window.location.href ='/Account/Login';" style="margin-left:10px" type="button">Login</button>
+			</form>
+		</div>
+	</div>
+	<div class="container body-content">
+		<div style="margin-top:110px;"></div>
+		@RenderBody()
+		<hr />
+		<!-- Footer -->
+		<!-- Footer -->
+	</div>
+	<footer class="page-footer font-small stylish-color-dark pt-4">
+
+		<ul class="list-unstyled list-inline text-center">
+			<li class="list-inline-item">
+				<a class="btn-floating btn-fb mx-1">
+					<i class="fab fa-facebook-f"> </i>
+				</a>
+			</li>
+			<li class="list-inline-item">
+				<a class="btn-floating btn-tw mx-1">
+					<i class="fab fa-twitter"> </i>
+				</a>
+			</li>
+			<li class="list-inline-item">
+				<a class="btn-floating btn-gplus mx-1">
+					<i class="fab fa-google-plus-g"> </i>
+				</a>
+			</li>
+			<li class="list-inline-item">
+				<a class="btn-floating btn-li mx-1">
+					<i class="fab fa-linkedin-in"> </i>
+				</a>
+			</li>
+			<li class="list-inline-item">
+				<a class="btn-floating btn-dribbble mx-1">
+					<i class="fab fa-dribbble"> </i>
+				</a>
+			</li>
+		</ul>
+		<!-- Social buttons -->
+		<!-- Copyright -->
+		<div class="footer-copyright text-center py-3">
+			© 2020 Copyright:
+			<a href="#">SDG Academy Islamabad</a>
+		</div>
+		<!-- Copyright -->
+
+	</footer>
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/bootstrap")
+	@RenderSection("scripts", required: false)
+	
+	<script src="~/Scripts/SDGSRegistrarionJS/DDLSDGRegistration.js"></script>
+</body>
+</html>

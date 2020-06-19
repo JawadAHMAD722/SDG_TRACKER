@@ -1,0 +1,1915 @@
+﻿@using SDGSDB.Models
+@model OrgOfficeRegistrationModel
+@{
+    Layout = "~/Views/Layouts/_DashboardLayout.cshtml";
+    ViewBag.Title = "OfficeRegistration";
+
+}
+    <link href="~/Content/SDGS.css" rel="stylesheet" />
+@Scripts.Render("~/Scripts/jquery-3.4.1.js")
+@Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+@Scripts.Render("~/Scripts/bootstrap.min.js")
+<!-- Main content -->
+<section class="content">
+
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+
+                <div class="col-md-1"></div>
+                @using (Html.BeginForm("OfficeRegistration", "Registration", FormMethod.Post, new { @class = "form", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <fieldset style="float:left;margin-left:40px;margin-right:40px;">
+                        <div class="col-md-12">
+                            <!-- Default box -->
+                            <div class="box box-danger">
+                                <div class="box-header with-border">
+                                    <div class="col-sm-1"></div>
+                                    <div class="well">
+                                        <img width="50" src="~/Images/sdgs_circle.png" />Register With SDG-Academy to evaluate progress of SDGs in Pakistan.
+                                    </div>
+                                    @*<h3 class="box-title">Title</h3>*@
+                                    <div class="box-tools pull-right">
+                                        <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                                        <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+                                    </div>
+                                    <div class="col-sm-1"></div>
+                                </div>
+                                <div class="box-body" style="margin-left:130px;">
+                                    <legend>Office Basic Information</legend>
+                                    @*@Html.ValidationSummary(true, null, new { @Class = "text-danger" })*@
+                                    <div class="row" style="margin-bottom:20px">
+                                        <div class="col-md-10">
+                                            <div class="form-group">
+
+                                                <label for="txtOrganizationName">Organization Name</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                                                    <input type="text" style="color:blue" disabled class="form-control" id="txtOrganizationName" placeholder="Organization Name">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="drpOrganizationType">Organization Type</label>
+                                                <select class="form-control input-mini" style="color:blue" disabled id="drpOrganizationType" name="drpOrganizationType">
+                                                    <option value="OrganizationType" selected="selected">Organization Type</option>
+                                                    <option value="NGO">NGO</option>
+                                                    <option value="Public Department">Public Department</option>
+                                                    <option value="SME">SME</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="txtContact">Office Name:</label>
+                                                @Html.EditorFor(m => m.Office_Name, new { htmlattributes = new { @class = "form-control", id = "txtOfficeName", placeholder = "Office Name" } })
+                                                @*<input type="text" class="form-control" id="txtPersonName" placeholder="Person Contact Number">*@
+                                            </div>
+                                            @Html.ValidationMessageFor(m => m.Office_Name, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="txtContact">Person Contact Name:</label>
+                                                @Html.EditorFor(m => m.Person_Contact_Name, new { htmlattributes = new { @class = "form-control", id = "txtPersonName", placeholder = "Person Contact Name" } })
+
+                                                @*<input type="text" class="form-control" id="txtPersonName" placeholder="Person Contact Number">*@
+                                            </div>
+                                            @Html.ValidationMessageFor(m => m.Person_Contact_Name, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="txtFax">Person Contact Title:</label>
+                                                @Html.EditorFor(m => m.Person_Contact_Title, new { htmlattributes = new { @class = "form-control", id = "txt_Person_Title", placeholder = "Person Contact Title" } })
+                                                @*<input type="text" class="form-control" id="txt_Person_Title" placeholder="Person Contact Title">*@
+                                            </div>
+                                            @Html.ValidationMessageFor(m => m.Person_Contact_Title, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="txtFax">Person Contact Number:</label>
+                                                @Html.EditorFor(m => m.Person_Contat_Number, new { htmlattributes = new { @class = "form-control", id = "txt_Person_Contact", placeholder = "Person Contact Number" } })
+                                                @*<input type="text" class="form-control" id="txt_Person_Contact" placeholder="Person Contact Number">*@
+                                            </div>
+                                            @Html.ValidationMessageFor(m => m.Person_Contat_Number, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="txtFax">Person Contact Email:</label>
+                                                @Html.EditorFor(m => m.Person_Contat_Email, new { htmlattributes = new { @class = "form-control", id = "txt_Person_Email", placeholder = "Person Contact Email" } })
+                                                @*<input type="text" class="form-control" id="txt_Person_Email" placeholder="Person Contact Email">*@
+                                            </div>
+                                            @Html.ValidationMessageFor(m => m.Person_Contat_Email, "", new { @class = "text-danger" })
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-md-10">
+                                            <div class="well">Office Address:</div>
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="drpProvince">Province</label>
+                                                        <select id="drpProvince" class="form-control input-mini" name="Province">
+                                                            <option value="" selected="selected">---Select Province---</option>
+
+                                                        </select>
+                                                    </div>
+                                                    @Html.ValidationMessageFor(m => m.Province_Id, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="dprDivision">Division</label>
+                                                        <select id="dprDivision" class="form-control input-mini" name="dprDivision">
+                                                            <option value="" selected="selected">---Select Division---</option>
+
+                                                        </select>
+                                                    </div>
+                                                    @Html.ValidationMessageFor(m => m.Division_Id, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="drpDistrict">District</label>
+                                                        <select class="form-control input-mini" id="drpDistrict" name="drpDistrict">
+                                                            <option value="" selected="selected">---Select District---</option>
+                                                        </select>
+                                                        @Html.ValidationMessageFor(m => m.District_Id, "", new { @class = "text-danger" })
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="drpTehsils">Tehsils</label>
+                                                        <select id="drpTehsils" class="form-control input-mini" name="Tehsils">
+                                                            <option value="" selected="selected">---Select Tehsils---</option>
+
+                                                        </select>
+                                                    </div>
+                                                    @Html.ValidationMessageFor(m => m.Tehsil_Id, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="drpUnionCouncils">Union Councils</label>
+                                                        <select id="drpUnionCouncils" class="form-control input-mini" name="drpUnionCouncils">
+                                                            <option value="" selected="selected">---Union Councils---</option>
+
+                                                        </select>
+                                                    </div>
+                                                    @Html.ValidationMessageFor(m => m.UC_Id, "", new { @class = "text-danger" })
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row">
+
+
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="txtstreet">Street #</label>
+                                                        @Html.EditorFor(m => m.Street, new { htmlattributes = new { @class = "form-control", id = "txtstreet", placeholder = "Street No." } })
+                                                        @*<input type="text" class="form-control" id="txtstreet" placeholder="Street No.">*@
+                                                    </div>
+                                                    @Html.ValidationMessageFor(m => m.Street, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="txtDescription">House #</label>
+                                                        @Html.EditorFor(m => m.House, new { htmlattributes = new { @class = "form-control", id = "txtHouse", placeholder = "House" } })
+                                                        @*<input type="text" class="form-control" id="txtHouse" placeholder="House">*@
+                                                    </div>
+                                                    @Html.ValidationMessageFor(m => m.House, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="txtDescription">Postal Code</label>
+                                                        @Html.EditorFor(m => m.PostalCode, new { htmlattributes = new { @class = "form-control", id = "txtPostalCode", placeholder = "Postal Code" } })
+                                                        @*<input type="text" class="form-control" id="txtPostalCode" placeholder="Postal Code">*@
+                                                    </div>
+                                                    @Html.ValidationMessageFor(m => m.PostalCode, "", new { @class = "text-danger" })
+                                                </div>
+
+
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-md-10">
+                                            <div class="well"><h4><img width="20" src="~/Images/sdgs_circle.png" /> Office Working Domain - List of SDGs</h4></div>
+
+                                            <div class="row">
+                                                <!-- SDGs List Row1-->
+                                                <div class="col-md-3">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#e5243b;border-radius:20px;">
+                                                        <div class="box-header" style="background-color:#e5243b;border-radius: 20px;">
+                                                            <div class="box-tools pull-right" style="right:0px;position:unset">
+                                                                <button class="btn btn-danger btn btn-sm" type="button" id="btnSDG1" title="Expand Indicators" style="background-color: #e5243b;display:none;">
+                                                                    <i class="fa fa-plus" id="ibtnSDG1" style="background-color:#e5243b"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="box-tools pull-left" style="right:0px;position:unset">
+                                                                <input type="checkbox" class="minimal-red" name="checkbox" value="1" id="CHKSDG1">
+                                                            </div>
+                                                            <a href="/Home/No_Poverty"><img src="~/Images/SDG-1.png" height="100%" width="100%" style="border-top: solid;margin-top: 5px;" /></a>
+                                                            @*<h3 class="box-title">SDG-1 - No Poverty</h3>*@
+
+                                                        </div>
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="box box-solid box-success" style="border-color:#D3A029;border-radius:20px;">
+                                                        <div class="box-header" style="background-color:#D3A029;background:#D3A029;border-color:#D3A029;border-radius:20px;">
+                                                            <div class="box-tools pull-right" style="right:0px;position:unset">
+                                                                <button class="btn btn-danger btn btn-sm" type="button" id="btnSDG2" title="Expand Indicators" style="background-color: #D3A029;display:none;">
+                                                                    <i class="fa fa-plus" id="ibtnSDG2" style="background-color:#D3A029"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="box-tools pull-left" style="right:0px;position:unset">
+                                                                <input type="checkbox" class="minimal-red" name="checkbox" value="2" id="CHKSDG2">
+                                                            </div>
+                                                            <a href="/Home/Zero_Hunger"><img src="~/Images/SDG-2.png" height="100%" width="100%" style="border-top: solid;margin-top: 5px;" /></a>
+                                                            @*<h3 class="box-title">SDG-1 - No Poverty</h3>*@
+
+                                                        </div>
+                                                    </div>
+                                                    <!-- Success box -->
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#4c9f38;border-radius:20px;">
+                                                        <div class="box-header" style="background-color:#4c9f38;border-radius:20px;">
+                                                            <div class="box-tools pull-right" style="right:0px;position:unset">
+                                                                <button class="btn btn-danger btn btn-sm" type="button" id="btnSDG3" title="Expand Indicators" style="background-color: #4c9f38;display:none;">
+                                                                    <i class="fa fa-plus" id="ibtnSDG3" style="background-color:#4c9f38"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="box-tools pull-left" style="right:0px;position:unset">
+                                                                <input type="checkbox" class="minimal-red" name="checkbox" value="3" id="CHKSDG3">
+                                                            </div>
+                                                            <a href="/Home/Good_Health"><img src="~/Images/SDG-3.png" height="100%" width="100%" style="border-top: solid;margin-top: 5px;" /></a>
+                                                            @*<h3 class="box-title">SDG-1 - No Poverty</h3>*@
+
+                                                        </div>
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#C31F33;border-radius:20px;">
+                                                        <div class="box-header" style="background-color:#C31F33;border-radius:20px;">
+                                                            <div class="box-tools pull-right" style="right:0px;position:unset">
+                                                                <button class="btn btn-danger btn btn-sm" type="button" id="btnSDG4" title="Expand Indicators" style="background-color: #C31F33;display:none;">
+                                                                    <i class="fa fa-plus" id="ibtnSDG4" style="background-color:#C31F33"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="box-tools pull-left" style="right:0px;position:unset">
+                                                                <input type="checkbox" class="minimal-red" name="checkbox" value="4" id="CHKSDG4">
+                                                            </div>
+                                                            <a href="/Home/Quality_Education"><img src="~/Images/SDG-4.png" height="100%" width="100%" style="border-top: solid;margin-top: 5px;" /></a>
+                                                        </div>
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <!-- Indicatorss List Row1-->
+                                                <div class="col-sm-12" style="display:none" id="SDG1Body">
+                                                    <div class="box box-solid box-success" style="border-color:#e5243b">
+                                                        <div class="box-body">
+                                                            <h3><strong> SDG-1 - Indicators List</strong></h3>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="ChkAllSDG1" value="0" name="ChkAllSDG1">
+                                                                <i></i><strong style="font-size:20px;color:#e5243b"> Check/Un-Check All</strong>
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG1Indicatorcheckbox" value="1" name="Indicatorcheckbox">
+                                                                <i></i>1.1.1 Proportion of the population below the international poverty line, by sex, age, employment status, and geographical location (urban/rural)
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG1Indicatorcheckbox" value="2" name="Indicatorcheckbox">
+                                                                <i></i>1.2.1 Proportion of population living below the national poverty line, by sex and age
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG1Indicatorcheckbox" value="3" name="Indicatorcheckbox">
+                                                                <i></i>1.3.1 Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work injury victims, and the poor and the vulnerable
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG1Indicatorcheckbox" value="4" name="Indicatorcheckbox">
+                                                                <i></i>1.4.1   Proportion of population living in households with access to basic services
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG1Indicatorcheckbox" value="5" name="Indicatorcheckbox">
+                                                                <i></i>1.4.2 Proportion of total adult population with secure tenure rights to land, (a) with legally recognized documentation, and (b) who perceive their rights to land as secure, by sex and type of tenure
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG1Indicatorcheckbox" value="6" name="Indicatorcheckbox">
+                                                                <i></i>1.5.1 Number of deaths, missing persons and directly affected persons attributed to disasters per 100,000 population
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG1Indicatorcheckbox" value="7" name="Indicatorcheckbox">
+                                                                <i></i>1.5.2 Direct disaster economic loss in relation to global gross domestic product (GDP)
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG1Indicatorcheckbox" value="8" name="Indicatorcheckbox">
+                                                                <i></i>1.5.3 Number of countries that adopt and implement national disaster risk reduction strategies in line with the Sendai Framework for Disaster Risk Reduction 2015–2030
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG1Indicatorcheckbox" value="9" name="Indicatorcheckbox">
+                                                                <i></i>1.a.1 Proportion of domestically generated resources allocated by the government directly to poverty reduction programmes
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG1Indicatorcheckbox" value="10" name="Indicatorcheckbox">
+                                                                <i></i>1.a.2 Proportion of total government spending on essential services (education, health and social protection).
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG1Indicatorcheckbox" value="11" name="Indicatorcheckbox">
+                                                                <i></i>1.a.3 Sum of total grants and non-debt-creating inflows directly allocated to poverty reduction programmes as a proportion of GDP
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG1Indicatorcheckbox" value="12" name="Indicatorcheckbox">
+                                                                <i></i>1.b.1 Proportion of government recurrent and capital spending to sectors that disproportionately benefit women, the poor and vulnerable groups
+                                                            </label>
+                                                        </div><!-- /.box-body -->
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12" style="display:none" id="SDG2Body">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#D3A029">
+                                                        <div class="box-body">
+                                                            <h3><strong> SDG-2 - Indicators List</strong></h3>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="ChkAllSDG2" value="0" name="ChkAllSDG2">
+                                                                <i></i><strong style="font-size:20px;color:#D3A029"> Check/Un-Check All</strong>
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG2Indicatorcheckbox" value="13" name="Indicatorcheckbox">
+                                                                <i></i>2.1.1 Prevalence of undernourishment
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG2Indicatorcheckbox" value="14" name="Indicatorcheckbox">
+                                                                <i></i>2.1.2 Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES)
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG2Indicatorcheckbox" value="15" name="Indicatorcheckbox">
+                                                                <i></i>2.2.1 Prevalence of stunting (height for age < -2 standard deviation from the median of the World Health Organization (WHO) Child Growth Standards) among children under 5 years of age
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG2Indicatorcheckbox" value="16" name="Indicatorcheckbox">
+                                                                <i></i>2.2.2 Prevalence of malnutrition (weight for height >+2 or < -2 standard deviation from the median of the WHO Child Growth Standards) among children under 5 years of age, by type (wasting and overweight)
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG2Indicatorcheckbox" value="17" name="Indicatorcheckbox">
+                                                                <i></i>2.3.2 Average income of small-scale food producers, by sex and indigenous status
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG2Indicatorcheckbox" value="18" name="Indicatorcheckbox">
+                                                                <i></i>2.3.1 Volume of production per labour unit by classes of farming/pastoral/ forestry enterprise size
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG2Indicatorcheckbox" value="19" name="Indicatorcheckbox">
+                                                                <i></i>2.4.1 Proportion of agricultural area under productive and sustainable agricultural practices
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG2Indicatorcheckbox" value="20" name="Indicatorcheckbox">
+                                                                <i></i>2.5.1 Number of plant and animal genetic resources for food and agriculture secured in either medium or long-term conservation facilities
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG2Indicatorcheckbox" value="21" name="Indicatorcheckbox">
+                                                                <i></i>2.5.2 Proportion of local breeds classified as being at risk, not-at-risk or at unknown level of risk of extinction
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG2Indicatorcheckbox" value="22" name="Indicatorcheckbox">
+                                                                <i></i>2.a.1 The agriculture orientation index for government expenditures
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG2Indicatorcheckbox" value="23" name="Indicatorcheckbox">
+                                                                <i></i>2.a.2 Total official flows (official development assistance plus other official flows) to the agriculture sector
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG2Indicatorcheckbox" value="24" name="Indicatorcheckbox">
+                                                                <i></i>2.b.1 Agricultural export subsidies
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG2Indicatorcheckbox" value="25" name="Indicatorcheckbox">
+                                                                <i></i>2.c.1 Indicator of food price anomalies
+                                                            </label>
+                                                        </div><!-- /.box-body -->
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-12" style="display:none" id="SDG3Body">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#4c9f38">
+                                                        <div class="box-body">
+                                                            <h3><strong> SDG-3 - Indicators List</strong></h3>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="ChkAllSDG3" value="0" name="ChkAllSDG3">
+                                                                <i></i><strong style="font-size:20px;color:#4c9f38"> Check/Un-Check All</strong>
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="26" name="Indicatorcheckbox">
+                                                                <i></i>3.1.1 Maternal mortality ratio
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="27" name="Indicatorcheckbox">
+                                                                <i></i>3.1.2 Proportion of births attended by skilled health personnel
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="28" name="Indicatorcheckbox">
+                                                                <i></i>3.2.2 Neonatal mortality rate
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="29" name="Indicatorcheckbox">
+                                                                <i></i>3.2.1 Under-five mortality rate
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="30" name="Indicatorcheckbox">
+                                                                <i></i>3.3.1 Number of new HIV infections per 1,000 uninfected population by sex, age and key populations
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="31" name="Indicatorcheckbox">
+                                                                <i></i>3.3.2 Tuberculosis incidence per 100,000 population
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="32" name="Indicatorcheckbox">
+                                                                <i></i>3.3.3 Malaria incidence per 1,000 population
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="33" name="Indicatorcheckbox">
+                                                                <i></i>3.3.4 Hepatitis B incidence per 100,000 population
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="34" name="Indicatorcheckbox">
+                                                                <i></i>3.3.5 Number of people requiring interventions against neglected tropical diseases
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="35" name="Indicatorcheckbox">
+                                                                <i></i>3.4.1 Mortality rate attributed to cardiovascular disease, cancer, diabetes or chronic respiratory disease
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="36" name="Indicatorcheckbox">
+                                                                <i></i>3.4.2 Suicide mortality rate
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="37" name="Indicatorcheckbox">
+                                                                <i></i>3.5.1 Coverage of treatment interventions (pharmacological, psychosocial and rehabilitation and aftercare services) for substance use disorders
+                                                            </label>
+
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="38" name="Indicatorcheckbox">
+                                                                <i></i>3.5.2 Harmful use of alcohol, defined according to the national context as alcohol per capita consumption (aged 15 years and older) within a calendar year in litres of pure alcohol
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="39" name="Indicatorcheckbox">
+                                                                <i></i>3.6.1 Death rate due to road traffic injuries
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="40" name="Indicatorcheckbox">
+                                                                <i></i>3.7.1 Proportion of women of reproductive age (aged 15-49) who have their need for family planning satisfied with modern methods
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="41" name="Indicatorcheckbox">
+                                                                <i></i>3.7.2 Adolescent birth rate (aged 10-14 year; aged 15- 19 years) per 1,000 women in that age group
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="42" name="Indicatorcheckbox">
+                                                                <i></i>3.8.1 Coverage of essential health services (defined as the average coverage of essential services based on tracer interventions that include reproductive, maternal, newborn and child health, infectious diseases, non-communicable diseases and service capacity and access, among the general and the most disadvantaged population)
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="43" name="Indicatorcheckbox">
+                                                                <i></i>3.8.2 Proportion of population with large household expenditures on health as a share of total household expenditure or income
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="44" name="Indicatorcheckbox">
+                                                                <i></i>3.9.1 Mortality rate attributed to household and ambient air pollution
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="45" name="Indicatorcheckbox">
+                                                                <i></i>3.9.2 Mortality rate attributed to unsafe water, unsafe sanitation and lack of hygiene (exposure to unsafe Water, Sanitation and Hygiene for All (WASH) services)
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="46" name="Indicatorcheckbox">
+                                                                <i></i>3.9.3 Mortality rate attributed to unintentional poisoning
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="47" name="Indicatorcheckbox">
+                                                                <i></i>3.a.1 Age-standardized prevalence of current tobacco use among persons aged 15 years and older
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="48" name="Indicatorcheckbox">
+                                                                <i></i>3.b.3 Proportion of health facilities that have a core set of relevant essential medicines available and affordable on a sustainable basis
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="49" name="Indicatorcheckbox">
+                                                                <i></i>3.b.3 Proportion of health facilities that have a core set of relevant essential medicines available and affordable on a sustainable basis
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="50" name="Indicatorcheckbox">
+                                                                <i></i>3.c.1 Health worker density and distribution
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG3Indicatorcheckbox" value="51" name="Indicatorcheckbox">
+                                                                <i></i>3.d.1 International Health Regulations (IHR) capacity and health emergency preparedness
+                                                            </label>
+                                                        </div><!-- /.box-body -->
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-12" style="display:none" id="SDG4Body">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#C31F33">
+                                                        <div class="box-body">
+                                                            <h3><strong> SDG-4 - Indicators List</strong></h3>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="ChkAllSDG4" value="0" name="ChkAllSDG4">
+                                                                <i></i><strong style="font-size:20px;color:#C31F33"> Check/Un-Check All</strong>
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG4Indicatorcheckbox" value="52" name="Indicatorcheckbox">
+                                                                <i></i>4.1.1 Proportion of children and young people: (a) in grades 2/3; (b) at the end of primary; and (c) at the end of lower secondary achieving at least a minimum proficiency level in (i) reading and (ii) mathematics, by sex
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG4Indicatorcheckbox" value="53" name="Indicatorcheckbox">
+                                                                <i></i>4.2.2 Participation rate in organized learning (one year before the official primary entry age), by sex
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG4Indicatorcheckbox" value="54" name="Indicatorcheckbox">
+                                                                <i></i>4.2.1 Proportion of children under 5 years of age who are developmentally on track in health, learning and psychosocial well-being, by sex
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG4Indicatorcheckbox" value="55" name="Indicatorcheckbox">
+                                                                <i></i>4.3.1 Participation rate of youth and adults in formal and non-formal education and training in the previous 12 months, by sex
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG4Indicatorcheckbox" value="56" name="Indicatorcheckbox">
+                                                                <i></i>4.4.1 Proportion of youth and adults with information and communications technology (ICT) skills, by type of skill
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG4Indicatorcheckbox" value="57" name="Indicatorcheckbox">
+                                                                <i></i>4.5.1 Parity indices (female/male, rural/urban, bottom/top wealth quintile and others such as disability status, indigenous peoples and conflict affected, as data become available) for all education indicators on this list that can be disaggregated
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG4Indicatorcheckbox" value="58" name="Indicatorcheckbox">
+                                                                <i></i>4.6.1 Proportion of population in a given age group achieving at least a fixed level of proficiency in functional (a) literacy and (b) numeracy skills, by sex
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG4Indicatorcheckbox" value="59" name="Indicatorcheckbox">
+                                                                <i></i>4.7.1 Extent to which (i) global citizenship education and (ii) education for sustainable development, including gender equality and human rights, are mainstreamed at all levels in: (a) national education policies, (b) curricula, (c) teacher education and (d) student assessment
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG4Indicatorcheckbox" value="60" name="Indicatorcheckbox">
+                                                                <i></i>4.a.1 Proportion of schools with access to (a) electricity; (b) the Internet for pedagogical purposes; (c) computers for pedagogical purposes; (d) adapted infrastructure and materials for students with disabilities; (e) basic drinking water (f) single-sex basic sanitation facilities; and (g) basic handwashing facilities (as per the WASH indicator definitions)
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG4Indicatorcheckbox" value="61" name="Indicatorcheckbox">
+                                                                <i></i>4.b.1 Volume of official development assistance flows for scholarships by sector and type of study
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG4Indicatorcheckbox" value="62" name="Indicatorcheckbox">
+                                                                <i></i>4.c.1 Proportion of teachers in: (a) pre-primary; (b) primary; (c) lower secondary; and (d) upper secondary education who have received at least the minimum organized teacher training (e.g. pedagogical training) pre-service or in-service required for teaching at the relevant level in a given country
+                                                            </label>
+                                                        </div><!-- /.box-body -->
+                                                    </div><!-- /.box -->
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <!-- SDGs List Row2-->
+                                                <div class="col-md-3">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#ff3a21;border-radius:20px;">
+                                                        <div class="box-header" style="background-color:#ff3a21;border-radius:20px;">
+                                                            <div class="box-tools pull-right" style="right:0px;position:unset">
+                                                                <button class="btn btn-danger btn btn-sm" type="button" id="btnSDG5" title="Expand Indicators" style="background-color: #ff3a21;display:none;">
+                                                                    <i class="fa fa-plus" id="ibtnSDG5" style="background-color:#ff3a21"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="box-tools pull-left" style="right:0px;position:unset">
+                                                                <input type="checkbox" class="minimal-red" name="checkbox" value="5" id="CHKSDG5">
+                                                            </div>
+                                                            <a href="/Home/Gender_Equality"><img src="~/Images/SDG-5.png" height="100%" width="100%" style="border-top: solid;margin-top: 5px;" /></a>
+                                                            @*<h3 class="box-title">SDG-1 - No Poverty</h3>*@
+
+                                                        </div>
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#00AED9;border-radius:20px;">
+                                                        <div class="box-header" style="background-color:#00AED9;border-radius:20px;">
+                                                            <div class="box-tools pull-right" style="right:0px;position:unset">
+                                                                <button class="btn btn-danger btn btn-sm" type="button" id="btnSDG6" title="Expand Indicators" style="background-color: #00AED9;display:none;">
+                                                                    <i class="fa fa-plus" id="ibtnSDG6" style="background-color:#00AED9"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="box-tools pull-left" style="right:0px;position:unset">
+                                                                <input type="checkbox" class="minimal-red" name="checkbox" value="6" id="CHKSDG6">
+                                                            </div>
+                                                            <a href="/Home/Clean_Water"><img src="~/Images/SDG-6.png" height="100%" width="100%" style="border-top: solid;margin-top: 5px;" /></a>
+                                                            @*<h3 class="box-title">SDG-1 - No Poverty</h3>*@
+
+                                                        </div>
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#FDB713;border-radius:20px;">
+                                                        <div class="box-header" style="background-color:#FDB713;border-radius:20px;">
+                                                            <div class="box-tools pull-right" style="right:0px;position:unset">
+                                                                <button class="btn btn-danger btn btn-sm" type="button" id="btnSDG7" title="Expand Indicators" style="background-color: #FDB713;display:none;">
+                                                                    <i class="fa fa-plus" id="ibtnSDG7" style="background-color:#FDB713"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="box-tools pull-left" style="right:0px;position:unset">
+                                                                <input type="checkbox" class="minimal-red" name="checkbox" value="7" id="CHKSDG7">
+                                                            </div>
+                                                            <a href="/Home/Affordable_Clean_Energy"><img src="~/Images/SDG-7.png" height="100%" width="100%" style="border-top: solid;margin-top: 5px;" /></a>
+                                                        </div>
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#8F1838;border-radius:20px;">
+                                                        <div class="box-header" style="background-color:#8F1838;border-radius:20px;">
+                                                            <div class="box-tools pull-right" style="right:0px;position:unset">
+                                                                <button class="btn btn-danger btn btn-sm" type="button" id="btnSDG8" title="Expand Indicators" style="background-color: #8F1838;display:none;">
+                                                                    <i class="fa fa-plus" id="ibtnSDG8" style="background-color:#8F1838"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="box-tools pull-left" style="right:0px;position:unset">
+                                                                <input type="checkbox" class="minimal-red" name="checkbox" value="8" id="CHKSDG8">
+                                                            </div>
+                                                            <a href="/Home/Decent_Work"><img src="~/Images/SDG-8.png" height="100%" width="100%" style="border-top: solid;margin-top: 5px;" /></a>
+                                                            @*<h3 class="box-title">SDG-1 - No Poverty</h3>*@
+
+                                                        </div>
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <!-- Indicatorss List Row2-->
+                                                <div class="col-md-12" style="display:none" id="SDG5Body">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#ff3a21">
+                                                        <div class="box-body">
+                                                            <h3><strong> SDG-5 - Indicators List</strong></h3>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="ChkAllSDG5" value="0" name="ChkAllSDG5">
+                                                                <i></i><strong style="font-size:20px;color:#ff3a21"> Check/Un-Check All</strong>
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG5Indicatorcheckbox" value="63" name="Indicatorcheckbox">
+                                                                <i></i>5.1.1 Whether or not legal frameworks are in place to promote, enforce and monitor equality and non-discrimination on the basis of sex
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG5Indicatorcheckbox" value="64" name="Indicatorcheckbox">
+                                                                <i></i>5.2.2 Proportion of women and girls aged 15 years and older subjected to sexual violence by persons other than an intimate partner in the previous 12 months, by age and place of occurrence
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG5Indicatorcheckbox" value="65" name="Indicatorcheckbox">
+                                                                <i></i>5.2.1 Proportion of ever-partnered women and girls aged 15 years and older subjected to physical, sexual or psychological violence by a current or former intimate partner in the previous 12 months, by form of violence and by age
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG5Indicatorcheckbox" value="66" name="Indicatorcheckbox">
+                                                                <i></i>5.3.1 Proportion of women aged 20-24 years who were married or in a union before age 15 and before age 18
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG5Indicatorcheckbox" value="67" name="Indicatorcheckbox">
+                                                                <i></i>5.3.2 Proportion of girls and women aged 15-49 years who have undergone female genital mutilation/cutting, by age
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG5Indicatorcheckbox" value="68" name="Indicatorcheckbox">
+                                                                <i></i>5.4.1 Proportion of time spent on unpaid domestic and care work, by sex, age and location
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG5Indicatorcheckbox" value="69" name="Indicatorcheckbox">
+                                                                <i></i>5.5.1 Proportion of seats held by women in national parliaments and local governments
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG5Indicatorcheckbox" value="70" name="Indicatorcheckbox">
+                                                                <i></i>5.5.2 Proportion of women in managerial positions
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG5Indicatorcheckbox" value="71" name="Indicatorcheckbox">
+                                                                <i></i>5.6.1 Proportion of women aged 15-49 years who make their own informed decisions regarding sexual relations, contraceptive use and reproductive health care
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG5Indicatorcheckbox" value="72" name="Indicatorcheckbox">
+                                                                <i></i>5.6.2 Number of countries with laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG5Indicatorcheckbox" value="73" name="Indicatorcheckbox">
+                                                                <i></i>5.a.1 (a) Proportion of total agricultural population with ownership or secure rights over agricultural land, by sex; and b) share of women among owners or rights-bearers of agricultural land, by type of tenure
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG5Indicatorcheckbox" value="74" name="Indicatorcheckbox">
+                                                                <i></i>5.a.2 Proportion of countries where the legal framework (including customary law) guarantees women's equal rights to land ownership and/or control
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG5Indicatorcheckbox" value="75" name="Indicatorcheckbox">
+                                                                <i></i>5.b.1 Proportion of individuals who own a mobile telephone, by sex
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG5Indicatorcheckbox" value="76" name="Indicatorcheckbox">
+                                                                <i></i>5.c.1 Proportion of countries with systems to track and make public allocations for gender equality and women’s empowerment
+                                                            </label>
+                                                        </div><!-- /.box-body -->
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-12" style="display:none" id="SDG6Body">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#00AED9">
+                                                        <div class="box-body">
+                                                            <h3><strong> SDG-6 - Indicators List</strong></h3>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="ChkAllSDG6" value="0" name="ChkAllSDG6">
+                                                                <i></i><strong style="font-size:20px;color:#00AED9"> Check/Un-Check All</strong>
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG6Indicatorcheckbox" value="77" name="Indicatorcheckbox">
+                                                                <i></i>6.1.1 Proportion of population using safely managed drinking water services
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG6Indicatorcheckbox" value="78" name="Indicatorcheckbox">
+                                                                <i></i>6.2.1 Proportion of population using (a) safely managed sanitation services and (b) a hand-washing facility with soap and water
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG6Indicatorcheckbox" value="79" name="Indicatorcheckbox">
+                                                                <i></i>6.3.1 Proportion of wastewater safely treated
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG6Indicatorcheckbox" value="80" name="Indicatorcheckbox">
+                                                                <i></i>6.3.2 Proportion of bodies of water with good ambient water quality
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG6Indicatorcheckbox" value="81" name="Indicatorcheckbox">
+                                                                <i></i>6.4.1 Change in water-use efficiency over time
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG6Indicatorcheckbox" value="82" name="Indicatorcheckbox">
+                                                                <i></i>6.4.2 Level of water stress: freshwater witdrawal as a proportion of available freshwater resources
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG6Indicatorcheckbox" value="83" name="Indicatorcheckbox">
+                                                                <i></i>6.5.1 Degree of integrated water resources management implementation (0-100)
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG6Indicatorcheckbox" value="84" name="Indicatorcheckbox">
+                                                                <i></i>6.5.2 Proportion of transboundary basin area with an operational arrangement for water cooperation
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG6Indicatorcheckbox" value="85" name="Indicatorcheckbox">
+                                                                <i></i>6.6.1 Change in the extent of water-related ecosystems over time
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG6Indicatorcheckbox" value="86" name="Indicatorcheckbox">
+                                                                <i></i>6.a.1 Amount of water- and sanitation-related official development assistance that is part of a government-coordinated spending plan
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG6Indicatorcheckbox" value="87" name="Indicatorcheckbox">
+                                                                <i></i>6.b.1 Proportion of local administrative units with established and operational policies and procedures for participation of local communities in water and sanitation management
+                                                            </label>
+
+                                                        </div><!-- /.box-body -->
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-12" style="display:none" id="SDG7Body">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#FDB713">
+                                                        <div class="box-body">
+                                                            <h3><strong> SDG-7 - Indicators List</strong></h3>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="ChkAllSDG7" value="0" name="ChkAllSDG7">
+                                                                <i></i><strong style="font-size:20px;color:#FDB713"> Check/Un-Check All</strong>
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG7Indicatorcheckbox" value="88" name="Indicatorcheckbox">
+                                                                <i></i>7.1.1 Proportion of population with access to electricity
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG7Indicatorcheckbox" value="89" name="Indicatorcheckbox">
+                                                                <i></i>7.1.2 Proportion of population with primary reliance on clean fuels and technology
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG7Indicatorcheckbox" value="90" name="Indicatorcheckbox">
+                                                                <i></i>7.2.1 Renewable energy share in the total final energy consumption
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG7Indicatorcheckbox" value="91" name="Indicatorcheckbox">
+                                                                <i></i>7.3.1 Energy intensity measured in terms of primary energy and GDP
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG7Indicatorcheckbox" value="92" name="Indicatorcheckbox">
+                                                                <i></i>7.a.1 International financial flows to developing countries in support of clean energy research and development and renewable energy production, including in hybrid systems
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG7Indicatorcheckbox" value="93" name="Indicatorcheckbox">
+                                                                <i></i>7.b.1 Investments in energy efficiency as a percentage of GDP and the amount of foreign direct investment in financial transfer for infrastructure and technology to sustainable development services
+                                                            </label>
+                                                        </div><!-- /.box-body -->
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-12" style="display:none" id="SDG8Body">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#8F1838">
+                                                        <div class="box-body">
+                                                            <h3><strong> SDG-8 - Indicators List</strong></h3>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="ChkAllSDG8" value="0" name="ChkAllSDG8">
+                                                                <i></i><strong style="font-size:20px;color:#8F1838"> Check/Un-Check All</strong>
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG8Indicatorcheckbox" value="94" name="Indicatorcheckbox">
+                                                                <i></i>8.1.1 Annual growth rate of real GDP per capita
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG8Indicatorcheckbox" value="95" name="Indicatorcheckbox">
+                                                                <i></i>8.2.1 Annual growth rate of real GDP per employed person
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG8Indicatorcheckbox" value="96" name="Indicatorcheckbox">
+                                                                <i></i>8.3.1 Proportion of informal employment in non-agriculture employment, by sex
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG8Indicatorcheckbox" value="97" name="Indicatorcheckbox">
+                                                                <i></i>8.4.1 Material footprint, material footprint per capita, and material footprint per GDP
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG8Indicatorcheckbox" value="98" name="Indicatorcheckbox">
+                                                                <i></i>8.5.1 Average hourly earnings of female and male employees, by occupation, age and persons with disabilities
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG8Indicatorcheckbox" value="99" name="Indicatorcheckbox">
+                                                                <i></i>8.5.2 Unemployment rate, by sex, age and persons with disabilities
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG8Indicatorcheckbox" value="100" name="Indicatorcheckbox">
+                                                                <i></i>8.6.1 Proportion of youth (aged 15-24 years) not in education, employment or training
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG8Indicatorcheckbox" value="101" name="Indicatorcheckbox">
+                                                                <i></i>8.7.1 Proportion and number of children aged 5-17 years engaged in child labour, by sex and age
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG8Indicatorcheckbox" value="102" name="Indicatorcheckbox">
+                                                                <i></i>8.8.1 Frequency rates of fatal and non-fatal occupational injuries, by sex and migrant status
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG8Indicatorcheckbox" value="103" name="Indicatorcheckbox">
+                                                                <i></i>8.8.2 Level of national compliance with labour rights (freedom of association and collective bargaining) based on International Labour Organization (ILO) textual sources and national legislation, by sex and migrant status
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG8Indicatorcheckbox" value="104" name="Indicatorcheckbox">
+                                                                <i></i>8.9.1 Tourism direct GDP as a proportion of total GDP and in growth rate
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG8Indicatorcheckbox" value="105" name="Indicatorcheckbox">
+                                                                <i></i>8.9.2 Proportion of jobs in sustainable tourism industries out of total tourism jobs
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG8Indicatorcheckbox" value="106" name="Indicatorcheckbox">
+                                                                <i></i>8.10.1 (a) Number of commercial bank branches per 100,000 adults and (b) number of automated teller machines (ATMs) per 100,000 adults
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG8Indicatorcheckbox" value="107" name="Indicatorcheckbox">
+                                                                <i></i>8.10.2 Proportion of adults (15 years and older) with an account at a bank or other financial institution or with a mobile-money-service provider
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG8Indicatorcheckbox" value="108" name="Indicatorcheckbox">
+                                                                <i></i>8.a.1 Aid for Trade commitments and disbursements
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG8Indicatorcheckbox" value="109" name="Indicatorcheckbox">
+                                                                <i></i>8.b.1 Existence of a developed and operationalized national strategy for youth employment, as a distinct strategy or as part of a national employment strategy
+                                                            </label>
+                                                        </div><!-- /.box-body -->
+                                                    </div><!-- /.box -->
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <!-- SDGs List Row3-->
+                                                <div class="col-md-3">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#F36D25;border-radius:20px;">
+                                                        <div class="box-header" style="background-color:#F36D25;border-radius:20px;">
+                                                            <div class="box-tools pull-right" style="right:0px;position:unset">
+                                                                <button class="btn btn-danger btn btn-sm" type="button" id="btnSDG9" title="Expand Indicators" style="background-color: #F36D25;display:none;">
+                                                                    <i class="fa fa-plus" id="ibtnSDG9" style="background-color:#F36D25"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="box-tools pull-left" style="right:0px;position:unset">
+                                                                <input type="checkbox" class="minimal-red" name="checkbox" value="9" id="CHKSDG9">
+                                                            </div>
+                                                            <a href="/Home/Industry_Innovation_Infrastructure"><img src="~/Images/SDG-9.png" height="100%" width="100%" style="border-top: solid;margin-top: 5px;" /></a>
+                                                        </div>
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#E11484;border-radius:20px;">
+                                                        <div class="box-header" style="background-color:#E11484;border-radius:20px;">
+                                                            <div class="box-tools pull-right" style="right:0px;position:unset">
+                                                                <button class="btn btn-danger btn btn-sm" type="button" id="btnSDG10" title="Expand Indicators" style="background-color: #E11484;display:none;">
+                                                                    <i class="fa fa-plus" id="ibtnSDG10" style="background-color:#E11484"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="box-tools pull-left" style="right:0px;position:unset">
+                                                                <input type="checkbox" class="minimal-red" name="checkbox" value="10" id="CHKSDG10">
+                                                            </div>
+                                                            <a href="/Home/Reduced_Inequalities"><img src="~/Images/SDG-10.png" height="100%" width="100%" style="border-top: solid;margin-top: 5px;" /></a>
+                                                        </div>
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#F99D26;border-radius:20px;">
+                                                        <div class="box-header" style="background-color:#F99D26;border-radius:20px;">
+                                                            <div class="box-tools pull-right" style="right:0px;position:unset">
+                                                                <button class="btn btn-danger btn btn-sm" type="button" id="btnSDG11" title="Expand Indicators" style="background-color: #F99D26;display:none;">
+                                                                    <i class="fa fa-plus" id="ibtnSDG11" style="background-color:#F99D26"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="box-tools pull-left" style="right:0px;position:unset">
+                                                                <input type="checkbox" class="minimal-red" name="checkbox" value="11" id="CHKSDG11">
+                                                            </div>
+                                                            <a href="/Home/Sustainable_Cities"><img src="~/Images/SDG-11.png" height="100%" width="100%" style="border-top: solid;margin-top: 5px;" /></a>
+                                                        </div>
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#CF8D2A;border-radius:20px;">
+                                                        <div class="box-header" style="background-color:#CF8D2A;border-radius:20px;">
+                                                            <div class="box-tools pull-right" style="right:0px;position:unset">
+                                                                <button class="btn btn-danger btn btn-sm" type="button" id="btnSDG12" title="Expand Indicators" style="background-color: #CF8D2A;display:none;">
+                                                                    <i class="fa fa-plus" id="ibtnSDG12" style="background-color:#CF8D2A"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="box-tools pull-left" style="right:0px;position:unset">
+                                                                <input type="checkbox" class="minimal-red" name="checkbox" value="12" id="CHKSDG12">
+                                                            </div>
+                                                            <a href="/Home/Responsible_Consuption_Production"><img src="~/Images/SDG-12.png" height="100%" width="100%" style="border-top: solid;margin-top: 5px;" /></a>
+                                                        </div>
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <!-- Indicatorss List Row3-->
+                                                <div class="col-md-12" style="display:none" id="SDG9Body">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#F36D25">
+                                                        <div class="box-body">
+                                                            <h3><strong> SDG-9 - Indicators List</strong></h3>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="ChkAllSDG9" value="0" name="ChkAllSDG9">
+                                                                <i></i><strong style="font-size:20px;color:#F36D25"> Check/Un-Check All</strong>
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG9Indicatorcheckbox" value="110" name="Indicatorcheckbox">
+                                                                <i></i>9.1.1 Proportion of the rural population who live within 2 km of an all-season road
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG9Indicatorcheckbox" value="111" name="Indicatorcheckbox">
+                                                                <i></i>9.1.2 Passenger and freight volumes, by mode of transport
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG9Indicatorcheckbox" value="112" name="Indicatorcheckbox">
+                                                                <i></i>9.2.1 Manufacturing value added as a proportion of GDP and per capita
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG9Indicatorcheckbox" value="113" name="Indicatorcheckbox">
+                                                                <i></i>9.2.2 Manufacturing employment as a proportion of total employment
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG9Indicatorcheckbox" value="114" name="Indicatorcheckbox">
+                                                                <i></i>9.3.1 Proportion of small-scale industries in total industry value added
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG9Indicatorcheckbox" value="115" name="Indicatorcheckbox">
+                                                                <i></i>9.3.2 Proportion of small-scale industries with a loan or line of credit
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG9Indicatorcheckbox" value="116" name="Indicatorcheckbox">
+                                                                <i></i>9.4.1 CO2 emission per unit of value added
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG9Indicatorcheckbox" value="117" name="Indicatorcheckbox">
+                                                                <i></i>9.5.1 Research and development expenditure as a proportion of GDP
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG9Indicatorcheckbox" value="118" name="Indicatorcheckbox">
+                                                                <i></i>9.5.2 Researchers (in full-time equivalent) per million inhabitants
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG9Indicatorcheckbox" value="119" name="Indicatorcheckbox">
+                                                                <i></i>9.a.1 Total official international support (official development assistance plus other official flows) to infrastructure
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG9Indicatorcheckbox" value="120" name="Indicatorcheckbox">
+                                                                <i></i>9.b.1 Proportion of medium and high-tech industry value added in total value added
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG9Indicatorcheckbox" value="121" name="Indicatorcheckbox">
+                                                                <i></i>9.c.1 Proportion of population covered by a mobile network, by technology
+                                                            </label>
+                                                        </div><!-- /.box-body -->
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-12" style="display:none" id="SDG10Body">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#E11484">
+                                                        <div class="box-body">
+                                                            <h3><strong> SDG-10 - Indicators List</strong></h3>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="ChkAllSDG10" value="0" name="ChkAllSDG10">
+                                                                <i></i><strong style="font-size:20px;color:#E11484"> Check/Un-Check All</strong>
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG10Indicatorcheckbox" value="122" name="Indicatorcheckbox">
+                                                                <i></i>10.1.1 Growth rates of household expenditure or income per capita among the bottom 40 per cent of the population and the total population
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG10Indicatorcheckbox" value="123" name="Indicatorcheckbox">
+                                                                <i></i>10.2.1 Proportion of people living below 50 per cent of median income, disaggregated by age, sex and persons with disabilities
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG10Indicatorcheckbox" value="124" name="Indicatorcheckbox">
+                                                                <i></i>10.3.1 Proportion of population reporting having personally felt discriminated against or harassed within the previous 12 months on the basis of a ground of discrimination prohibited under international human rights law
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG10Indicatorcheckbox" value="125" name="Indicatorcheckbox">
+                                                                <i></i>10.4.1 Labour share of GDP, comprising wages and social protection transfers
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG10Indicatorcheckbox" value="126" name="Indicatorcheckbox">
+                                                                <i></i>10.5.1 Financial Soundness Indicators
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG10Indicatorcheckbox" value="127" name="Indicatorcheckbox">
+                                                                <i></i>10.6.1 Proportion of members and voting rights of developing countries in international organizations
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG10Indicatorcheckbox" value="128" name="Indicatorcheckbox">
+                                                                <i></i>10.7.1 Recruitment cost borne by employee as a proportion of yearly income earned in country of destination
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG10Indicatorcheckbox" value="129" name="Indicatorcheckbox">
+                                                                <i></i>10.7.2 Number of countries with migration policies that facilitate orderly, safe, regular and responsible migration and mobility of people
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG10Indicatorcheckbox" value="130" name="Indicatorcheckbox">
+                                                                <i></i>10.a.1 Proportion of tariff lines applied to imports from least developed countries and developing countries with zero-tariff
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG10Indicatorcheckbox" value="131" name="Indicatorcheckbox">
+                                                                <i></i>10.b.1 Total resource flows for development, by recipient and donor countries and type of flow (e.g. official development assistance, foreign direct investment and other flows)
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG10Indicatorcheckbox" value="132" name="Indicatorcheckbox">
+                                                                <i></i>10.c.1 Remittance costs as a percentage of the amount remitted
+                                                            </label>
+                                                        </div><!-- /.box-body -->
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-12" style="display:none" id="SDG11Body">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#F99D26">
+                                                        <div class="box-body">
+                                                            <h3><strong> SDG-11 - Indicators List</strong></h3>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="ChkAllSDG11" value="0" name="ChkAllSDG11">
+                                                                <i></i><strong style="font-size:20px;color:#F99D26"> Check/Un-Check All</strong>
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG11Indicatorcheckbox" value="133" name="Indicatorcheckbox">
+                                                                <i></i>11.1.1 Proportion of urban population living in slums, informal settlements or inadequate housing
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG11Indicatorcheckbox" value="134" name="Indicatorcheckbox">
+                                                                <i></i>11.2.1 Proportion of the population that has convenient access to public transport, by sex, age and persons with disabilities
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG11Indicatorcheckbox" value="135" name="Indicatorcheckbox">
+                                                                <i></i>11.3.1 Ratio of land consumption rate to population growth rate
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG11Indicatorcheckbox" value="136" name="Indicatorcheckbox">
+                                                                <i></i>11.3.2 Proportion of cities with a direct participation structure of civil society in urban planning and management that operate regularly and democratically
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG11Indicatorcheckbox" value="137" name="Indicatorcheckbox">
+                                                                <i></i>11.5.1 Number of deaths, missing people, and persons affected by disaster per 100,000 people
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG11Indicatorcheckbox" value="138" name="Indicatorcheckbox">
+                                                                <i></i>11.5.2 Direct economic loss in relation to global GDP, damage to critical infrastructure and number of disruptions to basic services, attributed to disasters
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG11Indicatorcheckbox" value="139" name="Indicatorcheckbox">
+                                                                <i></i>11.6.1 Proportion of urban solid waste regularly collected and with adequate final discharge out of total urban solid waste generated, by cities
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG11Indicatorcheckbox" value="140" name="Indicatorcheckbox">
+                                                                <i></i>11.6.2 Annual mean levels of fine particulate matter (e.g. PM2.5 and PM10) in cities (population weighted)
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG11Indicatorcheckbox" value="141" name="Indicatorcheckbox">
+                                                                <i></i>11.7.1 Average share of the built-up area of cities that is open space for public use for all, by sex, age and persons with disabilities
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG11Indicatorcheckbox" value="142" name="Indicatorcheckbox">
+                                                                <i></i>11.7.2 Proportion of persons victim of physical or sexual harassment, by sex, age, disability status and place of occurrence, in the previous 12 months
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG11Indicatorcheckbox" value="143" name="Indicatorcheckbox">
+                                                                <i></i>11.a.1 Proportion of population living in cities that implement urban and regional development plans integrating population projections and resource needs, by size of city
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG11Indicatorcheckbox" value="144" name="Indicatorcheckbox">
+                                                                <i></i>11.b.1 Number of countries that adopt and implement national disaster risk reduction strategies in line with the Sendai Framework for Disaster Risk Reduction 2015–2030
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG11Indicatorcheckbox" value="145" name="Indicatorcheckbox">
+                                                                <i></i>11.b.2 Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG11Indicatorcheckbox" value="146" name="Indicatorcheckbox">
+                                                                <i></i>11.c.1 Proportion of financial support to the least developed countries that is allocated to the construction and retrofitting of sustainable, resilient and resource-efficient buildings utilizing local materials
+                                                            </label>
+                                                        </div><!-- /.box-body -->
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-12" style="display:none" id="SDG12Body">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#CF8D2A">
+                                                        <div class="box-body">
+                                                            <h3><strong> SDG-12 - Indicators List</strong></h3>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="ChkAllSDG12" value="0" name="ChkAllSDG12">
+                                                                <i></i><strong style="font-size:20px;color:#CF8D2A"> Check/Un-Check All</strong>
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG12Indicatorcheckbox" value="147" name="Indicatorcheckbox">
+                                                                <i></i>12.1.1 Number of countries with sustainable consumption and production (SCP) national action plans or SCP mainstreamed as a priority or target into national policies
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG12Indicatorcheckbox" value="148" name="Indicatorcheckbox">
+                                                                <i></i>12.2.1 Material footprint, material footprint per capita and material footprint per GDP
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG12Indicatorcheckbox" value="149" name="Indicatorcheckbox">
+                                                                <i></i>12.2.2 Domestic material consumption, domestic material consumption per capita, and domestic material consumption per GDP
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG12Indicatorcheckbox" value="150" name="Indicatorcheckbox">
+                                                                <i></i>12.3.1 (a) Food loss index and (b) food waste index
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG12Indicatorcheckbox" value="151" name="Indicatorcheckbox">
+                                                                <i></i>12.4.1 Number of Parties to international multilateral environmental agreements on hazardous, and other chemicals that meet their commitments and obligations in transmitting information as required by each relevant agreement
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG12Indicatorcheckbox" value="152" name="Indicatorcheckbox">
+                                                                <i></i>12.4.2 Hazardous waste generated per capita and proportion of hazardous waste treated, by type of treatment
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG12Indicatorcheckbox" value="153" name="Indicatorcheckbox">
+                                                                <i></i>12.5.1 National recycling rate, tons of material recycled
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG12Indicatorcheckbox" value="154" name="Indicatorcheckbox">
+                                                                <i></i>12.6.1 Number of companies publishing sustainability reports
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG12Indicatorcheckbox" value="155" name="Indicatorcheckbox">
+                                                                <i></i>12.7.1 Number of countries implementing sustainable public procurement policies and action plans
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG12Indicatorcheckbox" value="156" name="Indicatorcheckbox">
+                                                                <i></i>12.8.1 Extent to which (i) global citizenship education and (ii) education for sustainable development (including climate change education) are mainstreamed in (a) national education policies; (b) curricula; (c) teacher education; and (d) student assessment
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG12Indicatorcheckbox" value="157" name="Indicatorcheckbox">
+                                                                <i></i>12.a.1 Amount of support to developing countries on research and development for sustainable consumption and production and environmentally sound technologies
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG12Indicatorcheckbox" value="158" name="Indicatorcheckbox">
+                                                                <i></i>12.b.1 Number of sustainable tourism strategies or policies and implemented action plans with agreed monitoring and evaluation tools
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG12Indicatorcheckbox" value="159" name="Indicatorcheckbox">
+                                                                <i></i>12.c.1 Amount of fossil-fuel subsidies per unit of GDP (production and consumption) and as a proportion of total national expenditure on fossil fuels
+                                                            </label>
+                                                        </div><!-- /.box-body -->
+                                                    </div><!-- /.box -->
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <!-- SDGs List Row4-->
+                                                <div class="col-md-3">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#47773D;border-radius:20px;">
+                                                        <div class="box-header" style="background-color:#47773D;border-radius:20px;">
+                                                            <div class="box-tools pull-right" style="right:0px;position:unset">
+                                                                <button class="btn btn-danger btn btn-sm" type="button" id="btnSDG13" title="Expand Indicators" style="background-color: #47773D;display:none;">
+                                                                    <i class="fa fa-plus" id="ibtnSDG13" style="background-color:#47773D"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="box-tools pull-left" style="right:0px;position:unset">
+                                                                <input type="checkbox" class="minimal-red" name="checkbox" value="13" id="CHKSDG13">
+                                                            </div>
+                                                            <a href="/Home/Climate_Action"><img src="~/Images/SDG-13.jpg" height="100%" width="100%" style="border-top: solid;margin-top: 5px;" /></a>
+                                                        </div>
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#007DBC;border-radius:20px;">
+                                                        <div class="box-header" style="background-color:#007DBC;border-radius:20px;">
+                                                            <div class="box-tools pull-right" style="right:0px;position:unset">
+                                                                <button class="btn btn-danger btn btn-sm" type="button" id="btnSDG14" title="Expand Indicators" style="background-color: #007DBC;display:none;">
+                                                                    <i class="fa fa-plus" id="ibtnSDG14" style="background-color:#007DBC"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="box-tools pull-left" style="right:0px;position:unset">
+                                                                <input type="checkbox" class="minimal-red" name="checkbox" value="14" id="CHKSDG14">
+                                                            </div>
+                                                            <a href="/Home/Life_Below_Water"><img src="~/Images/SDG-14.png" height="100%" width="100%" style="border-top: solid;margin-top: 5px;" /></a>
+                                                        </div>
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#3EB049;border-radius:20px;">
+                                                        <div class="box-header" style="background-color:#3EB049;border-radius:20px;">
+                                                            <div class="box-tools pull-right" style="right:0px;position:unset">
+                                                                <button class="btn btn-danger btn btn-sm" type="button" id="btnSDG15" title="Expand Indicators" style="background-color: #3EB049;display:none;">
+                                                                    <i class="fa fa-plus" id="ibtnSDG15" style="background-color:#3EB049"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="box-tools pull-left" style="right:0px;position:unset">
+                                                                <input type="checkbox" class="minimal-red" name="checkbox" value="15" id="CHKSDG15">
+                                                            </div>
+                                                            <a href="/Home/Life_On_Land"><img src="~/Images/SDG-15.png" height="100%" width="100%" style="border-top: solid;margin-top: 5px;" /></a>
+                                                        </div>
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#02558B;border-radius:20px;">
+                                                        <div class="box-header" style="background-color:#02558B;border-radius:20px;">
+                                                            <div class="box-tools pull-right" style="right:0px;position:unset">
+                                                                <button class="btn btn-danger btn btn-sm" type="button" id="btnSDG16" title="Expand Indicators" style="background-color: #02558B;display:none;">
+                                                                    <i class="fa fa-plus" id="ibtnSDG16" style="background-color:#02558B"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="box-tools pull-left" style="right:0px;position:unset">
+                                                                <input type="checkbox" class="minimal-red" name="checkbox" value="16" id="CHKSDG16">
+                                                            </div>
+                                                            <a href="/Home/Peace_Justice"><img src="~/Images/SDG-16.png" height="100%" width="100%" style="border-top: solid;margin-top: 5px;" /></a>
+                                                        </div>
+                                                    </div><!-- /.box -->
+                                                </div>
+
+                                                <!-- Indicatorss List Row4-->
+                                                <div class="col-md-12" style="display:none" id="SDG13Body">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#47773D">
+                                                        <div class="box-body">
+                                                            <h3><strong> SDG-13 - Indicators List</strong></h3>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="ChkAllSDG13" value="0" name="ChkAllSDG13">
+                                                                <i></i><strong style="font-size:20px;color:#47773D"> Check/Un-Check All</strong>
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG13Indicatorcheckbox" value="160" name="Indicatorcheckbox">
+                                                                <i></i>13.1.1 Number of deaths, missing persons and directly affected persons attributed to disasters per 100,000 population
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG13Indicatorcheckbox" value="161" name="Indicatorcheckbox">
+                                                                <i></i>13.1.2 Number of countries that adopt and implement national disaster risk reduction strategies in line with the Sendai Framework for Disaster Risk Reduction 2015–2030
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG13Indicatorcheckbox" value="162" name="Indicatorcheckbox">
+                                                                <i></i>13.1.3 Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG13Indicatorcheckbox" value="163" name="Indicatorcheckbox">
+                                                                <i></i>13.2.1 Number of countries that have communicated the establishment or operationalization of an integrated policy/strategy/plan which increases their ability to adapt to the adverse impacts of climate change, and foster climate resilience and low greenhouse gas emissions development in a manner that does not threaten food production (including a national adaptation plan, nationally determined contribution, national communication, biennial update report or other)
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG13Indicatorcheckbox" value="164" name="Indicatorcheckbox">
+                                                                <i></i>13.3.1 Number of countries that have integrated mitigation, adaptation, impact reduction and early warning into primary, secondary and tertiary curricula
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG13Indicatorcheckbox" value="165" name="Indicatorcheckbox">
+                                                                <i></i>13.3.2 Number of countries that have communicated the strengthening of institutional, systemic and individual capacity-building to implement adaptation, mitigation and technology transfer, and development actions
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG13Indicatorcheckbox" value="166" name="Indicatorcheckbox">
+                                                                <i></i>13.a.1 Mobilized amount of United States dollars per year between 2020 and 2025 accountable towards the $100 billion commitment
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG13Indicatorcheckbox" value="167" name="Indicatorcheckbox">
+                                                                <i></i>13.b.1 Number of least developed countries and small island developing States that are receiving specialized support, and amount of support, including finance, technology and capacity-building, for mechanisms for raising capacities for effective climate change-related planning and management, including focusing on women, youth and local and marginalized communities
+                                                            </label>
+                                                        </div><!-- /.box-body -->
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-12" style="display:none" id="SDG14Body">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#007DBC">
+                                                        <div class="box-body">
+                                                            <h3><strong> SDG-14 - Indicators List</strong></h3>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="ChkAllSDG14" value="0" name="ChkAllSDG14">
+                                                                <i></i><strong style="font-size:20px;color:#007DBC"> Check/Un-Check All</strong>
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG14Indicatorcheckbox" value="168" name="Indicatorcheckbox">
+                                                                <i></i>14.1.1 Index of coastal eutrophication and floating plastic debris density
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG14Indicatorcheckbox" value="169" name="Indicatorcheckbox">
+                                                                <i></i>14.2.1 Proportion of national exclusive economic zones managed using ecosystem-based approaches
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG14Indicatorcheckbox" value="170" name="Indicatorcheckbox">
+                                                                <i></i>14.3.1 Average marine acidity (pH) measured at agreed suite of representative sampling stations
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG14Indicatorcheckbox" value="171" name="Indicatorcheckbox">
+                                                                <i></i>14.4.1 Proportion of fish stocks within biologically sustainable levels
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG14Indicatorcheckbox" value="172" name="Indicatorcheckbox">
+                                                                <i></i>14.5.1 Coverage of protected areas in relation to marine areas
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG14Indicatorcheckbox" value="173" name="Indicatorcheckbox">
+                                                                <i></i>14.6.1 Progress by countries in the degree of implementation of international instruments aiming to combat illegal, unreported and unregulated fishing
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG14Indicatorcheckbox" value="174" name="Indicatorcheckbox">
+                                                                <i></i>14.7.1 Sustainable fisheries as a percentage of GDP in small island developing States, least developed countries and all countries
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG14Indicatorcheckbox" value="175" name="Indicatorcheckbox">
+                                                                <i></i>14.a.1 Proportion of total research budget allocated to research in the field of marine technology
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG14Indicatorcheckbox" value="176" name="Indicatorcheckbox">
+                                                                <i></i>14.b.1 Degree of application of a legal/regulatory/ policy/institutional framework which recognizes and protects access rights for small-scale fisheries
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG14Indicatorcheckbox" value="177" name="Indicatorcheckbox">
+                                                                <i></i>14.c.1 Number of countries making progress in ratifying, accepting and implementing through legal, policy and institutional frameworks, ocean-related instruments that implement international law, as reflected in the United Nation Convention on the Law of the Sea, for the conservation and sustainable use of the oceans and their resources
+                                                            </label>
+                                                        </div><!-- /.box-body -->
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-12" style="display:none" id="SDG15Body">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#3EB049">
+                                                        <div class="box-body">
+                                                            <h3><strong> SDG-15 - Indicators List</strong></h3>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="ChkAllSDG15" value="0" name="ChkAllSDG15">
+                                                                <i></i><strong style="font-size:20px;color:#3EB049"> Check/Un-Check All</strong>
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG15Indicatorcheckbox" value="178" name="Indicatorcheckbox">
+                                                                <i></i>15.1.1 Forest area as a proportion of total land area
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG15Indicatorcheckbox" value="179" name="Indicatorcheckbox">
+                                                                <i></i>15.1.2 Proportion of important sites for terrestrial and freshwater biodiversity that are covered by protected areas, by ecosystem type
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG15Indicatorcheckbox" value="180" name="Indicatorcheckbox">
+                                                                <i></i>15.2.1 Progress towards sustainable forest management
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG15Indicatorcheckbox" value="181" name="Indicatorcheckbox">
+                                                                <i></i>15.3.1 Proportion of land that is degraded over total land area
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG15Indicatorcheckbox" value="182" name="Indicatorcheckbox">
+                                                                <i></i>15.4.1 Coverage by protected areas of important sites for mountain biodiversity
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG15Indicatorcheckbox" value="183" name="Indicatorcheckbox">
+                                                                <i></i>15.4.2 Mountain Green Cover Index
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG15Indicatorcheckbox" value="184" name="Indicatorcheckbox">
+                                                                <i></i>15.5.1 Red List Index
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG15Indicatorcheckbox" value="185" name="Indicatorcheckbox">
+                                                                <i></i>15.6.1 Number of countries that have adopted legislative, administrative and policy frameworks to ensure fair and equitable sharing of benefits
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG15Indicatorcheckbox" value="186" name="Indicatorcheckbox">
+                                                                <i></i>15.7.1 Proportion of traded wildlife that was poached or illicitly trafficked
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG15Indicatorcheckbox" value="187" name="Indicatorcheckbox">
+                                                                <i></i>15.8.1 Proportion of countries adopting relevant national legislation and adequately resourcing the prevention or control of invasive alien species
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG15Indicatorcheckbox" value="188" name="Indicatorcheckbox">
+                                                                <i></i>15.9.1 Progress towards national targets established in accordance with Aichi Biodiversity Target 2 of the Strategic Plan for Biodiversity 2011-2020
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG15Indicatorcheckbox" value="189" name="Indicatorcheckbox">
+                                                                <i></i>15.a.1 Official development assistance and public expenditure on conservation and sustainable use of biodiversity and ecosystems
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG15Indicatorcheckbox" value="190" name="Indicatorcheckbox">
+                                                                <i></i>15.b.1 Official development assistance and public expenditure on conservation and sustainable use of biodiversity and ecosystems
+                                                            </label>
+                                                        </div><!-- /.box-body -->
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-12" style="display:none" id="SDG16Body">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#02558B">
+                                                        <div class="box-body">
+                                                            <h3><strong> SDG-16 - Indicators List</strong></h3>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="ChkAllSDG16" value="0" name="ChkAllSDG16">
+                                                                <i></i><strong style="font-size:20px;color:#02558B"> Check/Un-Check All</strong>
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="191" name="Indicatorcheckbox">
+                                                                <i></i>16.1.1 Number of victims of intentional homicide per 100,000 population, by sex and age
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="192" name="Indicatorcheckbox">
+                                                                <i></i>16.1.3 Proportion of population subjected to (a) physical violence, (b) psychological violence and (c) sexual violence in the previous 12 months
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="193" name="Indicatorcheckbox">
+                                                                <i></i>16.1.2 Conflict-related deaths per 100,000 population, by sex, age and cause
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="194" name="Indicatorcheckbox">
+                                                                <i></i>16.1.4 Proportion of people that feel safe walking alone around the area they live
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="195" name="Indicatorcheckbox">
+                                                                <i></i>16.2.1 Percentage of children aged 1-17 years who experienced any physical punishment and/or psychological aggression by caregivers in the past month
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="196" name="Indicatorcheckbox">
+                                                                <i></i>16.2.2 Number of victims of human trafficking per 100,000 population, by sex, age group and form of exploitation
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="197" name="Indicatorcheckbox">
+                                                                <i></i>16.2.3 Proportion of young women and men aged 18-29 years who experienced sexual violence by age 18
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="198" name="Indicatorcheckbox">
+                                                                <i></i>16.3.2 Unsentenced detainees as a proportion of overall prison population
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="199" name="Indicatorcheckbox">
+                                                                <i></i>16.3.1 Proportion of victims of violence in the previous 12 months who reported their victimization to competent authorities or other officially recognized conflict resolution mechanisms
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="200" name="Indicatorcheckbox">
+                                                                <i></i>16.4.2 Proportion of seized, found or surrendered arms whose illicit origin or context has been traced or established by a competent authority in line with international instruments
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="201" name="Indicatorcheckbox">
+                                                                <i></i>16.4.1 Total value of inward and outward illicit financial flows (in current United States dollars)
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="202" name="Indicatorcheckbox">
+                                                                <i></i>16.5.1 Proportion of persons who had at least one contact with a public official and who paid a bribe to a public official, or were asked for a bribe by those public officials, during the previous 12 months
+                                                            </label>
+
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="203" name="Indicatorcheckbox">
+                                                                <i></i>16.5.2 Proportion of businesses that had at least one contact with a public official and that paid a bribe to a public official, or were asked for a bribe by those public officials during the previous 12 months
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="204" name="Indicatorcheckbox">
+                                                                <i></i>16.6.1 Primary government expenditures as a proportion of original approved budget, by sector (or by budget codes or similar)
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="205" name="Indicatorcheckbox">
+                                                                <i></i>16.6.2 Proportion of the population satisfied with their last experience of public services
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="206" name="Indicatorcheckbox">
+                                                                <i></i>16.7.1 Proportions of positions in national and local institutions, including (a) the legislatures; (b) the public service; and (c) the judiciary, compared to national distributions, by sex, age, persons with disabilities and population groups
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="207" name="Indicatorcheckbox">
+                                                                <i></i>16.7.2 Proportion of population who believe decision-making is inclusive and responsive, by sex, age, disability and population group
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="208" name="Indicatorcheckbox">
+                                                                <i></i>16.8.1 Proportion of members and voting rights of developing countries in international organizations
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="209" name="Indicatorcheckbox">
+                                                                <i></i>16.9.1 Proportion of children under 5 years of age whose births have been registered with a civil authority, by age
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="210" name="Indicatorcheckbox">
+                                                                <i></i>16.10.1 Number of verified cases of killing, kidnapping, enforced disappearance, arbitrary detention and torture of journalists, associated media personnel, trade unionists and human rights advocates in the previous 12 months
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="211" name="Indicatorcheckbox">
+                                                                <i></i>16.10.2 Number of countries that adopt and implement constitutional, statutory and/or policy guarantees for public access to information
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="212" name="Indicatorcheckbox">
+                                                                <i></i>16.a.1 Existence of independent national human rights institutions in compliance with the Paris Principles
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG16Indicatorcheckbox" value="213" name="Indicatorcheckbox">
+                                                                <i></i>16.b.1 Proportion of population reporting having personally felt discriminated against or harassed in the previous 12 months on the basis of a ground of discrimination prohibited under international human rights law
+                                                            </label>
+                                                        </div><!-- /.box-body -->
+                                                    </div><!-- /.box -->
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <!-- SDGs List Row5-->
+                                                <div class="col-md-3">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#183668;border-radius:20px;">
+                                                        <div class="box-header" style="background-color:#183668;border-radius:20px;">
+                                                            <div class="box-tools pull-right" style="right:0px;position:unset">
+                                                                <button class="btn btn-danger btn btn-sm" type="button" id="btnSDG17" title="Expand Indicators" style="background-color: #183668;display:none;">
+                                                                    <i class="fa fa-plus" id="ibtnSDG17" style="background-color:#183668"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="box-tools pull-left" style="right:0px;position:unset">
+                                                                <input type="checkbox" class="minimal-red" name="checkbox" value="17" id="CHKSDG17">
+                                                            </div>
+                                                            <a href="/Home/Partnership"><img src="~/Images/SDG-17.png" height="100%" width="100%" style="border-top: solid;margin-top: 5px;" /></a>
+                                                        </div>
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-12" style="display:none" id="SDG17Body">
+                                                    <!-- Success box -->
+                                                    <div class="box box-solid box-success" style="border-color:#183668">
+                                                        <div class="box-body">
+                                                            <h3><strong> SDG-17 - Indicators List</strong></h3>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="ChkAllSDG17" value="0" name="ChkAllSDG17">
+                                                                <i></i><strong style="font-size:20px;color:#183668"> Check/Un-Check All</strong>
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="214" name="Indicatorcheckbox">
+                                                                <i></i>17.1.1 Total government revenue as a proportion of GDP, by source
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="215" name="Indicatorcheckbox">
+                                                                <i></i>17.1.2 Proportion of domestic budget funded by domestic taxes
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="216" name="Indicatorcheckbox">
+                                                                <i></i>17.2.1 Net official development assistance, total and to least developed countries, as a proportion of the Organization for Economic Cooperation and Development (OECD) Development Assistance Committee donors’ gross national income (GNI)
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="217" name="Indicatorcheckbox">
+                                                                <i></i>17.3.2 Volume of remittances (in United States dollars) as a proportion of total GDP
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="218" name="Indicatorcheckbox">
+                                                                <i></i>17.3.1 Foreign direct investments (FDI), official development assistance and South-South Cooperation as a proportion of total domestic budget
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="219" name="Indicatorcheckbox">
+                                                                <i></i>17.4.1 Debt service as a proportion of exports of goods and services
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="220" name="Indicatorcheckbox">
+                                                                <i></i>17.5.1 Number of countries that adopt and implement investment promotion regimes for least developed countries
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="221" name="Indicatorcheckbox">
+                                                                <i></i>17.6.2 Fixed Internet broadband subscriptions per 100 inhabitants, by speed
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="222" name="Indicatorcheckbox">
+                                                                <i></i>17.6.1 Number of science and/or technology cooperation agreements and programmes between countries, by type of cooperation
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="223" name="Indicatorcheckbox">
+                                                                <i></i>17.7.1 Total amount of approved funding for developing countries to promote the development, transfer, dissemination and diffusion of environmentally sound technologies
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="224" name="Indicatorcheckbox">
+                                                                <i></i>17.8.1 Proportion of individuals using the Internet
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="225" name="Indicatorcheckbox">
+                                                                <i></i>17.9.1 Dollar value of financial and technical assistance (including through North-South, South-South and triangular cooperation) committed to developing countries
+                                                            </label>
+
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="226" name="Indicatorcheckbox">
+                                                                <i></i>17.10.1 Worldwide weighted tariff-average
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="227" name="Indicatorcheckbox">
+                                                                <i></i>17.11.1 Developing countries’ and least developed countries’ share of global exports
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="228" name="Indicatorcheckbox">
+                                                                <i></i>17.12.1 Average tariffs faced by developing countries, least developed countries and small island developing States.
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="229" name="Indicatorcheckbox">
+                                                                <i></i>17.13.1 Macroeconomic Dashboard
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="230" name="Indicatorcheckbox">
+                                                                <i></i>17.14.1 Number of countries with mechanisms in place to enhance policy coherence of sustainable development
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="231" name="Indicatorcheckbox">
+                                                                <i></i>17.15.1 Extent of use of country-owned results frameworks and planning tools by providers of development cooperation
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="232" name="Indicatorcheckbox">
+                                                                <i></i>17.16.1 Number of countries reporting progress in multi-stakeholder development effectiveness monitoring frameworks that support the achievement of the sustainable development goals
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="233" name="Indicatorcheckbox">
+                                                                <i></i>17.17.1 Amount of United States dollars committed to (a) public-private partnerships and (b) civil society partnerships
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="234" name="Indicatorcheckbox">
+                                                                <i></i>17.18.1 Proportion of sustainable development indicators produced at the national level with full disaggregation when relevant to the target, in accordance with the Fundamental Principles of Official Statistics
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="235" name="Indicatorcheckbox">
+                                                                <i></i>17.18.2 Number of countries that have national statistical legislation that complies with the Fundamental Principles of Official Statistics
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="236" name="Indicatorcheckbox">
+                                                                <i></i>17.18.3 Number of countries with a national statistical plan that is fully funded and under implementation, by source of funding
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="237" name="Indicatorcheckbox">
+                                                                <i></i>17.19.2 Proportion of countries that (a) have conducted at least one population and housing census in the last 10 years; and (b) have achieved 100 per cent birth registration and 80 per cent death registration
+                                                            </label>
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" id="SDG17Indicatorcheckbox" value="238" name="Indicatorcheckbox">
+                                                                <i></i>17.19.1 Dollar value of all resources made available to strengthen statistical capacity in developing countries
+                                                            </label>
+                                                        </div><!-- /.box-body -->
+                                                    </div><!-- /.box -->
+                                                </div>
+                                                <div class="col-md-1"></div>
+                                                @*<div class="col-md-5">
+                <label class="checkbox">
+                    <input type="checkbox" name="checkbox" value="1" id="CHKSDG1" checked="checked">
+                    <i></i>SDG-1 - No Poverty
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" id="CHKSDG2" value="2" name="checkbox">
+                    <i></i>SDG-2 - Zero Hunger
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" id="CHKSDG3" value="3" name="checkbox">
+                    <i></i>SDG-3 - Good Health and Well-being
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" id="CHKSDG4" value="4" name="checkbox">
+                    <i></i>SDG-4  -Quality Education
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" id="CHKSDG5" value="5" name="checkbox">
+                    <i></i>SDG-5 - Gender Equality
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" id="CHKSDG6" value="6" name="checkbox">
+                    <i></i>SDG-6 - Clean Water and Sanitation
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" id="CHKSDG7" value="7" name="checkbox">
+                    <i></i>SDG-7 - Affordable and Clean Energy
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" id="CHKSDG8" value="8" name="checkbox">
+                    <i></i>SDG-8 - Decent Work and Economic Growth
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" id="CHKSDG9" value="9" name="checkbox">
+                    <i></i>SDG-9 - Industry, Innovation and Infrastructure
+                </label>
+            </div>
+            <div class="col-md-5">
+                <label class="checkbox">
+                    <input type="checkbox" id="CHKSDG10" value="10" name="checkbox">
+                    <i></i>SDG-10 - Reduced Inequality
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" id="CHKSDG11" value="11" name="checkbox">
+                    <i></i>SDG-11 - Sustainable Cities and Communities
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" id="CHKSDG12" value="12" name="checkbox">
+                    <i></i>SDG-12 - Responsible Consumption and Production
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" id="CHKSDG13" value="13" name="checkbox">
+                    <i></i>SDG-13 - Climate Action
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" id="CHKSDG14" value="14" name="checkbox">
+                    <i></i>SDG-14 - Life Below Water
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" id="CHKSDG15" value="15" name="checkbox">
+                    <i></i>SDG-15 - Life on Land
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" id="CHKSDG16" value="16" name="checkbox">
+                    <i></i>SDG-16 - Peace and Justice Strong Institutions
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" id="CHKSDG17" value="17" name="checkbox">
+                    <i></i>SDG-17 - Partnerships to achieve the Goal
+                </label>
+            </div>*@
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- The Modal -->
+                                    <div class="modal fade" id="EmailModle">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Office Email Addresses:</h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+
+                                                <!-- Modal body -->
+                                                <div class="modal-body">
+                                                    <div class="row">
+
+                                                        <div class="col-md-12">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="txt_email">Email ID</label>
+                                                                    <input type="text" class="form-control" id="txt_email" placeholder="Enter Email Address">
+                                                                </div>
+                                                                @Html.ValidationMessageFor(m => m.Division_Id, "", new { @class = "text-danger" })
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="Cmb_Types">Type</label>
+                                                                    <select id="Cmb_Types" class="form-control input-mini" name="Cmb_Types">
+
+                                                                        <option value="Official">Official</option>
+                                                                        <option value="Private">Private</option>
+
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-10">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Modal footer -->
+                                                <div class="modal-footer">
+                                                    <button type="button" id="BtnEmailSubmit" class="btn btn-primary text-center">Submit</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div><!-- /.box-body -->
+                                <div class="box-footer">
+                                    <button type="submit" style="margin-bottom:20px;margin-left:140px;" id="BtnOfficeRegistrationSubmit" class="btn btn-dropbox text-center">Submit</button>
+
+                                </div><!-- /.box-footer-->
+                            </div>
+                        </div>
+                        
+                    </fieldset>
+                }
+                <div class="modal fade" tabindex="-1" id="successModal" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h4>Success</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <h2>Your Email Address Successfully Added!</h2>
+                            </div>
+                            <div class="modal-footer">
+                                <button data-dismiss="modal" class="btn btn-success">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divError" class="alert alert-danger collapse">
+                        <a id="linkClose" class="close" href="#">$times;</a>
+                        <div id="divErrorText"></div>
+                    </div>
+                </div>
+
+                <div class="modal fade" tabindex="-1" id="ContactsuccessModal" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h4>Success</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <h2>Your Contact Number Successfully Added!</h2>
+                            </div>
+                            <div class="modal-footer">
+                                <button data-dismiss="modal" class="btn btn-success">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divError" class="alert alert-danger collapse">
+                        <a id="linkClose" class="close" href="#">$times;</a>
+                        <div id="divErrorText"></div>
+                    </div>
+                </div>
+
+                <div class="modal fade" tabindex="-1" id="successRegistrationModal" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h4>Success</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <h2>Your Registration Completed Successfully!</h2>
+                            </div>
+                            <div class="modal-footer">
+                                <button data-dismiss="modal" class="btn btn-success">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divError" class="alert alert-danger collapse">
+                        <a id="linkClose" class="close" href="#">$times;</a>
+                        <div id="divErrorText"></div>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+
+
+        </div>
+    </div>
+
+    <!-- end widget content -->
+
+</section><!-- /.content -->
+<section class="content"></section>
+
+@Scripts.Render("~/bundles/jqueryval")
+
+

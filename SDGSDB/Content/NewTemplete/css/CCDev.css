@@ -1,0 +1,74 @@
+﻿.astcolor {
+
+    color :red;
+    margin-left:2px;
+}
+
+.wizardStepwidth {
+
+width:16px;
+}
+.dualListPlace{
+   
+    margin-left:200px;
+
+}
+
+.chksFont {
+  font-size:12.5px  !important;
+    margin-left: -20px;
+    margin-right: -10px;
+    margin-bottom: 0px;
+    }
+.lnkFont {
+    font-size:11px;
+    
+    margin-left: -20px;
+    margin-right:25px;
+    color:black;
+  text-decoration:underline ;
+  cursor:pointer;
+   
+   
+    }
+.bordersAll {
+    border: 1px solid #c3c3c3;
+    width:100%;
+    
+}
+
+.btnMargins {
+
+    margin:5px 0px 5px 0px !important;
+    font-weight:bold;
+}
+.bordersless {
+    border: none ! important;
+    width:100%;
+
+}
+.FullWidthTable {
+
+padding: 0px 0px 0px 0px !important;
+}
+
+.wizardCombo {
+
+width:70px;
+height:20px !important;
+}
+.WizardButton {
+background-color:#3276b1 !important;
+
+}
+
+.filterCombo {
+display:inline;
+margin-left:5px;
+margin-right:5px;
+
+}
+
+
+
+

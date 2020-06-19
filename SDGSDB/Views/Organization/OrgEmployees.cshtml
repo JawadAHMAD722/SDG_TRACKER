@@ -1,0 +1,1055 @@
+﻿@using SDGSDB.Models
+@model Employee
+@{
+    ViewBag.Title = "OrgEmployees";
+    Layout = "~/Views/Layouts/_DashboardLayout.cshtml";
+}
+
+@Scripts.Render("~/Scripts/jquery-3.4.1.js")
+@Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+
+            <!-- The Modal Department-->
+            <div class="modal fade" id="AddSectionModal">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="border-radius: 10px">
+
+                        <!--Organization Email Addresses Modal Header -->
+                        <div class="modal-header well" style="padding: 0px;border-radius: 10px;height: 40px;">
+                            <h4 class="modal-title" style="margin-left:20px;margin-top:5px">Add New Department</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!--Organization Email Addresses Modal body -->
+                        <div class="modal-body">
+                            <div class="row">
+                                <label id="lblEmailID" for="lblEmailID" style="display:none"></label>
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="txt_email">Department Name</label>
+                                            <font size="5">@Html.ValidationMessageFor(m => m.EmployeeModel.SectionId, "", new { @class = "text-danger", @Style = "color:Red" })</font>
+                                            @Html.EditorFor(m => m.EmployeeModel.SectionId, new { htmlattributes = new { @class = "form-control", id = "txt_Dept", placeholder = "Department" } })
+
+                                            @*<input type="text" class="form-control" id="txt_email" placeholder="Enter Email Address">*@
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="submit" style="margin-left:80px;border-radius:10px;" id="btnDepartmentSubmit" class="btn btn-primary"><i class="glyphicon glyphicon-save"></i> Submit</button>
+                            <button type="button" style="visibility:hidden;float:right;margin-left:10px;" id="BtnOrgEmailUpdate" class="btn btn-primary text-center">Update</button>
+                            <button type="button" style="border-radius:10px;" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrows-alt"></i> Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- The Modal Experience-->
+            <div class="modal fade" id="AddExperienceModal">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="border-radius:10px">
+
+                        <!--Organization Experience Modal Header -->
+                        <div class="modal-header well" style="padding:0px;height: 40px;">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title" style="margin-left:20px;margin-top:5px">Add Experience</h4>
+
+                        </div>
+
+                        <!--Organization Experience Modal body -->
+                        <div class="modal-body">
+                            <div class="row">
+                                <label id="lblEmailID" for="lblEmailID" style="display:none"></label>
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="txt_email">Position</label>
+                                            <font size="5">@Html.ValidationMessageFor(m => m.ExperienceModel.Position, "", new { @class = "text-danger", @Style = "color:Red" })</font>
+                                            @Html.EditorFor(m => m.ExperienceModel.Position, new { htmlattributes = new { @class = "form-control", id = "txtPosition", placeholder = "Work Position" } })
+
+                                            @*<input type="text" class="form-control" id="txt_email" placeholder="Enter Email Address">*@
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="txt_email">Company</label>
+                                            <font size="5">@Html.ValidationMessageFor(m => m.ExperienceModel.OrganizationName, "", new { @class = "text-danger", @Style = "color:Red" })</font>
+                                            @Html.EditorFor(m => m.ExperienceModel.OrganizationName, new { htmlattributes = new { @class = "form-control", id = "txtCompany", placeholder = "Company Name" } })
+
+                                            @*<input type="text" class="form-control" id="txt_email" placeholder="Enter Email Address">*@
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="txt_email">From Date</label>
+                                            <font size="5">@Html.ValidationMessageFor(m => m.ExperienceModel.FromDate, "", new { @class = "text-danger", @Style = "color:Red" })</font>
+                                            @Html.EditorFor(m => m.ExperienceModel.FromDate, new { htmlattributes = new { @class = "form-control", id = "txtFromDate", placeholder = "Terminating Date" } })
+
+                                            @*<input type="text" class="form-control" id="txt_email" placeholder="Enter Email Address">*@
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="txt_email">To Date</label>
+                                            <font size="5">@Html.ValidationMessageFor(m => m.ExperienceModel.ToDate, "", new { @class = "text-danger", @Style = "color:Red" })</font>
+                                            @Html.EditorFor(m => m.ExperienceModel.ToDate, new { htmlattributes = new { @class = "form-control", id = "txtTODate", placeholder = "Terminating Date" } })
+
+                                            @*<input type="text" class="form-control" id="txt_email" placeholder="Enter Email Address">*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+
+                            <button type="button" style="visibility:hidden;float:right;margin-left:10px;" id="BtnOrgEmailUpdate" class="btn btn-primary text-center">Update</button>
+                            <button type="submit" style="margin-left:80px;border-radius:10px;" id="btnExpSubmit" class="btn btn-primary"><i class="glyphicon glyphicon-save"></i> Submit</button>
+                            <button type="button" style="border-radius:10px;" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrows-alt"></i> Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- general form elements -->
+            <!-- form start -->
+            @using (Html.BeginForm("OrgEmployees", "Organization", FormMethod.Post, new { @class = "form", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <fieldset>
+                    <div class="box box-success">
+                        <div class="box-header with-border">
+                            <div class="well" style="padding:10px;border-radius:20px;">
+                                <h3><img width="50" src="~/Images/sdgs_circle.png" /> Organization's Employee Information</h3>
+                            </div>
+                            @*<div class="col-sm-12">
+
+                            <div class="col-sm-10">
+                                <h3 class="well" style="padding:10px;text-align:center;border-radius:20px;"> Organization's Employee Information</h3>
+
+                            </div>
+                        </div>*@
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                                <div class="row">
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-10">
+                                        <div style="margin-top:20px;">
+                                            <div class="row">
+                                                <div class="col-sm-1">
+
+                                                </div>
+                                                <div class="col-sm-10">
+                                                    <div class="well" style="padding: 0px;height: 40px;border-radius:10px;">
+                                                        <h3 style="margin-left: 10px;margin-top: 5px;">Personal Information</h3>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-1"></div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">First Name</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.Name, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                            @Html.EditorFor(m => m.EmployeeModel.Name, new { htmlattributes = new { @class = "form-control", id = "txtEmployeeFName", placeholder = "First Name" } })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Last Name</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.Name, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                            @Html.EditorFor(m => m.EmployeeModel.Name, new { htmlattributes = new { @class = "form-control", id = "txtEmployeeLName", placeholder = "Last Name" } })
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-1">
+
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Father/Husband Name</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.FatherHusbandName, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                            @Html.EditorFor(m => m.EmployeeModel.FatherHusbandName, new { htmlattributes = new { @class = "form-control", id = "txtFatherHusbandName", placeholder = "Father/Husband Name" } })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Gender</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.Gender, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-male"></i></span>
+                                                            <select class="form-control " id="drpGender" name="drpGender">
+                                                                <option value="" selected="selected">---Choose Gender----</option>
+                                                                <option value="Male">Male</option>
+                                                                <option value="Female">Female</option>
+                                                                <option value="Others">Others</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-1">
+
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">DOB</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.DOB, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                            @Html.EditorFor(m => m.EmployeeModel.DOB, new { htmlattributes = new { @class = "form-control", id = "txtDOB", placeholder = "DOB" } })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Nationality</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.Nationality, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-flag"></i></span>
+                                                            <select id="drpNationality" class="form-control" name="country">
+                                                                <option value="BloodGroup" selected="selected">---Select Nationality----</option>
+                                                                <option value="Afganistan">Afghanistan</option>
+                                                                <option value="Albania">Albania</option>
+                                                                <option value="Algeria">Algeria</option>
+                                                                <option value="American Samoa">American Samoa</option>
+                                                                <option value="Andorra">Andorra</option>
+                                                                <option value="Angola">Angola</option>
+                                                                <option value="Anguilla">Anguilla</option>
+                                                                <option value="Antigua & Barbuda">Antigua & Barbuda</option>
+                                                                <option value="Argentina">Argentina</option>
+                                                                <option value="Armenia">Armenia</option>
+                                                                <option value="Aruba">Aruba</option>
+                                                                <option value="Australia">Australia</option>
+                                                                <option value="Austria">Austria</option>
+                                                                <option value="Azerbaijan">Azerbaijan</option>
+                                                                <option value="Bahamas">Bahamas</option>
+                                                                <option value="Bahrain">Bahrain</option>
+                                                                <option value="Bangladesh">Bangladesh</option>
+                                                                <option value="Barbados">Barbados</option>
+                                                                <option value="Belarus">Belarus</option>
+                                                                <option value="Belgium">Belgium</option>
+                                                                <option value="Belize">Belize</option>
+                                                                <option value="Benin">Benin</option>
+                                                                <option value="Bermuda">Bermuda</option>
+                                                                <option value="Bhutan">Bhutan</option>
+                                                                <option value="Bolivia">Bolivia</option>
+                                                                <option value="Bonaire">Bonaire</option>
+                                                                <option value="Bosnia & Herzegovina">Bosnia & Herzegovina</option>
+                                                                <option value="Botswana">Botswana</option>
+                                                                <option value="Brazil">Brazil</option>
+                                                                <option value="British Indian Ocean Ter">British Indian Ocean Ter</option>
+                                                                <option value="Brunei">Brunei</option>
+                                                                <option value="Bulgaria">Bulgaria</option>
+                                                                <option value="Burkina Faso">Burkina Faso</option>
+                                                                <option value="Burundi">Burundi</option>
+                                                                <option value="Cambodia">Cambodia</option>
+                                                                <option value="Cameroon">Cameroon</option>
+                                                                <option value="Canada">Canada</option>
+                                                                <option value="Canary Islands">Canary Islands</option>
+                                                                <option value="Cape Verde">Cape Verde</option>
+                                                                <option value="Cayman Islands">Cayman Islands</option>
+                                                                <option value="Central African Republic">Central African Republic</option>
+                                                                <option value="Chad">Chad</option>
+                                                                <option value="Channel Islands">Channel Islands</option>
+                                                                <option value="Chile">Chile</option>
+                                                                <option value="China">China</option>
+                                                                <option value="Christmas Island">Christmas Island</option>
+                                                                <option value="Cocos Island">Cocos Island</option>
+                                                                <option value="Colombia">Colombia</option>
+                                                                <option value="Comoros">Comoros</option>
+                                                                <option value="Congo">Congo</option>
+                                                                <option value="Cook Islands">Cook Islands</option>
+                                                                <option value="Costa Rica">Costa Rica</option>
+                                                                <option value="Cote DIvoire">Cote DIvoire</option>
+                                                                <option value="Croatia">Croatia</option>
+                                                                <option value="Cuba">Cuba</option>
+                                                                <option value="Curaco">Curacao</option>
+                                                                <option value="Cyprus">Cyprus</option>
+                                                                <option value="Czech Republic">Czech Republic</option>
+                                                                <option value="Denmark">Denmark</option>
+                                                                <option value="Djibouti">Djibouti</option>
+                                                                <option value="Dominica">Dominica</option>
+                                                                <option value="Dominican Republic">Dominican Republic</option>
+                                                                <option value="East Timor">East Timor</option>
+                                                                <option value="Ecuador">Ecuador</option>
+                                                                <option value="Egypt">Egypt</option>
+                                                                <option value="El Salvador">El Salvador</option>
+                                                                <option value="Equatorial Guinea">Equatorial Guinea</option>
+                                                                <option value="Eritrea">Eritrea</option>
+                                                                <option value="Estonia">Estonia</option>
+                                                                <option value="Ethiopia">Ethiopia</option>
+                                                                <option value="Falkland Islands">Falkland Islands</option>
+                                                                <option value="Faroe Islands">Faroe Islands</option>
+                                                                <option value="Fiji">Fiji</option>
+                                                                <option value="Finland">Finland</option>
+                                                                <option value="France">France</option>
+                                                                <option value="French Guiana">French Guiana</option>
+                                                                <option value="French Polynesia">French Polynesia</option>
+                                                                <option value="French Southern Ter">French Southern Ter</option>
+                                                                <option value="Gabon">Gabon</option>
+                                                                <option value="Gambia">Gambia</option>
+                                                                <option value="Georgia">Georgia</option>
+                                                                <option value="Germany">Germany</option>
+                                                                <option value="Ghana">Ghana</option>
+                                                                <option value="Gibraltar">Gibraltar</option>
+                                                                <option value="Great Britain">Great Britain</option>
+                                                                <option value="Greece">Greece</option>
+                                                                <option value="Greenland">Greenland</option>
+                                                                <option value="Grenada">Grenada</option>
+                                                                <option value="Guadeloupe">Guadeloupe</option>
+                                                                <option value="Guam">Guam</option>
+                                                                <option value="Guatemala">Guatemala</option>
+                                                                <option value="Guinea">Guinea</option>
+                                                                <option value="Guyana">Guyana</option>
+                                                                <option value="Haiti">Haiti</option>
+                                                                <option value="Hawaii">Hawaii</option>
+                                                                <option value="Honduras">Honduras</option>
+                                                                <option value="Hong Kong">Hong Kong</option>
+                                                                <option value="Hungary">Hungary</option>
+                                                                <option value="Iceland">Iceland</option>
+                                                                <option value="Indonesia">Indonesia</option>
+                                                                <option value="India">India</option>
+                                                                <option value="Iran">Iran</option>
+                                                                <option value="Iraq">Iraq</option>
+                                                                <option value="Ireland">Ireland</option>
+                                                                <option value="Isle of Man">Isle of Man</option>
+                                                                <option value="Israel">Israel</option>
+                                                                <option value="Italy">Italy</option>
+                                                                <option value="Jamaica">Jamaica</option>
+                                                                <option value="Japan">Japan</option>
+                                                                <option value="Jordan">Jordan</option>
+                                                                <option value="Kazakhstan">Kazakhstan</option>
+                                                                <option value="Kenya">Kenya</option>
+                                                                <option value="Kiribati">Kiribati</option>
+                                                                <option value="Korea North">Korea North</option>
+                                                                <option value="Korea Sout">Korea South</option>
+                                                                <option value="Kuwait">Kuwait</option>
+                                                                <option value="Kyrgyzstan">Kyrgyzstan</option>
+                                                                <option value="Laos">Laos</option>
+                                                                <option value="Latvia">Latvia</option>
+                                                                <option value="Lebanon">Lebanon</option>
+                                                                <option value="Lesotho">Lesotho</option>
+                                                                <option value="Liberia">Liberia</option>
+                                                                <option value="Libya">Libya</option>
+                                                                <option value="Liechtenstein">Liechtenstein</option>
+                                                                <option value="Lithuania">Lithuania</option>
+                                                                <option value="Luxembourg">Luxembourg</option>
+                                                                <option value="Macau">Macau</option>
+                                                                <option value="Macedonia">Macedonia</option>
+                                                                <option value="Madagascar">Madagascar</option>
+                                                                <option value="Malaysia">Malaysia</option>
+                                                                <option value="Malawi">Malawi</option>
+                                                                <option value="Maldives">Maldives</option>
+                                                                <option value="Mali">Mali</option>
+                                                                <option value="Malta">Malta</option>
+                                                                <option value="Marshall Islands">Marshall Islands</option>
+                                                                <option value="Martinique">Martinique</option>
+                                                                <option value="Mauritania">Mauritania</option>
+                                                                <option value="Mauritius">Mauritius</option>
+                                                                <option value="Mayotte">Mayotte</option>
+                                                                <option value="Mexico">Mexico</option>
+                                                                <option value="Midway Islands">Midway Islands</option>
+                                                                <option value="Moldova">Moldova</option>
+                                                                <option value="Monaco">Monaco</option>
+                                                                <option value="Mongolia">Mongolia</option>
+                                                                <option value="Montserrat">Montserrat</option>
+                                                                <option value="Morocco">Morocco</option>
+                                                                <option value="Mozambique">Mozambique</option>
+                                                                <option value="Myanmar">Myanmar</option>
+                                                                <option value="Nambia">Nambia</option>
+                                                                <option value="Nauru">Nauru</option>
+                                                                <option value="Nepal">Nepal</option>
+                                                                <option value="Netherland Antilles">Netherland Antilles</option>
+                                                                <option value="Netherlands">Netherlands (Holland, Europe)</option>
+                                                                <option value="Nevis">Nevis</option>
+                                                                <option value="New Caledonia">New Caledonia</option>
+                                                                <option value="New Zealand">New Zealand</option>
+                                                                <option value="Nicaragua">Nicaragua</option>
+                                                                <option value="Niger">Niger</option>
+                                                                <option value="Nigeria">Nigeria</option>
+                                                                <option value="Niue">Niue</option>
+                                                                <option value="Norfolk Island">Norfolk Island</option>
+                                                                <option value="Norway">Norway</option>
+                                                                <option value="Oman">Oman</option>
+                                                                <option value="Pakistan">Pakistan</option>
+                                                                <option value="Palau Island">Palau Island</option>
+                                                                <option value="Palestine">Palestine</option>
+                                                                <option value="Panama">Panama</option>
+                                                                <option value="Papua New Guinea">Papua New Guinea</option>
+                                                                <option value="Paraguay">Paraguay</option>
+                                                                <option value="Peru">Peru</option>
+                                                                <option value="Phillipines">Philippines</option>
+                                                                <option value="Pitcairn Island">Pitcairn Island</option>
+                                                                <option value="Poland">Poland</option>
+                                                                <option value="Portugal">Portugal</option>
+                                                                <option value="Puerto Rico">Puerto Rico</option>
+                                                                <option value="Qatar">Qatar</option>
+                                                                <option value="Republic of Montenegro">Republic of Montenegro</option>
+                                                                <option value="Republic of Serbia">Republic of Serbia</option>
+                                                                <option value="Reunion">Reunion</option>
+                                                                <option value="Romania">Romania</option>
+                                                                <option value="Russia">Russia</option>
+                                                                <option value="Rwanda">Rwanda</option>
+                                                                <option value="St Barthelemy">St Barthelemy</option>
+                                                                <option value="St Eustatius">St Eustatius</option>
+                                                                <option value="St Helena">St Helena</option>
+                                                                <option value="St Kitts-Nevis">St Kitts-Nevis</option>
+                                                                <option value="St Lucia">St Lucia</option>
+                                                                <option value="St Maarten">St Maarten</option>
+                                                                <option value="St Pierre & Miquelon">St Pierre & Miquelon</option>
+                                                                <option value="St Vincent & Grenadines">St Vincent & Grenadines</option>
+                                                                <option value="Saipan">Saipan</option>
+                                                                <option value="Samoa">Samoa</option>
+                                                                <option value="Samoa American">Samoa American</option>
+                                                                <option value="San Marino">San Marino</option>
+                                                                <option value="Sao Tome & Principe">Sao Tome & Principe</option>
+                                                                <option value="Saudi Arabia">Saudi Arabia</option>
+                                                                <option value="Senegal">Senegal</option>
+                                                                <option value="Seychelles">Seychelles</option>
+                                                                <option value="Sierra Leone">Sierra Leone</option>
+                                                                <option value="Singapore">Singapore</option>
+                                                                <option value="Slovakia">Slovakia</option>
+                                                                <option value="Slovenia">Slovenia</option>
+                                                                <option value="Solomon Islands">Solomon Islands</option>
+                                                                <option value="Somalia">Somalia</option>
+                                                                <option value="South Africa">South Africa</option>
+                                                                <option value="Spain">Spain</option>
+                                                                <option value="Sri Lanka">Sri Lanka</option>
+                                                                <option value="Sudan">Sudan</option>
+                                                                <option value="Suriname">Suriname</option>
+                                                                <option value="Swaziland">Swaziland</option>
+                                                                <option value="Sweden">Sweden</option>
+                                                                <option value="Switzerland">Switzerland</option>
+                                                                <option value="Syria">Syria</option>
+                                                                <option value="Tahiti">Tahiti</option>
+                                                                <option value="Taiwan">Taiwan</option>
+                                                                <option value="Tajikistan">Tajikistan</option>
+                                                                <option value="Tanzania">Tanzania</option>
+                                                                <option value="Thailand">Thailand</option>
+                                                                <option value="Togo">Togo</option>
+                                                                <option value="Tokelau">Tokelau</option>
+                                                                <option value="Tonga">Tonga</option>
+                                                                <option value="Trinidad & Tobago">Trinidad & Tobago</option>
+                                                                <option value="Tunisia">Tunisia</option>
+                                                                <option value="Turkey">Turkey</option>
+                                                                <option value="Turkmenistan">Turkmenistan</option>
+                                                                <option value="Turks & Caicos Is">Turks & Caicos Is</option>
+                                                                <option value="Tuvalu">Tuvalu</option>
+                                                                <option value="Uganda">Uganda</option>
+                                                                <option value="United Kingdom">United Kingdom</option>
+                                                                <option value="Ukraine">Ukraine</option>
+                                                                <option value="United Arab Erimates">United Arab Emirates</option>
+                                                                <option value="United States of America">United States of America</option>
+                                                                <option value="Uraguay">Uruguay</option>
+                                                                <option value="Uzbekistan">Uzbekistan</option>
+                                                                <option value="Vanuatu">Vanuatu</option>
+                                                                <option value="Vatican City State">Vatican City State</option>
+                                                                <option value="Venezuela">Venezuela</option>
+                                                                <option value="Vietnam">Vietnam</option>
+                                                                <option value="Virgin Islands (Brit)">Virgin Islands (Brit)</option>
+                                                                <option value="Virgin Islands (USA)">Virgin Islands (USA)</option>
+                                                                <option value="Wake Island">Wake Island</option>
+                                                                <option value="Wallis & Futana Is">Wallis & Futana Is</option>
+                                                                <option value="Yemen">Yemen</option>
+                                                                <option value="Zaire">Zaire</option>
+                                                                <option value="Zambia">Zambia</option>
+                                                                <option value="Zimbabwe">Zimbabwe</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-1">
+
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Birth Place</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.BirthPlace, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-cogs"></i></span>
+                                                            @Html.EditorFor(m => m.EmployeeModel.BirthPlace, new { htmlattributes = new { @class = "form-control", id = "txtBirthPlace", placeholder = "Birth Place" } })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">CNIC</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.CNIC, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                            @Html.EditorFor(m => m.EmployeeModel.CNIC, new { htmlattributes = new { @class = "form-control", id = "txtCNIC", placeholder = "Enter CNIC#" } })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-1">
+
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Maritial Status</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.MaritialStatus, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                            <select class="form-control" name="marital_status" id="drpmarital_status">
+                                                                <option value="">-Select Marital Status-</option>
+                                                                <option value="Single">Single</option>
+                                                                <option value="Married">Married</option>
+                                                                <option value="Widowed">Widowed</option>
+                                                                <option value="Separated">Separated</option>
+                                                                <option value="Divorced">Divorced</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Height</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.Height, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                                            @Html.EditorFor(m => m.EmployeeModel.Height, new { htmlattributes = new { @class = "form-control", id = "txtHeight", placeholder = "Height" } })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-1">
+
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Blood Group</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.BloodGroup, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-bold"></i></span>
+                                                            <select class="form-control" id="drpBloodGroup" name="drpBloodGroup">
+                                                                <option value="BloodGroup" selected="selected">---Choose Blood Group----</option>
+                                                                <option value="A+">A+</option>
+                                                                <option value="A-">A-</option>
+                                                                <option value="B+">B+</option>
+                                                                <option value="A+">B-</option>
+                                                                <option value="A-">AB+</option>
+                                                                <option value="B+">AB-</option>
+                                                                <option value="B+">O+</option>
+                                                                <option value="B+">O-</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Identification Mark</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.IdentificationMark, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                                            @Html.EditorFor(m => m.EmployeeModel.IdentificationMark, new { htmlattributes = new { @class = "form-control", id = "txtIdentificationMark", placeholder = "Identification Mark" } })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-1">
+
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Religion</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.Religion, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                            @Html.EditorFor(m => m.EmployeeModel.Religion, new { htmlattributes = new { @class = "form-control", id = "txtReligion", placeholder = "Religion" } })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Qualification</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.Qualification, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                                            @Html.EditorFor(m => m.EmployeeModel.Qualification, new { htmlattributes = new { @class = "form-control", id = "txtQualification", placeholder = "Enter Your Qualification" } })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-1">
+
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Joining Date</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.Joining_Date, "", new { @class = "text-danger" })
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                        @Html.EditorFor(m => m.EmployeeModel.Joining_Date, new { htmlattributes = new { @class = "form-control", id = "txtJoiningDate", placeholder = "Joining Date" } })
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Designation</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.Designation, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                                            @Html.EditorFor(m => m.EmployeeModel.Designation, new { htmlattributes = new { @class = "form-control", id = "txtDesignation", placeholder = "Designation" } })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-1">
+
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label for="drpOrganizationType">Department</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                                                            <select class="form-control " id="drpSection" name="drpSection">
+                                                                <option value="OrganizationType" selected="selected">---Select Department----</option>
+                                                                <option value="1">NGO</option>
+                                                                <option value="2">Public Department</option>
+                                                                <option value="3">SME</option>
+                                                            </select>
+                                                            <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddSectionModal">
+                                                                <i class="fa fa-plus"></i> Add New</button></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-1">
+
+                                                </div>
+                                                <div class="col-sm-10">
+                                                    <div class="well" style="padding: 0px;height: 40px;border-radius:10px;">
+                                                        <h3 style="margin-left: 10px;margin-top: 5px;">Contact Information</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-1">
+
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Email</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.Person_Contat_Email, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                            @Html.EditorFor(m => m.EmployeeModel.Person_Contat_Email, new { htmlattributes = new { @class = "form-control", @type = "email", id = "txtEmailID", placeholder = "Enter Email ID" } })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Contact Number</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.Contact_Number, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                                            @Html.EditorFor(m => m.EmployeeModel.Contact_Number, new { htmlattributes = new { @class = "form-control", id = "txtContact", placeholder = "Enter Contact Number" } })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @*<div class="col-md-5">
+                        <!-- Primary box -->
+                        <div class="box box-solid box-primary">
+                            <div class="box-header">
+                                <h3 class="box-title">Employee's Contacts</h3>
+                                <div class="box-tools pull-right">
+                                    <button class="btn btn-primary btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="box">
+                                            <div class="box-header">
+                                                <h3 class="box-title">Contact Detail</h3>
+                                                <div class="box-tools">
+                                                    <div class="input-group">
+                                                        <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search" />
+                                                        <div class="input-group-btn">
+                                                            <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- /.box-header -->
+                                            <div class="box-body table-responsive no-padding">
+                                                <table class="table table-hover">
+                                                    <tr>
+                                                        <th>S.No</th>
+                                                        <th>Contact Number</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>03221234567</td>
+                                                        <td><span style="margin-right:20px" class="label label-success">Delete</span><span class="label label-success">Edit</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>03221234567</td>
+                                                        <td><span style="margin-right:20px" class="label label-success">Delete</span><span class="label label-success">Edit</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>03221234567</td>
+                                                        <td><span style="margin-right:20px" class="label label-success">Delete</span><span class="label label-success">Edit</span></td>
+                                                    </tr>
+                                                </table>
+                                            </div><!-- /.box-body -->
+                                        </div><!-- /.box -->
+                                    </div>
+                                </div>
+                            </div><!-- /.box-body -->
+                            <div class="box-footer">
+                                <button type="button" class="btn btn-dropbox" id="btnAddOrgContactInfo" data-toggle="modal" data-target="#OrgContactModel">
+                                    Add Contact Information
+                                </button>
+                            </div>
+                        </div><!-- /.box -->
+                    </div>
+                    <div class="col-md-5">
+                        <!-- Primary box -->
+                        <div class="box box-solid box-primary">
+                            <div class="box-header">
+                                <h3 class="box-title">Employee's Emails</h3>
+                                <div class="box-tools pull-right">
+                                    <button class="btn btn-primary btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="box">
+                                            <div class="box-header">
+                                                <h3 class="box-title">Email Detail</h3>
+                                                <div class="box-tools">
+                                                    <div class="input-group">
+                                                        <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search" />
+                                                        <div class="input-group-btn">
+                                                            <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- /.box-header -->
+                                            <div class="box-body table-responsive no-padding">
+                                                <table class="table table-hover">
+                                                    <tr>
+                                                        <th>S.No</th>
+                                                        <th>Eamil</th>
+                                                        <th>Type</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>jawad@gmail.com</td>
+                                                        <td>Private</td>
+                                                        <td><span style="margin-right:10px" class="label label-success">Delete</span><span class="label label-success">Edit</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>jawad@gmail.com</td>
+                                                        <td>Private</td>
+                                                        <td><span style="margin-right:10px" class="label label-success">Delete</span><span class="label label-success">Edit</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>jawad@gmail.com</td>
+                                                        <td>Private</td>
+                                                        <td><span style="margin-right:10px" class="label label-success">Delete</span><span class="label label-success">Edit</span></td>
+                                                    </tr>
+                                                </table>
+                                            </div><!-- /.box-body -->
+                                        </div><!-- /.box -->
+                                    </div>
+                                </div>
+                            </div><!-- /.box-body -->
+                            <div class="box-footer">
+                                <button type="button" class="btn btn-dropbox" id="BtnAddOrgEmilAddressInfo" type="button" data-toggle="modal" data-target="#OrgEmailModle">
+                                    Add Email Address
+                                </button>
+                            </div>
+                        </div><!-- /.box -->
+                    </div>*@
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-1">
+
+                                                </div>
+                                                <div class="col-sm-10">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Temporary Address</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.TemporaryAddress, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                                                            @Html.TextAreaFor(m => m.EmployeeModel.TemporaryAddress, 3, 157, new { placeholder = "Temporary Address", @class = "form-control", id = "txtTemporary_Address" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-1">
+
+                                                </div>
+                                                <div class="col-sm-10">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Perminant Address</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.PerminantAddress, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-building-o"></i></span>
+                                                            @Html.TextAreaFor(m => m.EmployeeModel.PerminantAddress, 3, 157, new { placeholder = "Perminant Address", @class = "form-control", id = "txtPerminant_Address" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            @*<div class="row">
+                    <div class="col-sm-1">
+
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="well" style="padding: 0px;height: 40px;">
+                            <h3 style="margin-left: 10px;margin-top: 5px;">Experiences</h3>
+                        </div>
+                    </div>
+                </div>*@
+                                            <div class="row">
+                                                <div class="col-sm-1">
+
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <!-- Primary box -->
+                                                    <div class="box box-solid box-primary">
+                                                        <div class="box-header">
+                                                            <h3 class="box-title">Employee's Experience Details:</h3>
+                                                            <div class="box-tools pull-right">
+                                                                <button class="btn btn-primary btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="box-body">
+                                                            <div class="row">
+                                                                <div class="col-xs-12">
+                                                                    <div class="box">
+                                                                        <div class="box-header">
+                                                                            <h3 class="box-title">Experience's Detail</h3>
+                                                                            <div class="box-tools">
+                                                                                <div class="input-group">
+                                                                                    <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search" />
+                                                                                    <div class="input-group-btn">
+                                                                                        <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div><!-- /.box-header -->
+                                                                        <div class="box-body table-responsive no-padding">
+                                                                            <table id="ExpDataTable" class="table table-hover">
+                                                                                <tr>
+                                                                                    <th>S.No</th>
+                                                                                    <th>Position</th>
+                                                                                    <th>Organization</th>
+                                                                                    <th>From Date</th>
+                                                                                    <th>To Date</th>
+                                                                                    <th>Action</th>
+                                                                                </tr>
+                                                                                @*<tr>
+                                                        <td>1</td>
+                                                        <td>Jr.Software Engineer</td>
+                                                        <td>Dynexcel</td>
+                                                        <td><span style="margin-right:20px" class="label label-success">Delete</span><span class="label label-success">Edit</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>Project Manager</td>
+                                                        <td>Infotech</td>
+                                                        <td><span style="margin-right:20px" class="label label-success">Delete</span><span class="label label-success">Edit</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>Web Developer</td>
+                                                        <td>SDGs Academy</td>
+                                                        <td><span style="margin-right:20px" class="label label-success">Delete</span><span class="label label-success">Edit</span></td>
+                                                    </tr>*@
+                                                                            </table>
+                                                                        </div><!-- /.box-body -->
+                                                                    </div><!-- /.box -->
+                                                                </div>
+                                                            </div>
+                                                        </div><!-- /.box-body -->
+                                                        <div class="box-footer">
+                                                            <button style="border-radius:10px;" type="button" class="btn btn-dropbox" id="btnAddExperience" data-toggle="modal" data-target="#AddExperienceModal">
+                                                                <i class="glyphicon glyphicon-plus"></i>   Add Experience
+                                                            </button>
+                                                        </div>
+                                                    </div><!-- /.box -->
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-2">
+                                                    <label class="">
+                                                        <input type="checkbox" name="IsTerminated" value="1" id="IsTerminated" onclick="myFunction()">
+                                                        <i></i>Is Terminated
+                                                    </label>
+                                                </div>
+                                                <div id="DivTerminationDate" style="display:none" class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Terminating Date</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.TerminatingDate, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                            @Html.EditorFor(m => m.EmployeeModel.TerminatingDate, new { htmlattributes = new { @class = "form-control", id = "txtTerminatingDate", placeholder = "Terminating Date" } })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="DivReason" style="display:none;" class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Reason</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.Reason, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                            @Html.EditorFor(m => m.EmployeeModel.Reason, new { htmlattributes = new { @class = "form-control",id = "txtReason", placeholder = "Reason" } })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-1">
+
+                                                </div>
+                                                <div class="col-sm-10">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Note</label>
+                                                        @Html.ValidationMessageFor(model => model.EmployeeModel.Note, "", new { @class = "text-danger" })
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                            @Html.TextAreaFor(m => m.EmployeeModel.Note, 5, 157, new { placeholder = "Note..............", @class = "form-control", id = "txtNote" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div style="visibility:hidden" id="EmpDIVSuccess" class="alert alert-success alert-dismissable">
+                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                <h4>	<i class="icon fa fa-check"></i> Congratulation!</h4>
+                                                Employee Saved Successfully.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1"></div>
+
+                                </div>
+                          
+
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer" style="text-align:center">
+                            <button type="submit" style="border-radius:10px;text-align: center;" id="btnEmployeeSubmit" class="btn btn-primary"><i class="glyphicon glyphicon-save"></i> Submit</button>
+                            @*<a href="/Organization/EmployeesDetail" style="margin-left:10px" class="btn btn-success"><i class="glyphicon glyphicon-th-large"></i> Detail</a>*@
+                        </div>
+
+                    </div><!-- /.box -->
+                </fieldset>
+            }
+        </div><!--/.col (left) -->
+        <!-- right column -->
+    </div>   <!-- /.row -->
+</section>
+
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/SDGSRegistrarionJS/OrganizationScript.js"></script>
+<script>
+   
+    var counter = 1;
+    $('#btnExpSubmit').on('click', function () {
+        if ($("#txtPosition").val() != '') {
+            var t = $("#ExpDataTable");
+            var WorkPosition = $("#txtPosition").val();
+            var Company = $("#txtCompany").val();
+            var FromDate = $("#txtFromDate").val();
+            var TODate = $("#txtTODate").val();
+            //alert(TODate);
+            t.append('<tr>' +
+                '<td>' +
+                counter +
+                '</td>' +
+                '<td>' +
+                WorkPosition +
+                '</td>' +
+                '<td>' +
+                Company +
+                '</td>' +
+                '<td>' +
+                FromDate +
+                '</td>' +
+                '<td>' +
+                TODate +
+                '</td>' +
+                '<td>' +
+                '<button class="btn btn-success" id="approve" value="' + counter + "/" + counter + "/" + counter + '" style="margin-right: 9px;" >Edit</button>' +
+                '<button class="btn btn-danger" id="reject" value="' + counter + '" >Delete</button>' +
+                '</td>' +
+                '</tr>');
+            counter++;
+            document.getElementById('AddExperienceModal').style.display = 'none';
+            $('.modal-backdrop').remove();
+            $('body').removeClass('modal-open');
+        }
+    });
+</script>

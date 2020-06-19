@@ -1,0 +1,261 @@
+﻿@model SDGSDB.Models.Organization
+@{
+	ViewBag.Title = "Initial_Registration";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div style="margin-top:140px;"></div>
+<div class="row">
+	<div class="col-md-12">
+		<h3>SOP for working with SDG Academy, Islamabad.</h3>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nec nam aliquam sem et. Et ultrices neque ornare aenean. Eget nunc scelerisque viverra mauris in aliquam. Velit dignissim sodales ut eu. Viverra vitae congue eu consequat ac felis donec et odio. Massa sed elementum tempus egestas sed sed risus.<br />
+			Pulvinar pellentesque habitant morbi tristique senectus et netus et malesuada. Maecenas accumsan lacus vel facilisis volutpat est. Sit amet venenatis urna cursus. Quis auctor elit sed vulputate mi sit. Augue interdum velit euismod in pellentesque massa. Consequat interdum varius sit amet mattis vulputate enim nulla. Ante in nibh mauris cursus. In nibh mauris cursus mattis molestie a iaculis at erat. In aliquam sem fringilla ut morbi tincidunt. Lorem mollis aliquam ut porttitor.<br />
+
+			Aliquet risus feugiat in ante metus dictum at. Etiam sit amet nisl purus in mollis nunc. Interdum consectetur libero id faucibus nisl tincidunt eget. Varius morbi enim nunc faucibus a pellentesque. Interdum posuere lorem ipsum dolor. Eu tincidunt tortor aliquam nulla facilisi cras fermentum odio eu. Ultricies tristique nulla aliquet enim tortor at auctor. Aliquet sagittis id consectetur purus ut faucibus pulvinar elementum. Magna fermentum iaculis eu non diam phasellus. Facilisis mauris sit amet massa vitae tortor. Condimentum id venenatis a condimentum vitae sapien pellentesque habitant morbi. At urna condimentum mattis pellentesque id nibh tortor id aliquet. Risus pretium quam vulputate dignissim suspendisse. Non curabitur gravida arcu ac tortor dignissim convallis.<br />
+
+
+
+			Tempor orci eu lobortis elementum nibh tellus. Malesuada fames ac turpis egestas maecenas pharetra convallis. Mi tempus imperdiet nulla malesuada. Porttitor lacus luctus accumsan tortor posuere. Elementum sagittis vitae et leo duis ut diam quam. Scelerisque varius morbi enim nunc faucibus a pellentesque. Vel facilisis volutpat est velit egestas dui id ornare arcu. In metus vulputate eu scelerisque felis imperdiet proin. At risus viverra adipiscing at in tellus integer. Vestibulum lectus mauris ultrices eros in. Ac orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt.
+		</p>
+	</div>
+
+</div>
+<div style="display:inline">
+	<input type="checkbox" id="chk_box" />
+	<label>I agree The terms and condition above</label>
+</div>
+<div class="row" id="reg_form" style="display: none">
+	<div class="col-md-3">
+
+		<img src="~/Images/ini_reg.png" width="100%" />
+
+	</div>
+	<div class="col-md-6">
+		<!--Card content-->
+		<div>
+			<img id="side_img" src="~/Images/REGISTERTION.jpg" width="100%" />
+		</div>
+
+		@using (Html.BeginForm())
+	{
+		@Html.AntiForgeryToken()
+	//@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+	<form class="form">
+
+		<div class="form-group">
+
+			@Html.LabelFor(model => model.Organization_Name, htmlAttributes: new { @class = "control-label" })
+			@Html.ValidationMessageFor(model => model.Organization_Name, "", new { @class = "text-danger" })
+			@Html.EditorFor(model => model.Organization_Name, new { htmlAttributes = new { @class = "form-control", id = "txtCompany" } })
+
+
+
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+			@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+			@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", id = "txtFPName" } })
+
+			@*<label for="txtCompany">Focal Person Name:</label>
+
+			<input id="txtFPName" type="text" class="form-control" placeholder="Focal Person Name" />*@
+
+
+		</div>
+
+
+
+		<div class="form-group">
+
+			<label for="CmbOrg_Type">Type:</label>
+			<select id="CmbOrg_Type" class="form-control input-mini" name="CmbOrg_Type">
+				<option selected>--Organization Type--</option>
+				<option value="NGO">NGO</option>
+				<option value="Public Department">Public Department</option>
+				<option value="SME">SME</option>
+			</select>
+
+
+		</div>
+		<div class="form-group ">
+			@Html.LabelFor(model => model.Email_Id, htmlAttributes: new { @class = "control-label" })
+			@Html.ValidationMessageFor(model => model.Email_Id, "", new { @class = "text-danger" })
+			@Html.EditorFor(model => model.Email_Id, new { htmlAttributes = new { @class = "form-control", id = "CompanyEmail" } })
+
+			@*<label for="txtCompany">Email:</label>
+			<input id="CompanyEmail" type="email" class="form-control" placeholder="Type Email Address" />*@
+
+		</div>
+		<div class="form-group ">
+			@Html.LabelFor(model => model.Contact_Number, htmlAttributes: new { @class = "control-label " })
+			@Html.ValidationMessageFor(model => model.Contact_Number, "", new { @class = "text-danger" })
+			@Html.EditorFor(model => model.Contact_Number, new { htmlAttributes = new { @class = "form-control", id = "InitialContact" } })
+
+			@*<label for="txtCompany">Contact Number:</label>
+			<input id="Contact" type="text" class="form-control" placeholder="Type Contact Number" />*@
+
+		</div>
+		<div class="form-group ">
+			@Html.LabelFor(model => model.Type_of_business, htmlAttributes: new { @class = "control-label" })
+			@Html.ValidationMessageFor(model => model.Type_of_business, "", new { @class = "text-danger" })
+			@*@Html.textarea(model => model.Type_of_business, 3, 157, new { htmlAttributes = new { @class = "form-control", id = "txtTypeofBusiness" } })*@
+			@Html.TextAreaFor(model => model.Type_of_business, 5, 157, new { @class = "form-control", id = "txtTypeofBusiness" })
+			@*<label for="txtTypeofBusiness">Type of Business:</label>
+			<textarea type="text" class="form-control" id="txtTypeofBusiness" placeholder="Type of Business"></textarea>*@
+
+
+		</div>
+		<div class="form-group ">
+
+			@Html.LabelFor(model => model.Planed_Activity, htmlAttributes: new { @class = "control-label" })
+			@Html.ValidationMessageFor(model => model.Planed_Activity, "", new { @class = "text-danger" })
+			@*@Html.textarea(model => model.Planed_Activity, new { htmlAttributes = new { @class = "form-control", id = "txtPlannedActivities" } })*@
+			@Html.TextAreaFor(model => model.Planed_Activity, 5, 157, new { @class = "form-control", id = "txtPlannedActivities" })
+
+			@*<label for="txtPlannedActivities">Planned Activities:</label>
+			<textarea type="text" class="form-control" id="txtPlannedActivities" placeholder="Planned Activities"></textarea>*@
+
+		</div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.Additional_Comments, htmlAttributes: new { @class = "control-label" })
+			@Html.ValidationMessageFor(model => model.Additional_Comments, "", new { @class = "text-danger" })
+			@*@Html.EditorFor(model => model.Additional_Comments, new { htmlAttributes = new { @class = "form-control", id = "Comments" } })*@
+			@Html.TextAreaFor(model => model.Additional_Comments, 5, 157, new { @class = "form-control", id = "txtAdditionalComments" })
+
+			@*<label for="txtAdditionalComments">Additional Comments:</label>
+			<textarea type="text" class="form-control" id="txtAdditionalComments" placeholder="Additional Comments"></textarea>*@
+
+		</div>
+
+
+
+		@*<div id="divcaptcha">
+
+		</div>*@
+
+		<div class="form-group">
+
+			<input id="BtnSubmit" type="submit" value="Submit" class="form-control btn-info" />
+		</div>
+
+	</form>
+
+}
+		
+
+		<div class="modal fade" tabindex="-1" id="successModal" data-keyboard="false" data-backdrop="static">
+			<div class="modal-dialog modal-md">
+				<div class="modal-content">
+					<div class="modal-header">
+
+						<h4>Success</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<h2>Comapany registration request sent</h2>
+					</div>
+					<div class="modal-footer">
+						<button data-dismiss="modal" class="btn btn-success">
+							Close
+						</button>
+					</div>
+				</div>
+			</div>
+			<div id="divError" class="alert alert-danger collapse">
+				<a id="linkClose" class="close" href="#">$times;</a>
+				<div id="divErrorText"></div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+
+	</div>
+
+</div>
+<div id="DivRegRequest" style="visibility:hidden;" class="alert alert-success alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	<h4>	<i class="icon fa fa-check"></i> Congratulation!</h4>
+	<p>Your registration request has been received and confirmation email has been sent to your email.Please click on that confirmation message (link) in your mail to proceed further</p>
+
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		var org = $("#Organizations");
+		var id = 1;
+
+		$("#linkClose").click(function () {
+			$("#divError").hide('fade');
+		});
+		var apiBaseUrl = document.getElementById('ApiBaseURL').innerHTML;
+		$("#BtnSubmit").click(function (e) {
+			e.preventDefault();
+			var email = $("#CompanyEmail").val();
+			$.ajax({
+				url: apiBaseUrl+'/Insert_Initial_Organization',
+				method: 'POST',
+				data: {
+					Organization_Name: $("#txtCompany").val(),
+					Contact_Number: $("#InitialContact").val(),
+					Email_Id: email,
+					Organization_Type_Id: $("#CmbOrg_Type").val(),
+					Type_of_business: $("#txtTypeofBusiness").val(),
+					Planed_Activity: $("#txtPlannedActivities").val(),
+					Additional_Comments: $("#txtAdditionalComments").val(),
+					Name: $("#txtFPName").val()
+				},
+				success: function (data) {
+					
+					$.ajax({
+						url: apiBaseUrl+'/api/SendEmail',
+
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/x-www-form-urlencoded'
+						},
+						dataType: 'json',
+						data: {
+							to: email,
+							subject: "Request to create account on SDGs database",
+							body: "Please refer to following link to confirm your account " +
+							apiBaseUrl+'/api/ConfirmMail/' + data
+						},
+						success: function () {
+							
+							document.getElementById('DivRegRequest').style.visibility = 'visible';
+							$("#reg_form").hide();
+							$("#chk_box").attr('disabled', 'disabled');
+							//$("#side_img").hide();
+							//$("DivRegRequest").show();
+							// alert("W");
+							//alert("OK");
+							//$("#successModal").modal("show");
+						},
+						error: function (XMLHttpRequest) {
+							console.log(XMLHttpRequest.responseText);
+						}
+					});
+
+				},
+				error: function (jqXHR) {
+					$("#divErrorText").text(jqXHR.responseText);
+					$('#divError').show('fade');
+				}
+
+			});
+			//$("#initialReg")[0].reset();
+		});
+	});
+	function fetchData() {
+		var name = $("#txtCompany").val();
+		var type = $("#CmbOrg_Type").val();
+		var email = $("#CompanyEmail").val();
+		var contact = $("#InitialContact").val();
+
+	}
+</script>
+@Scripts.Render("~/bundles/jqueryval")

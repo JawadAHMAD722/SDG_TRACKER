@@ -1,0 +1,99 @@
+﻿@using SDGSDB.Models
+@model CompleteRegistrationModel
+@{
+    ViewBag.Title = "DataUploading";
+    Layout = "~/Views/Layouts/_DashboardLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12" style="padding:20px;margin-top:20px;">
+        <!-- Custom Tabs -->
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="pull-left header" style="color:red"><i class="fa fa-files-o"></i><strong> Data Uploading...</strong></li>
+                <li class="active"><a href="#tab_1" data-toggle="tab">Textual Data</a></li>
+                <li><a href="#tab_2" data-toggle="tab">Audio/Video Data</a></li>
+
+                <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1">
+                    <b>Upload Your Desired Data:</b>
+                    <br />
+                    <br />
+                    <br />
+                    @using (Html.BeginForm("CreateRegistration", "Registration", FormMethod.Post, new { @class = "form", role = "form", enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @*<div class="well">
+                <h3><img width="70" src="~/Images/sdgs_circle.png" /> Register With SDG-Academy to evaluate progress of SDGs in Pakistan.</h3>
+            </div>*@
+                        @*@Html.ValidationSummary(true, null, new { @Class = "text-danger" })*@
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class=" control-label">Upload Data File</label>
+                                    @Html.EditorFor(m => m.Logo_Image, new { htmlattributes = new { accept = "image/*", onchange = "showMyImage(this)", type = "file", @class = "btn btn-default btn-block", id = "exampleInputFile1", multiple = "multiple" } })
+                                    @*<input type="file" accept="image/*" onchange="showMyImage(this)" class="btn btn-default" id="exampleInputFile1">*@
+
+                                </div>
+                                @Html.ValidationMessageFor(m => m.Logo_Image, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+
+                                <img id="thumbnil" style="width:40%; margin-top:0px;" src="~/Images/your-logo-here-512.png" alt="image" />
+                                <p style="margin-left:24px;" class="help-block">Uploaded File</p>
+                            </div>
+                        </div>
+
+                    }
+                </div><!-- /.tab-pane -->
+                <div class="tab-pane" id="tab_2">
+                    
+                    @using (Html.BeginForm("CreateRegistration", "Registration", FormMethod.Post, new { @class = "form", role = "form", enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @*<div class="well">
+                <h3><img width="70" src="~/Images/sdgs_circle.png" /> Register With SDG-Academy to evaluate progress of SDGs in Pakistan.</h3>
+            </div>*@
+                        @*@Html.ValidationSummary(true, null, new { @Class = "text-danger" })*@
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class=" control-label">Upload Data File</label>
+                                    @Html.EditorFor(m => m.Logo_Image, new { htmlattributes = new { accept = "image/*", onchange = "showMyImage(this)", type = "file", @class = "btn btn-default btn-block", id = "exampleInputFile1", multiple = "multiple" } })
+                                    @*<input type="file" accept="image/*" onchange="showMyImage(this)" class="btn btn-default" id="exampleInputFile1">*@
+
+                                </div>
+                                @Html.ValidationMessageFor(m => m.Logo_Image, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    }
+                </div><!-- /.tab-pane -->
+            </div><!-- /.tab-content -->
+        </div><!-- nav-tabs-custom -->
+    </div><!-- /.col -->
+</div> <!-- /.row -->
+<script>
+
+    function showMyImage(fileInput) {
+        var files = fileInput.files;
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var imageType = /image.*/;
+            if (!file.type.match(imageType)) {
+                continue;
+            }
+            var img = document.getElementById("thumbnil");
+            img.file = file;
+            var reader = new FileReader();
+            reader.onload = (function (aImg) {
+                return function (e) {
+                    aImg.src = e.target.result;
+                };
+            })(img);
+            reader.readAsDataURL(file);
+        }
+    }
+</script>

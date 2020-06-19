@@ -1,0 +1,197 @@
+﻿@using SDGSDB.Models
+@model ProjectCreationModel
+@{
+    ViewBag.Title = "InitiateProject";
+    Layout = "~/Views/Layouts/_DashboardLayout.cshtml";
+}
+@Scripts.Render("~/Scripts/jquery-3.4.1.js")
+@Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+@Scripts.Render("~/Scripts/bootstrap.min.js")
+<section class="content">
+
+
+    <div class="row">
+
+        <div class="col-md-12">
+            
+            <div class="row">
+                <div class="col-md-1"></div>
+                @using (Html.BeginForm("InitiateProject", "Project", FormMethod.Post, new { @class = "form", role = "form", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <fieldset style="float:left;margin-left:40px;margin-right:40px;">
+                        <!-- Default box -->
+                        <div class="box box-danger">
+                            <div class="box-header with-border">
+                                <div class="well">
+                                    <h3><img width="70" src="~/Images/sdgs_circle.png" /> Initiate and manage your projects here</h3>
+                                </div>
+
+                            </div>
+                            <div class="box-body" style="margin-left:130px;">
+                                <legend>Project Basic Information</legend>
+                                @*@Html.ValidationSummary(true, null, new { @Class = "text-danger" })*@
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+
+                                            @Html.LabelFor(m => m.ProjectName, htmlAttributes: new { @class = "control-label" })
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                                                @Html.EditorFor(m => m.ProjectName, new { htmlattributes = new { @class = "form-control", id = "txtProjectName", placeholder = "ProjectName" } })
+                                                @Html.ValidationMessageFor(m => m.ProjectName, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Project_Category">Project Category</label>
+                                            <select class="form-control input-mini" id="Project_Category" name="Project_Category">
+                                                <option value="OrganizationType" selected="selected">Project Category</option>
+                                                <option value="A">A</option>
+                                                <option value="B">B</option>
+                                                <option value="C">C</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Objectives, htmlAttributes: new { @class = "control-label" })
+                                            @Html.TextAreaFor(m => m.Objectives, 7, 152, new { htmlattributes = new { @class = "form-control", id = "txtObjectives", placeholder = "Objectives" } })
+                                            @Html.ValidationMessageFor(m => m.Objectives, "", new { @class = "text-danger" })
+                                        </div>     
+                                        
+                                        <div class="row">
+                                            
+                                            <div class="col-md-11">
+                                                <label for="Stake_Holders">Stake Holders</label>
+                                                <select class="form-control" id="Stake_Holders" name="Stake_Holders">
+                                                    <option value="Stake Holders" selected="selected">Stake Holders</option>
+                                                    <option value="A">A</option>
+                                                    <option value="B">B</option>
+                                                    <option value="C">C</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <div style="padding-top: 26px;">
+                                                    <button class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <div class="row">
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(m => m.TentativeStartDate, htmlAttributes: new { @class = "control-label" })
+                                                        @Html.EditorFor(m => m.TentativeStartDate, new { htmlattributes = new { @class = "form-control", id = "txtTentativeStartDate", placeholder = "Tentative Start Date" } })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(m => m.TentativeEndDate, htmlAttributes: new { @class = "control-label" })
+                                                        @Html.EditorFor(m => m.TentativeEndDate, new { htmlattributes = new { @class = "form-control", id = "txtTentativeEndDate", placeholder = "Tentative End Date" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                       
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(m => m.ActualStartDate, htmlAttributes: new { @class = "control-label" })
+                                                        @Html.EditorFor(m => m.ActualStartDate, new { htmlattributes = new { @class = "form-control", id = "txtActualStartDate", placeholder = "Actual Start Date" } })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(m => m.ActualEndDate, htmlAttributes: new { @class = "control-label" })
+                                                        @Html.EditorFor(m => m.ActualEndDate, new { htmlattributes = new { @class = "form-control", id = "txtActualEndDate", placeholder = "Actual End Date" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Priority, htmlAttributes: new { @class = "control-label" })
+                                            @Html.DropDownListFor(m => m.Priority, new List<SelectListItem> { new SelectListItem { Text = "Select Priority", Value = "Select Priority" }, new SelectListItem { Text = "Low", Value = "Low" }, new SelectListItem { Text = "Medium", Value = "Medium" }, new SelectListItem { Text = "High", Value = "High" } }, htmlAttributes: new { @class = "form-control" })
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.Budget, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.EditorFor(m => m.Budget, new { htmlattributes = new { @class = "form-control", id = "txtBudget", placeholder = "Budget" } })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.LaborCost, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.EditorFor(m => m.LaborCost, new { htmlattributes = new { @class = "form-control", id = "txtLaborCost", placeholder = "Labor Cost" } })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.MeterialCost, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.EditorFor(m => m.MeterialCost, new { htmlattributes = new { @class = "form-control", id = "txtMeterialCost", placeholder = "MeterialCost" } })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.FixedCost, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.EditorFor(m => m.FixedCost, new { htmlattributes = new { @class = "form-control", id = "txtFixedCost", placeholder = "FixedCost" } })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.CompletionPercentage, htmlAttributes: new { @class = "control-label" })
+                                            @Html.EditorFor(m => m.CompletionPercentage, new { htmlattributes = new { @class = "form-control", id = "txtCompletionPercentage", placeholder = "Completion Percentage" } })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.ClosingRemarks, htmlAttributes: new { @class = "control-label" })
+                                            @Html.TextAreaFor(m => m.ClosingRemarks, 3, 152, new { htmlattributes = new { @class = "form-control", id = "txtClosingRemarks", placeholder = "Closing Remarks" } })
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div><!-- /.box-body -->
+                            <div class="box-footer">
+                                <button type="submit" style="margin-bottom:20px;margin-left:140px;" id="BtnRegistrationSubmit" class="btn btn-dropbox text-center">Submit</button>
+                                <button type="submit" style="margin-bottom:20px;margin-left:140px;display:none" id="BtnRegistrationUpdate" class="btn btn-dropbox text-center">Update</button>
+
+                            </div><!-- /.box-footer-->
+                        </div>
+                    </fieldset>
+
+                }
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- end widget content -->
+
+</section><!-- /.content -->
+<section class="content"></section>
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<script>
+
+    function showMyImage(fileInput) {
+        var files = fileInput.files;
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var imageType = /image.*/;
+            if (!file.type.match(imageType)) {
+                continue;
+            }
+            var img = document.getElementById("thumbnil");
+            img.file = file;
+            var reader = new FileReader();
+            reader.onload = (function (aImg) {
+                return function (e) {
+                    aImg.src = e.target.result;
+                };
+            })(img);
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+
+

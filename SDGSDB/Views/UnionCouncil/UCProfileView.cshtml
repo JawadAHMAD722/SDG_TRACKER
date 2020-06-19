@@ -1,0 +1,444 @@
+﻿@using SDGSDB.Models
+@model CompleteRegistrationModel
+@{
+    ViewBag.Title = "UCProfileView";
+    Layout = "~/Views/Layouts/_DashboardLayout.cshtml";
+}
+
+<link href="~/Content/Style.css" rel="stylesheet" />
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="modal fade" id="UCSectorsCategoryModal">
+            <div class="modal-dialog" style="margin-top: 100px;width:1300px;position:relative;margin-left: 230px;">
+                <div class="modal-content" style="border-radius: 10px">
+
+                    <!--Tourism Spot Modal Header -->
+                    <div class="modal-header well" style="padding: 0px;border-radius: 10px;height: 40px;">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" style="margin-left:20px;margin-top:5px">UC Sectors Category</h4>
+
+                    </div>
+
+                    <!--Tourism Spot Modal body -->
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-3" id="UCSectorsCategories">
+
+                            </div>
+                            <div class="col-md-9">
+                                <div class="well" style="text-align:center;"><b style="font-size:large">UC Sector's Institutions/Organizations Detail</b></div>
+                                <table id="example13" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr.No</th>
+                                            <th>Sector</th>
+                                            <th>Sector Category</th>
+                                            <th>Institution Name</th>
+                                            <th>Nature</th>
+                                            <th>Focal Person</th>
+                                            <th>Contact</th>
+                                            <th>Email</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="TableUCOrgIns">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row" id="OrgTable" style="visibility:visible">
+
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        @*<button type="submit" style="margin-left:80px;border-radius:10px;" id="btnEmployeeSubmit" class="btn btn-primary"><i class="glyphicon glyphicon-save"></i> Submit</button>
+        <button type="button" style="visibility:hidden;float:right;margin-left:10px;" id="BtnOrgEmailUpdate" class="btn btn-primary text-center">Update</button>*@
+                        <button type="button" style="border-radius:10px;" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrows-alt"></i> Close</button>
+                        <button type="button" style="border-radius:10px;" class="btn btn-success" data-dismiss="modal"><i class="fa fa-cloud-download"></i> Export</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="box">
+                <div style="margin-bottom:0px;" class="box-header">
+                    <div style="margin-bottom:0px;" class="well"><h3 style="margin-bottom:0px;margin-top:0px;font-family:'Times New Roman', Times, serif;text-align:center">UC Profile</h3></div>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class=" text-center">
+                        <div class="row content" style="margin-top:0px;">
+                            <div style="height:100%" class="col-sm-3 sidenav">
+                                <div class="small-box well">
+                                    <div class="icon">
+                                        <i class="fa fa-building-o"></i>
+                                    </div>
+                                    <label id="lblUCName" style="margin-bottom:10px;margin-top:20px;font-size:x-large;color:white"></label>
+
+                                </div>
+                                <div style="margin-top:20px;text-align:left">
+
+                                    <p style="margin-bottom:15px;"><strong>Organization Type:</strong><label id="lblUCType" style="margin-left:30px;text-align:justify"></label></p>
+                                    <p class=" well well-sm" style="text-align:center;font-size:medium;margin-bottom:30px;">Address Information</p>
+                                    <p><b>Province:</b><label id="lblUCProvince" style="margin-left:92px;text-align:justify"></label> </p>
+                                    <p><b>Division: </b><label id="lblUCDivision" style="margin-left:92px;text-align:justify"></label></p>
+                                    <p><b>District: </b><label id="lblUCDistrict" style="margin-left:98px;text-align:justify"></label></p>
+                                    <p><b>Tehsil:</b><label id="lblUCTehsil" style="margin-left:109px"></label></p>
+                                    <p class=" well well-sm" style="text-align:center;font-size:medium;margin-bottom:30px;">Miscellaneous Information</p>
+                                    <p><b>Area:</b><label id="lblUCArea" style="margin-left:113px;text-align:right"></label> </p>
+                                    <p><b>Total Population:</b> <label id="lblUCPopulation" style="margin-left:39px;text-align:right"></label></p>
+                                    <p><b>Male Population:</b> <label id="lblUCMalePopulation" style="margin-left:39px;text-align:right"></label></p>
+                                    <p><b>Female Population: </b><label id="lblUCFeMalePopulation" style="margin-left:23px;text-align:right"></label></p>
+                                    <p><b>Other Localities:</b><label id="lblUCOtherLocalities" style="margin-left:43px;text-align:right"></label></p>
+                                    <p><b>Climate:</b><label id="lblUCClimate" style="margin-left:93px;text-align:right"></label></p>
+                                    <p><b>Road Infrastructure:</b><label id="lblUCRoadInfrastructure" style="margin-left:20px;text-align:right"></label></p>
+                                </div>
+
+
+                            </div>
+                            <div class="col-sm-6 text-left">
+
+                                <section id="sdgs">
+                                    <h3 class=" well well-sm" style="text-align:center;">Our Sectors Information</h3>
+                                    <div id="carddeck" class="card-deck ">
+                                        <div class="row">
+                                            <div class="col-sm-12" id="Sectors">
+
+                                            </div>
+                                            @*<div class="col-md-6" id="SDGS">
+
+
+                                                <div class="box box-solid box-primary collapsed-box">
+                                                    <div class="box-header">
+                                                        <h3 class="box-title" style="text-align:center">Education Sector</h3>
+                                                        <div class="box-tools pull-right">
+                                                            <button class="btn btn-primary btn-sm" data-widget="collapse"><i class="fa fa-plus"></i></button>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="box-body">
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <div class="box">
+                                                                    <div class="box-header">
+
+                                                                        <div class="box-tools">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="box-body">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12">
+                                                                                <button type="button" class="btn btn-block btn-default btn-lg" id="bbtnOrgProfileEdit" style="margin-bottom:20px;margin-left:0px" type="button" data-toggle="modal" data-target="#OrgEmailModle">
+                                                                                    25 Schools
+                                                                                </button>
+                                                                                <button type="button" class="btn btn-block btn-default btn-lg" id="bbtnOrgProfileEdit" style="margin-bottom:20px;margin-left:0px" type="button" data-toggle="modal" data-target="#OrgEmailModle">
+                                                                                    10 Colleges
+                                                                                </button>
+                                                                                <button type="button" class="btn btn-block btn-default btn-lg" id="bbtnOrgProfileEdit" style="margin-bottom:20px;margin-left:0px" type="button" data-toggle="modal" data-target="#OrgEmailModle">
+                                                                                    5 Universities
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>*@
+                                        </div>
+                                    </div>
+                                </section>
+                                <br />
+                                <div class="form-group">
+                                    @*<input type="submit" id="btnOrgProfileEdit" class="btn btn-block btn-success btn-lg" style="display:block;width:100%;" value="Edit Profile" />*@
+                                    <button type="button" class="btn btn-block btn-success btn-lg" id="bbtnUCProfileEdit" style="margin-bottom:20px;margin-left:0px" type="button" data-toggle="modal" data-target="#OrgEmailModle">
+                                        Edit Profile
+                                    </button>
+                                </div>
+
+                            </div>
+                            <div style="height:100%" class="col-sm-3 sidenav">
+                                <div style="height:30%;text-align:justify;font-family:Arial;font-size:medium">
+                                    <h3 class=" well well-sm" style="text-align:center;font-size:medium">Personal Information</h3>
+                                    <p><b>Focal Person:</b><label id="lblUCContactPerson" style="margin-left:2px;text-align:right;color:blue"></label> </p>
+                                    <p><b>Email:</b> <label id="lblUCContactPersonEmail" style="margin-left:55px;text-align:right;color:blue"></label></p>
+                                    <p><b>Contact:</b><label id="lblUCContactPersonContact" style="margin-left:42px;text-align:right;color:blue"></label></p>
+
+                                </div>
+                                <!-- Primary box -->
+                                <div class="box box-solid box-primary collapsed-box">
+                                    <div class="box-header">
+                                        <h3 class="box-title" style="text-align:center">Our Projects</h3>
+                                        <div class="box-tools pull-right">
+                                            <button class="btn btn-primary btn-sm" data-widget="collapse"><i class="fa fa-plus"></i></button>
+
+                                        </div>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="box">
+                                                    <div class="box-header">
+
+                                                        <div class="box-tools">
+                                                        </div>
+                                                    </div><!-- /.box-header -->
+                                                    <div class="box-body">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- /.box-body -->
+                                                </div><!-- /.box -->
+                                            </div>
+                                        </div>
+                                    </div><!-- /.box-body -->
+
+                                </div><!-- /.box -->
+                                <!-- Primary box -->
+                                <div class="box box-solid box-primary collapsed-box">
+                                    <div class="box-header">
+                                        <h3 class="box-title" style="text-align:center">Our Activities</h3>
+                                        <div class="box-tools pull-right">
+                                            <button class="btn btn-primary btn-sm" data-widget="collapse"><i class="fa fa-plus"></i></button>
+
+                                        </div>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="box">
+                                                    <div class="box-header">
+
+                                                        <div class="box-tools">
+                                                        </div>
+                                                    </div><!-- /.box-header -->
+                                                    <div class="box-body">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- /.box-body -->
+                                                </div><!-- /.box -->
+                                            </div>
+                                        </div>
+                                    </div><!-- /.box-body -->
+
+                                </div><!-- /.box -->
+                                <!-- Primary box -->
+                                <div class="box box-solid box-primary collapsed-box">
+                                    <div class="box-header">
+                                        <h3 class="box-title" style="text-align:center">Our Tasks</h3>
+                                        <div class="box-tools pull-right">
+                                            <button class="btn btn-primary btn-sm" data-widget="collapse"><i class="fa fa-plus"></i></button>
+
+                                        </div>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="box">
+                                                    <div class="box-header">
+
+                                                        <div class="box-tools">
+                                                        </div>
+                                                    </div><!-- /.box-header -->
+                                                    <div class="box-body">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- /.box-body -->
+                                                </div><!-- /.box -->
+                                            </div>
+                                        </div>
+                                    </div><!-- /.box-body -->
+
+                                </div><!-- /.box -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+@Scripts.Render("~/Scripts/jquery-3.4.1.js")
+@Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+<script type="text/javascript">
+    $(document).ready(function () {
+        var apiBaseUrl = document.getElementById('ApiBaseURL').innerHTML;
+        var BaseUrl = document.getElementById('BaseURL').innerHTML;
+        var UserID = document.getElementById('lblGUID').innerHTML;
+        //Get UCProfile
+        $.ajax({
+            type: 'Get',
+            url: apiBaseUrl + '/GetUCProfile?UserID=' + UserID,
+            dataType: 'json',
+            success: function (result) {
+                //var JSONDATA = JSON.parse(result);
+                //alert(result);
+                $.each(result, function (index, val) {
+                    document.getElementById('bbtnUCProfileEdit').value = val.UC_Id;
+                    document.getElementById('lblUCName').innerText = val.UC_Name;
+                    document.getElementById('lblUCProvince').innerText = val.Province_Name;
+                    document.getElementById('lblUCDivision').innerText = val.Division_Name;
+                    document.getElementById('lblUCDistrict').innerText = val.District_Name;
+                    document.getElementById('lblUCTehsil').innerText = val.Tehsil_Name;
+                    document.getElementById('lblUCArea').innerText = val.Area;
+                    document.getElementById('lblUCPopulation').innerText = val.Population;
+                    document.getElementById('lblUCMalePopulation').innerText = val.MalePopulation;
+                    document.getElementById('lblUCFeMalePopulation').innerText = val.FemalePopulation;
+                    document.getElementById('lblUCOtherLocalities').innerText = val.OtherLocality;
+                    document.getElementById('lblUCClimate').innerText = val.Climate;
+                    document.getElementById('lblUCRoadInfrastructure').innerText = val.RoadInfrastructure;
+                    document.getElementById('lblUCType').innerText = val.Organization_Type_Id;
+                    document.getElementById('lblUCContactPerson').innerText = val.Name;
+                    document.getElementById('lblUCContactPersonEmail').innerText = val.Person_Contat_Number;
+                    document.getElementById('lblUCContactPersonContact').innerText = val.Person_Contat_Email;
+                });
+            }
+        });
+        //Get UCSectors
+        $.ajax({
+            type: 'Get',
+            url: apiBaseUrl + '/UCSectors?UserID=' + UserID,
+            dataType: 'json',
+            success: function (result) {
+                var JSONDATA = JSON.parse(result);
+                //alert(JSONDATA);
+                $.each(JSONDATA, function (index, val) {
+                    //alert(val.SectorName);
+                    $("#Sectors").append('<button type="button" class="btn btn-block btn-default btn-lg" id="btnUCSectors" style="margin-bottom:20px;margin-left:0px;border-radius:10px;" value="' + val.Sector_ID + '" data-toggle="modal" data-target="#UCSectorsCategoryModal">' + val.SectorName + '</button >')
+                });
+            }
+        });
+        $(document).on("click", "#btnUCSectors", function (e) {
+            e.preventDefault();
+            $("#TableUCOrgIns").empty();
+            var UCSectors = $(this).val();
+            //Get UCSector's Categories
+            $.ajax({
+                type: 'Get',
+                url: apiBaseUrl + '/UCSectorsCategories?UserID=' + UserID + '&Sector_ID=' + UCSectors,
+                dataType: 'json',
+                success: function (result) {
+                    var JSONDATA = JSON.parse(result);
+                    //alert(JSONDATA);
+                    $("#UCSectorsCategories").empty();
+                    $.each(JSONDATA, function (index, val) {
+                        //alert(val.SectorName);
+                        $("#UCSectorsCategories").append('<button type="button" class="btn btn-block btn-default btn-lg" id="btnSectorsCategories" style="margin-bottom:20px;margin-left:0px;border-radius:10px;" value="' + val.Sector_Category_Id + '">' + '  ' + val.Category_Name +':  '+'<label style="color:Red;font-style:italic;">' + val.Total_Categories +'</label>'+'</button>')
+                    });
+                }
+            });
+        });
+        //Edit UC Staff 
+        $(document).on("click", "#btnSectorsCategories", function (e) {
+            e.preventDefault();
+            //var UCSectorsCategoriesID = document.getElementById("btnSectorsCategories").value;
+            var UCSectorsCategoriesID = $(this).val();
+            //alert(UCSectorsCategoriesID);
+            $("#TableUCOrgIns").empty();
+            var UCOrgInstGridBody = $("#TableUCOrgIns");
+            var id1 = 1;
+            $.ajax({
+                type: 'Get',
+                url: apiBaseUrl + '/GetAllUCInstitutionByUCSectorsCat?UserID=' + UserID + '&Sector_Category_Id=' + UCSectorsCategoriesID,
+                dataType: 'json',
+                success: function (data) {
+                    //var JSONDATA = JSON.parse(data);
+                    //alert(JSONDATA);
+                    $.each(data, function (index, val) {
+                        // alert(val.Contact_Number);
+                        var UC_OrganizationId = val.UC_OrganizationId;
+                        var Sector_Name = val.Sector_Name;
+                        var Category_Name = val.Category_Name;
+                        var Organization = val.Organization;
+                        var OrganizationNature = val.OrganizationNature;
+                        var ContactPersonName = val.ContactPersonName;
+                        var ContactNumber = val.ContactNumber;
+                        var EmailAddress = val.EmailAddress;
+                        var link2 = "#";
+                        UCOrgInstGridBody.append('<tr>' +
+                            '<th>' + id1 + '</th>' +
+                            '<td>' + Sector_Name + '</td>' +
+                            '<td>' + Category_Name + '</td>' +
+                            '<td>' + Organization + '</td>' +
+                            '<td>' + OrganizationNature + '</td>' +
+                            '<td>' + ContactPersonName + '</td>' +
+                            '<td>' + ContactNumber + '</td>' +
+                            '<td>' + EmailAddress + '</td>' +
+                            '<td> <button type="button" class="btn btn-warning" id="btnUCStaffEdit" title="Detail" value="' + UC_OrganizationId + '">Detail'+'  '+'<i class="fa fa-pencil"></i></button >' +
+                            '</td > ' + '</tr > ');
+                        id1++;
+                    });
+                }
+            });
+        });
+        //$("#btnSectorsCategories").click(function (e) {
+        //    e.preventDefault();
+        //    alert("true");
+        //    var UCSectorsCategoriesID = document.getElementById("btnSectorsCategories").value;
+        //    //alert(x);
+        //   // window.location.href = '/UnionCouncil/UnionCouncilOrgInstitutions?Sector_Category_Id=' + UCSectorsCategoriesID;
+        //    var UCOrgInstGridBody = $("#TableUCOrgIns");
+        //    var id1 = 1;
+        //    $.ajax({
+        //        type: 'Get',
+        //        url: apiBaseUrl + '/GetAllUCInstitutionByUCSectorsCat?UserID=' + UserID + '&Sector_Category_Id=' + UCSectorsCategoriesID,
+        //        dataType: 'json',
+        //        success: function (data) {
+        //            //var JSONDATA = JSON.parse(data);
+        //            //alert(JSONDATA);
+        //            $.each(data, function (index, val) {
+        //                // alert(val.Contact_Number);
+        //                var UC_OrganizationId = val.UC_OrganizationId;
+        //                var Sector_Name = val.Sector_Name;
+        //                var Category_Name = val.Category_Name;
+        //                var Organization = val.Organization;
+        //                var OrganizationNature = val.OrganizationNature;
+        //                var ContactPersonName = val.ContactPersonName;
+        //                var ContactNumber = val.ContactNumber;
+        //                var EmailAddress = val.EmailAddress;
+        //                var link2 = "#";
+        //                UCOrgInstGridBody.append('<tr>' +
+        //                    '<th>' + id1 + '</th>' +
+        //                    '<td>' + Sector_Name + '</td>' +
+        //                    '<td>' + Category_Name + '</td>' +
+        //                    '<td>' + Organization + '</td>' +
+        //                    '<td>' + OrganizationNature + '</td>' +
+        //                    '<td>' + ContactPersonName + '</td>' +
+        //                    '<td>' + ContactNumber + '</td>' +
+        //                    '<td>' + EmailAddress + '</td>' +
+        //                    '<td> <button type="button" class="btn btn-primary" id="btnUCStaffEdit" title="Edit" value="' + UC_OrganizationId + '"><i class="fa fa-pencil"></i></button >' +
+        //                    ' ' + '<button class="btn btn-danger" id="btnUCStaffDelete" title="Delete' +
+        //                    '" value="' + UC_OrganizationId + '"><i class="fa fa-times"></i></button> </td>' + '</tr>');
+        //                id1++;
+        //            });
+        //        }
+        //    });
+        //});
+
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#bbtnUCProfileEdit").click(function (e) {
+            e.preventDefault();
+            var UCID = document.getElementById("bbtnUCProfileEdit").value;
+            //alert(x);
+            window.location.href = '/UnionCouncil/UnionCouncil?UCID='+UCID;
+        });
+        
+    });
+</script>

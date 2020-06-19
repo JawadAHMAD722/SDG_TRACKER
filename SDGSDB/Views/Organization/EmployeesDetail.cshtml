@@ -1,0 +1,154 @@
+﻿@{
+    ViewBag.Title = "EmployeesDetail";
+    Layout = "~/Views/Layouts/_DashboardLayout.cshtml";
+}
+
+			<!-- Main content -->
+	<section class="content" style="padding:0px;margin:0px;">
+        <div class="row">
+            <!-- The Modal Experience-->
+            <div class="modal fade" id="AddExperienceModal">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="border-radius:0px;margin-top: 150px;">
+
+                        <!--Organization Experience Modal Header -->
+                        <div class="modal-header well" style="padding:0px;height: 40px;">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title" style="margin-left:20px;margin-top:5px">Add Experience</h4>
+
+                        </div>
+
+                        <!--Organization Experience Modal body -->
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="box-body table-responsive no-padding">
+                                    <table id="ExpDataTable" class="table table-hover">
+                                        <tr>
+                                            <th>S.No</th>
+                                            <th>Position</th>
+                                            <th>Organization</th>
+                                            <th>From Date</th>
+                                            <th>To Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Jr.Software Engineer</td>
+                                            <td>Dynexcel</td>
+                                            <td>12-June-2020</td>
+                                            <td>12-June-2019</td>
+                                            <td>
+                                                @*<button type="button" class="btn btn-primary" id="btnUCStaffEdit" title="Edit" value="1"><i class="fa fa-pencil"></i></button>*@
+                                                <button class="btn btn-danger" id="btnUCStaffDelete" title="Delete" value="2"><i class="fa fa-times"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Project Manager</td>
+                                            <td>Infotech</td>
+                                            <td>12-June-2020</td>
+                                            <td>12-June-2019</td>
+                                            <td>
+                                                @*<button type="button" class="btn btn-primary" id="btnUCStaffEdit" title="Edit" value="1"><i class="fa fa-pencil"></i></button>*@
+                                                <button class="btn btn-danger" id="btnUCStaffDelete" title="Delete" value="2"><i class="fa fa-times"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Web Developer</td>
+                                            <td>SDGs Academy</td>
+                                            <td>12-June-2020</td>
+                                            <td>12-June-2019</td>
+                                            <td>
+                                                @*<button type="button" class="btn btn-primary" id="btnUCStaffEdit" title="Edit" value="1"><i class="fa fa-pencil"></i></button>*@
+                                                <button class="btn btn-danger" id="btnUCStaffDelete" title="Delete" value="2"><i class="fa fa-times"></i></button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" style="border-radius: 10px; " class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrows-alt"></i> Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h2 class="well-sm" style="padding:10px;text-align:center;border-radius:10px">All Registered Employee</h2>
+                        <div class="row">
+                            <div class="cols-md-12">
+                                <h3 class="well container" style="padding:10px;text-align:center;border-radius:30px;">Organization Registred staff</h3>
+                            </div>
+                        </div><!-- /.box-header -->
+                    </div>
+                    <div class="box-body container">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Sr.#</th>
+                                    <th scope="col">Employee Name</th>
+                                    <th scope="col">Designation</th>
+                                    <th scope="col">Joining Date</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Contact #</th>
+                                    <th scope="col">Experience</th>
+                                    <th scope="col">Is Create Account</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.AllEmployees != null)
+                                {
+                                    int id = 1;
+                                    foreach (var item in ViewBag.AllEmployees)
+                                    {
+                                <tr id="row_@item.OrganizationID">
+                                    <td>@id</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Designation</td>
+                                    <td>@item.Joining_Date</td>
+                                    <td>@item.Person_Contat_Email</td>
+                                    <td>@item.Contact_Number</td>
+                                    <td>
+                                        <button value="@item.EmpID" id="btn_EmpExperience" title="Experience" class="btn btn-info" data-toggle="modal" data-target="#AddExperienceModal"> Experience <i class="fa fa-"></i></button>
+                                    </td>
+                                    @if (item.EmpID == 6283)
+                                    {
+                                        <td>
+                                            <button disabled value="@item.OrganizationID/@item.OfficeID" id="btn_OrgProfile" title="Profile" class="btn btn-success" data-toggle="modal" data-target="#OrgProfileModal"> Account Created <i class="fa fa-check"></i></button>
+                                        </td>
+                                    }
+                                    @if (item.EmpID != 6283)
+                                    {
+                                        <td>
+                                            <button value="@item.OrganizationID/@item.OfficeID" id="btn_OrgProfile" title="Profile" class="btn btn-success" data-toggle="modal" data-target="#OrgProfileModal"> Create Account &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-user"></i></button>
+                                        </td>
+                                    }
+                                    <td>
+                                        <button type="button" class="btn btn-primary" id="btnUCStaffEdit" title="Edit" value="@item.EmpID"><i class="fa fa-pencil"></i></button>
+                                        <button class="btn btn-danger" id="btnUCStaffDelete" title="Delete" value="@item.EmpID"><i class="fa fa-times"></i></button>
+                                    </td>
+                                </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+
+            </div><!-- /.col -->
+
+        </div><!-- /.row -->
+			</section><!-- /.content -->
+		

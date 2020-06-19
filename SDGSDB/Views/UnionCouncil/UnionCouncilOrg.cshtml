@@ -1,0 +1,772 @@
+﻿@using SDGSDB.Models
+@model UCOrgInstitutionsModel
+@{
+    ViewBag.Title = "UnionCouncilOrg";
+    Layout = "~/Views/Layouts/_DashboardLayout.cshtml";
+}
+
+@Scripts.Render("~/Scripts/jquery-3.4.1.js")
+@Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+<section class="content">
+    <div class="row" id="UCOrg_form">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- The Modal Sector-->
+            <div class="modal fade" id="AddSectorModal">
+                <div class="modal-dialog" style="margin-top: 100px;">
+                    <div class="modal-content" style="border-radius: 10px">
+
+                        <!--Sector Modal Header -->
+                        <div class="modal-header well" style="padding: 0px;border-radius: 10px;height: 40px;">
+                            <h4 class="modal-title" style="margin-left:20px;margin-top:5px">Add New Sector</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!--Sector Modal body -->
+                        <div class="modal-body">
+                            <div class="row">
+                                <label id="lblEmailID" for="lblEmailID" style="display:none"></label>
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="txt_email">Sector Name</label>
+                                            <font size="5">@Html.ValidationMessageFor(m => m.EmailAddress, "", new { @class = "text-danger", @Style = "color:Red" })</font>
+                                            @Html.EditorFor(m => m.EmailAddress, new { htmlattributes = new { @class = "form-control", id = "txt_Dept", placeholder = "Sector Name" } })
+
+                                            @*<input type="text" class="form-control" id="txt_email" placeholder="Enter Email Address">*@
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="submit" style="margin-left:80px;border-radius:10px;" id="btnEmployeeSubmit" class="btn btn-primary"><i class="glyphicon glyphicon-save"></i> Submit</button>
+                            <button type="button" style="visibility:hidden;float:right;margin-left:10px;" id="BtnOrgEmailUpdate" class="btn btn-primary text-center">Update</button>
+                            <button type="button" style="border-radius:10px;" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrows-alt"></i> Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- The Modal Sector Category-->
+            <div class="modal fade" id="AddSectorCategoryModal">
+                <div class="modal-dialog" style="margin-top: 100px;">
+                    <div class="modal-content" style="border-radius: 10px">
+
+                        <!--Sector Category Modal Header -->
+                        <div class="modal-header well" style="padding: 0px;border-radius: 10px;height: 40px;">
+                            <h4 class="modal-title" style="margin-left:20px;margin-top:5px">Add New Sector Category</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!--Sector Category Modal body -->
+                        <div class="modal-body">
+                            <div class="row">
+                                <label id="lblEmailID" for="lblEmailID" style="display:none"></label>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Choose Sector</label>
+                                        @Html.ValidationMessageFor(model => model.Sector_Id, "", new { @class = "text-danger" })
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-magnet"></i></span>
+                                            <select class="form-control " id="drpModalSectors" name="drpSectors">
+                                                <option value="" selected="selected">---Choose Sector----</option>
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="txt_email">Category Name</label>
+                                            <font size="5">@Html.ValidationMessageFor(m => m.Sector_Category_Id, "", new { @class = "text-danger", @Style = "color:Red" })</font>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-magnet"></i></span>
+                                                @Html.EditorFor(m => m.Sector_Category_Id, new { htmlattributes = new { @class = "form-control", id = "txt_Dept", placeholder = "Category Name" } })
+                                            </div>
+                                        </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="submit" style="margin-left:80px;border-radius:10px;" id="btnEmployeeSubmit" class="btn btn-primary"><i class="glyphicon glyphicon-save"></i> Submit</button>
+                            <button type="button" style="visibility:hidden;float:right;margin-left:10px;" id="BtnOrgEmailUpdate" class="btn btn-primary text-center">Update</button>
+                            <button type="button" style="border-radius:10px;" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrows-alt"></i> Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- form start -->
+            @using (Html.BeginForm("UnionCouncilOrg", "UnionCouncil", FormMethod.Post, new { @class = "form", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <fieldset>
+                    <div class="box box-success">
+                        <div class="box-header with-border">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-10" style="padding: 0px;">
+                                <div class="well" style="padding:10px;border-radius:20px;">
+                                    <h3><img width="50" src="~/Images/sdgs_circle.png" />Union Council Organization And Institution Detail:</h3>
+                                </div>
+                            </div>
+                            <div class="col-sm-1"></div>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-12" style="padding:20px;margin-top:20px;">
+                                            <!-- Custom Tabs -->
+                                            <div class="nav-tabs-custom">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="pull-right header" style="color:red"><i class="fa fa-files-o"></i><strong> UC Organization/Institution's Detail</strong></li>
+                                                    <li id="tab3" class="active"><a href="#tab_3" data-toggle="tab">UC Institutions</a></li>
+                                                    <li id="tab1"><a href="#tab_1" data-toggle="tab">Add New UC Institution</a></li>
+
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <div class="tab-pane" id="tab_1">
+                                                        <div style="margin-top:20px;">
+                                                            <label id="lblStaffID" style="display:none"></label>
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Choose Sector</label>
+                                                                        @Html.ValidationMessageFor(model => model.Sector_Id, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-magnet"></i></span>
+                                                                            <select class="form-control " id="drpSectors" name="drpSectors">
+                                                                                <option value="" selected="selected">---Choose Sector----</option>
+
+                                                                            </select>
+                                                                            @*<span class="input-group-btn">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddSectorModal">
+                            <i class="fa fa-plus"></i> Add New
+                        </button>
+                    </span>*@
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Sector Category</label>
+                                                                        @Html.ValidationMessageFor(model => model.Sector_Category_Id, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-magnet"></i></span>
+                                                                            <select class="form-control " id="drpSectorCategory" name="drpSectorCategory">
+                                                                                <option value="" selected="selected">---Choose Sector----</option>
+
+                                                                            </select>
+                                                                            @*<span class="input-group-btn">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddSectorCategoryModal">
+                            <i class="fa fa-plus"></i> Add New
+                        </button>
+                    </span>*@
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Organization Name</label>
+                                                                        @Html.ValidationMessageFor(model => model.Organization, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                                                            @Html.EditorFor(m => m.Organization, new { htmlattributes = new { @class = "form-control", id = "txtSectorOrgName", placeholder = "Organization Name" } })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Organization Nature</label>
+                                                                        @Html.ValidationMessageFor(model => model.OrganizationNature, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-sitemap"></i></span>
+                                                                            <select class="form-control " id="drpOrgNature" name="drpOrgNature">
+                                                                                <option value="" selected="selected">---Choose Organization Nature----</option>
+                                                                                <option value="Private">Private</option>
+                                                                                <option value="Public">Public</option>
+                                                                                <option value="SEMI Govt">SEMI Govt</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Address</label>
+                                                                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                                                                            @Html.TextAreaFor(m => m.Address, 3, 157, new { placeholder = "Address", @class = "form-control", id = "txtAddress" })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Locality</label>
+                                                                        @Html.ValidationMessageFor(model => model.Locality, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                                                            @Html.EditorFor(m => m.Locality, new { htmlattributes = new { @class = "form-control", id = "txtLocality", placeholder = "Enter Your Locality" } })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Focal Person Name</label>
+                                                                        @Html.ValidationMessageFor(model => model.ContactPersonName, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                                            @Html.EditorFor(m => m.ContactPersonName, new { htmlattributes = new { @class = "form-control", id = "txtFocalPersonName", placeholder = "Enter Focal Person Name" } })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Contact Number</label>
+                                                                        @Html.ValidationMessageFor(model => model.ContactNumber, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                                                            @Html.EditorFor(m => m.ContactNumber, new { htmlattributes = new { @class = "form-control", id = "txtContact", placeholder = "Enter Contact Number" } })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Fax Number</label>
+                                                                        @Html.ValidationMessageFor(model => model.FaxNumber, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+                                                                            @Html.EditorFor(m => m.FaxNumber, new { htmlattributes = new { @class = "form-control", id = "txtFaxNumber", placeholder = "Enter Fax Number" } })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Email Address</label>
+                                                                        @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                                            @Html.EditorFor(m => m.EmailAddress, new { htmlattributes = new { @class = "form-control", @type = "email", id = "txtEmailID", placeholder = "Enter Email ID" } })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                
+                                                                @*<div style="visibility:hidden" id="DIVSuccess" class="col-sm-12 alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4>	<i class="icon fa fa-check"></i> Congratulation!</h4>
+                Congratulation Your Institution Submitted Successfully against Sector.
+            </div>*@
+                                                            </div>
+                                                        </div>
+                                                        <div class="box-footer" style="text-align:center">
+                                                            <button type="submit" style="border-radius:10px;text-align: center;margin-bottom:10px;" id="btnUCOrgSubmit" class="btn btn-primary"><i class="glyphicon glyphicon-save"></i> Submit</button>
+                                                            <button type="submit" style="border-radius:10px;text-align: center;visibility:hidden" id="btnUCOrgUpdate" class="btn btn-primary"><i class="glyphicon glyphicon-save"></i> Update</button>
+                                                        </div>
+                                                    </div><!-- /.tab-pane -->
+                                                    <!-- /.tab-pane -->
+                                                    <div class="tab-pane active" id="tab_3">
+
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <div class="box">
+                                                                    <div class="box-header">
+                                                                        <h3 class="box-title">UC Staff Detail</h3>
+                                                                        <button type="submit" style="border-radius:10px;text-align:center;float:right;" id="btnAddNew" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Add New</button>
+                                                                    </div><!-- /.box-header -->
+                                                                    <div class="box-body">
+                                                                        <div id="EducationSector">
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <!-- Primary box -->
+                                                                                    <div class="box box-solid box-primary">
+                                                                                        <div class="box-header">
+                                                                                            <h3 class="box-title">Sector's Institutions Detail:</h3>
+                                                                                            <div class="box-tools pull-right">
+                                                                                                <button class="btn btn-primary btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="box-body">
+                                                                                            <div class="row">
+                                                                                                <div class="col-xs-12">
+                                                                                                    <div class="box">
+                                                                                                        <div class="box-header">
+                                                                                                            <h3 class="box-title">Institution's Detail:</h3>
+                                                                                                            <div class="box-tools">
+                                                                                                            </div>
+                                                                                                        </div><!-- /.box-header -->
+                                                                                                        <div class="box-body">
+                                                                                                            <table id="example1" class="table table-bordered table-striped">
+                                                                                                                <thead>
+                                                                                                                    <tr>
+                                                                                                                        <th>S.No</th>
+                                                                                                                        <th>Sector</th>
+                                                                                                                        <th>Sector Category</th>
+                                                                                                                        <th>Institution Name</th>
+                                                                                                                        <th>Nature</th>
+                                                                                                                        <th>Contact</th>
+                                                                                                                        <th>Email</th>
+                                                                                                                        <th>Action</th>
+                                                                                                                    </tr>
+                                                                                                                </thead>
+                                                                                                                <tbody id="TableL">
+                                                                                                                    @if (ViewBag.AllUCInstitution != null)
+                                                                                                                    {
+                                                                                                                        int id = 1;
+                                                                                                                        foreach (var item in ViewBag.AllUCInstitution)
+                                                                                                                        {
+                                                                                                                            <tr id="row_@item.UC_OrganizationId">
+                                                                                                                                <td>@id</td>
+                                                                                                                                <td>@item.Sector_Name</td>
+                                                                                                                                <td>@item.Category_Name</td>
+                                                                                                                                <td>@item.Organization</td>
+                                                                                                                                <td>@item.OrganizationNature</td>
+                                                                                                                                <td>@item.ContactNumber</td>
+                                                                                                                                <td>@item.EmailAddress</td>
+                                                                                                                                <td>
+                                                                                                                                    <button value="@item.UC_OrganizationId" id="btn_OrgUCDelete" title="Delete" class="btn btn-danger"> <i class="fa fa-trash-o"></i></button>
+                                                                                                                                    <button value="@item.UC_OrganizationId" id="btn_OrgUCEdit" title="Edit" class="btn btn-primary"> <i class="fa fa-eye-slash"></i></button>
+                                                                                                                                </td>
+
+                                                                                                                            </tr>
+                                                                                                                            id++;
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                </tbody>
+                                                                                                            </table>
+
+                                                                                                        </div><!-- /.box-body -->
+                                                                                                    </div><!-- /.box -->
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div><!-- /.box-body -->
+                                                                                        <div class="box-footer">
+
+                                                                                        </div>
+                                                                                    </div><!-- /.box -->
+                                                                                </div>
+                                                                            </div>
+                                                                            @*<button style="border-radius:10px;" type="button" class="btn btn-dropbox" id="btnChooseNewSectorInfo" data-toggle="modal" data-target="#AddExperienceModal">
+            <i class="glyphicon glyphicon-plus"></i>   Choose New Sector
+        </button>*@
+                                                                        </div>
+                                                                    </div><!-- /.box-body -->
+                                                                </div><!-- /.box -->
+
+                                                            </div><!-- /.col -->
+                                                        </div>
+                                                    </div><!-- /.tab-pane -->
+                                                </div><!-- /.tab-content -->
+                                            </div><!-- nav-tabs-custom -->
+                                        </div><!-- /.col -->
+                                    </div>
+                                    
+                                    
+                                </div>
+                                <div class="col-sm-1"></div>
+                            </div>
+
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer" style="text-align:center">
+                            @*<button type="submit" style="border-radius:10px;text-align: center;" id="btnEmployeeSubmit" class="btn btn-primary"><i class="glyphicon glyphicon-save"></i> Submit</button>*@
+                            @*<a href="/Organization/EmployeesDetail" style="margin-left:10px" class="btn btn-success"><i class="glyphicon glyphicon-th-large"></i> Detail</a>*@
+                        </div>
+
+                    </div><!-- /.box -->
+                </fieldset>
+            }
+        </div><!--/.col (left) -->
+        <!-- right column -->
+    </div>   <!-- /.row -->
+</section>
+
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var apiBaseUrl = document.getElementById('ApiBaseURL').innerHTML;
+        var BaseUrl = document.getElementById('BaseURL').innerHTML;
+        var UserID = document.getElementById('lblGUID').innerHTML;
+        //ADD UC Complete Registration
+        $("#btnUCOrgSubmit").click(function (e) {
+            e.preventDefault();
+            if ($("txtSectorOrgName").val() != '') {
+                var Sectors = $("#drpSectors").val();
+                var SectorCategory = $("#drpSectorCategory").val();
+                var SectorOrgName = $("#txtSectorOrgName").val();
+                var OrgNature = $("#drpOrgNature").val();
+                var Address = $("#txtAddress").val();
+                var Locality = $("#txtLocality").val(); 
+                var FocalPersonName = $("#txtFocalPersonName").val();
+                var Contact = $("#txtContact").val();
+                var FaxNumber = $("#txtFaxNumber").val();
+                var EmailID = $("#txtEmailID").val();
+
+                var data = {
+                    Sector_Id: Sectors,
+                    Sector_Category_Id: SectorCategory,
+                    Organization: SectorOrgName,
+                    OrganizationNature: OrgNature,
+                    Locality: Locality,
+                    Address: Address,
+                    ContactPersonName: FocalPersonName,
+                    ContactNumber: Contact,
+                    FaxNumber: FaxNumber,
+                    EmailAddress: EmailID
+                };
+                var JSONDATA = JSON.stringify(data);
+                //alert(JSONDATA);
+                $.ajax({
+                    type: 'POST',
+                    url: apiBaseUrl + '/UCOrganization?UserID=' + UserID,
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSONDATA,
+                    success: function () {
+                        //alert(JSONDATA);
+                        //document.getElementById('DIVSuccess').style.visibility = 'visible';
+                        $("#txtSectorOrgName").val('');
+                        $("#drpOrgNature").val('');
+                        $("#txtAddress").val('');
+                        $("#txtLocality").val('');
+                        $("#txtFocalPersonName").val('');
+                        $("#txtContact").val('');
+                        $("#txtFaxNumber").val('');
+                        $("#txtEmailID").val('');
+                        $("#tab_1").removeClass("active");
+                        $("#tab1").removeClass("active");
+                        $("#tab_3").addClass("active");
+                        $("#tab3").addClass("active");
+                    },
+                    error: function (jqXHR) {
+                        $("#divErrorText").text(jqXHR.responseText);
+                        $('#divError').show('fade');
+                    }
+
+                });
+            }
+
+        });
+        //Delete UC Organization
+        $(document).on("click", "#btn_OrgUCDelete", function (e) {
+            e.preventDefault();
+            var UCOrganizationId = $(this).val();
+            $.ajax({
+                type: 'POST',
+                url: apiBaseUrl + '/DeleteUCOrg?UC_OrganizationId=' + UCOrganizationId + '&UserID=' + UserID,
+                dataType: 'json',
+                success: function (result) {
+                    alert("Data Deleted Successfully!");
+                    //$("#OrgEmailModle").modal("hide");
+                    //$("#OrgEmailDeletesuccessModal").modal("show");
+                    //Grid Bind of Organization Email,s
+                    //$("#OrgEmails").empty();
+                    //var Email = $("#OrgEmails");
+                    //var id = 1;
+                    //$.ajax({
+                    //    type: 'Get',
+                    //    url: apiBaseUrl + '/GetRegistrNGOEmails?UserID=' + UserID,
+                    //    dataType: 'json',
+                    //    success: function (data) {
+                    //        //alert(data);
+                    //        var JSONDATA = JSON.parse(data);
+                    //        $.each(JSONDATA, function (index, val) {
+                    //            // alert(val.Contact_Number);
+                    //            var EmailAddressId = val.Email_Address_Id;
+                    //            var EmailId = val.Email_Id;
+                    //            var EmailType = val.Email_Type;
+                    //            Email.append('<tr>' +
+                    //                '<th>' + id + '</th>' +
+                    //                '<td>' + EmailId + '</td>' +
+                    //                '<td>' + EmailType + '</td>' +
+                    //                '<td> <button type="button" class="btn btn-dropbox" id="btnOrgEmailEdit" title="Edit" data-toggle="modal" data-target="#OrgEmailModle" value="' + EmailAddressId + '">Edit</button >' +
+                    //                ' ' + '<button class="btn btn-danger" id="btnOrgEmailDelete" title="Delete' +
+                    //                '" value="' + EmailAddressId + '">Delete</button> </td>' + '</tr>');
+                    //            id++;
+                    //        });
+                    //    }
+                    //});
+                }
+            });
+        });
+
+        //Edit UC Organization 
+        $(document).on("click", "#btn_OrgUCEdit", function (e) {
+            e.preventDefault();
+            $("#tab_1").addClass("active");
+            $("#tab1").addClass("active");
+            $("#tab_3").removeClass("active");
+            $("#tab3").removeClass("active");
+            var UCOrganizationId = $(this).val();
+            //alert(ContactId);
+            $.ajax({
+                type: 'Get',
+                url: apiBaseUrl + '/UCOrgByID?UC_OrganizationId=' + UCOrganizationId,
+                dataType: 'json',
+                success: function (data) {
+                    //alert(data);
+                    var JSONDATA = JSON.parse(data);
+                    $.each(JSONDATA, function (index, val) {
+                        var Sectors = val.Sector_Id;
+                        var SectorCategory = val.Sector_Category_Id;
+                        var SectorOrgName = val.Organization;
+                        var OrgNature = val.OrganizationNature;
+                        var Address = val.Address;
+                        var Locality = val.Locality;
+                        var FocalPersonName = val.ContactPersonName;
+                        var Contact = val.ContactNumber;
+                        var FaxNumber = val.FaxNumber;
+                        var EmailID = val.EmailAddress;
+                        //document.getElementById('lblEmailID').innerHTML = EmailAddressId; txtFocalPersonName
+
+                        $("#drpSectors").val(Sectors);
+                        $("#drpSectorCategory").val(SectorCategory);
+                        $("#txtSectorOrgName").val(SectorOrgName);
+                        $("#drpOrgNature").val(OrgNature);
+                        $("#txtAddress").val(Address);
+                        $("#txtLocality").val(Locality);
+                        $("#txtFocalPersonName").val(FocalPersonName);
+                        $("#txtContact").val(Contact);
+                        $("#txtFaxNumber").val(FaxNumber);
+                        $("#txtEmailID").val(EmailID);
+                    });
+                    //$('html, body').animate({
+                    //    scrollTop: $("#UCOrg_form").offset().top
+                    //}, 1000);
+                    document.getElementById('btnUCOrgSubmit').style.visibility = 'hidden';
+                    document.getElementById('btnUCOrgUpdate').style.visibility = 'visible';
+                    $("#OrgEmailModle").modal('show');
+                }
+            });
+        });
+
+        var Sector = $("#drpSectors")
+        $.ajax({
+            type: 'Get',
+            url: apiBaseUrl + '/GetSectors',
+            dataType: 'json',
+            success: function (result) {
+                //alert(result);
+                var JSONDATA = JSON.parse(result);
+                //alert(JSONDATA);
+                $.each(JSONDATA, function (index, val) {
+                    var Sector_ID = val.Sector_ID;
+                    var SectorName = val.SectorName;
+                    Sector.append("<option value=" + Sector_ID + ">" + SectorName + "</option>");
+                });
+            }
+        });
+        //DDL Divisions Biding
+
+        $("#drpSectors").on("change", function () {
+            document.getElementById("drpSectorCategory").options.length = 0;
+            var SectorCategory = $("#drpSectorCategory")
+            var SectorID = $("#drpSectors :selected").val()
+            //alert(ProvinceID);
+            $.ajax({
+                type: 'Get',
+                url: apiBaseUrl + '/GetSectorsCategories?Sector_ID=' + SectorID,
+                dataType: 'json',
+                success: function (result) {
+                    //alert(result);
+                    var JSONDATA = JSON.parse(result);
+                    //alert(JSONDATA);
+
+                    $.each(JSONDATA, function (index, val) {
+                        var Sector_Category_Id = val.Sector_Category_Id;
+                        var Category_Name = val.Category_Name;
+                        SectorCategory.append("<option value=" + Sector_Category_Id + ">" + Category_Name + "</option>");
+                    });
+                }
+            });
+        });
+        //Move on tab
+        $("#btnAddNew").click(function (e) {
+            e.preventDefault();
+            $("#tab_1").addClass("active");
+            $("#tab1").addClass("active");
+            $("#tab_3").removeClass("active");
+            $("#tab3").removeClass("active");
+
+        });
+        //var t = $("#UCOrgDataTable");
+        //var SectorCategory = $("#drpSectorCategory").val();
+        //var InstitutionName = $("#txtSectorOrgName").val();
+        //var Nature = $("#drpOrgNature").val();
+        //var Address = $("#txtAddress").val();
+        //var Locality = $("#txtLocality").val();
+        //var Contact = $("#txtContact").val();
+        //var Fax = $("#txtFaxNumber").val();
+        //var Email = $("#txtEmailID").val();
+        ////alert(TODate);
+        //t.append('<tr>' +
+        //    '<td>' +
+        //    counter +
+        //    '</td>' +
+        //    '<td>' +
+        //    SectorCategory +
+        //    '</td>' +
+        //    '<td>' +
+        //    InstitutionName +
+        //    '</td>' +
+        //    '<td>' +
+        //    Nature +
+        //    '</td>' +
+        //    '<td>' +
+        //    Contact +
+        //    '</td>' +
+        //    '<td>' +
+        //    Email +
+        //    '</td>' +
+        //    '<td>' +
+        //    '<button class="btn btn-success" id="approve" value="' + counter + "/" + counter + "/" + counter + '" style="margin-right: 9px;" >Edit</button>' +
+        //    '<button class="btn btn-danger" id="reject" value="' + counter + '" >Delete</button>' +
+        //    '<button value="' + counter + '"id="btn_OrgUCDelete" title="Delete" class="btn btn-danger"> Delete <i class="fa fa-trash-o"></i></button>' +
+        //    '<button value="' + counter + '" id="btn_OrgUCEdit" title="Edit" class="btn btn-primary"> Edit <i class="fa fa-eye-slash"></i></button>' +
+        //    '</td>' +
+        //    '</tr>');
+        //counter++;
+        //$("#drpSectors").change(function () {
+        //    $("select option:selected").each(function () {
+        //        if ($(this).attr("value") == "Education") {
+        //            document.getElementById("EducationSector").style.display = "block";
+        //        }
+        //        if ($(this).attr("value") == "Health") {
+        //            document.getElementById("EducationSector").style.display = "none";
+        //        }
+        //        if ($(this).attr("value") == "Banking") {
+        //            document.getElementById("EducationSector").style.display = "none";
+        //        }
+        //        if ($(this).attr("value") == "Industrial") {
+        //            document.getElementById("EducationSector").style.display = "none";
+        //        }
+        //        if ($(this).attr("value") == "Agricultural") {
+        //            document.getElementById("EducationSector").style.display = "none";
+        //        }
+        //        if ($(this).attr("value") == "NGO") {
+        //            document.getElementById("EducationSector").style.display = "none";
+        //        }
+        //    });
+        //}).change();
+        //$("#btnChooseNewSectorInfo").click(function (e) {
+        //    e.preventDefault();
+        //    var totalRowCount = $("#UCOrgDataTable tr").length;
+        //    //alert(totalRowCount);
+        //    if ($("#txtSectorOrgName").val() == '' && $("#txtAddress").val() == '' && totalRowCount==1)
+        //    {
+        //        $("#drpSectors").val("");
+        //        document.getElementById("EducationSector").style.display = "none";
+        //        document.getElementById("DIVWarning").style.visibility = "hidden";
+        //    }
+        //    if ($("#txtSectorOrgName").val() != '' || $("#txtAddress").val() != '') {
+        //        //Alert("Please Submit the information of current choosing sector's Institution before Choosing New Sector!");
+        //        document.getElementById("DIVWarning").style.visibility = "visible";
+        //    }
+           
+        //});
+        //var counter = 1;        
+        //$('#btnAddSectorInstitute').on('click', function () {
+        //    //alert($("#drpSectorCategory").val());
+        //    if ($("#drpSectorCategory").val() =='')
+        //    {
+        //        alert("Please Choose Sector Category!");
+        //    }
+        //    if ($("#drpSectorCategory").val() != '') {
+        //        var t = $("#UCOrgDataTable");
+        //        var SectorCategory = $("#drpSectorCategory").val();
+        //        var InstitutionName = $("#txtSectorOrgName").val();
+        //        var Nature = $("#drpOrgNature").val();
+        //        var Address = $("#txtAddress").val();
+        //        var Locality = $("#txtLocality").val();
+        //        var Contact = $("#txtContact").val();
+        //        var Fax = $("#txtFaxNumber").val();
+        //        var Email = $("#txtEmailID").val();
+        //        //alert(TODate);
+        //        t.append('<tr>' +
+        //            '<td>' +
+        //            counter +
+        //            '</td>' +
+        //            '<td>' +
+        //            SectorCategory +
+        //            '</td>' +
+        //            '<td>' +
+        //            InstitutionName +
+        //            '</td>' +
+        //            '<td>' +
+        //            Nature +
+        //            '</td>' +
+        //            '<td>' +
+        //            Address +
+        //            '</td>' +
+        //            '<td>' +
+        //            Locality +
+        //            '</td>' +
+        //            '<td>' +
+        //            Contact +
+        //            '</td>' +
+        //            '<td>' +
+        //            Fax +
+        //            '</td>' +
+        //            '<td>' +
+        //            Email +
+        //            '</td>' +
+        //            '<td>' +
+        //            '<button class="btn btn-success" id="approve" value="' + counter + "/" + counter + "/" + counter + '" style="margin-right: 9px;" >Edit</button>' +
+        //            '<button class="btn btn-danger" id="reject" value="' + counter + '" >Delete</button>' +
+        //            '</td>' +
+        //            '</tr>');
+        //        counter++;
+        //        $("#txtSectorOrgName").val('');
+        //        $("#drpOrgNature").val('');
+        //        $("#txtAddress").val('');
+        //        $("#txtLocality").val('');
+        //        $("#txtContact").val('');
+        //        $("#txtFaxNumber").val('');
+        //        $("#txtEmailID").val('');
+        //        //document.getElementById('AddExperienceModal').style.display = 'none';
+        //        //$('.modal-backdrop').remove();
+        //        //$('body').removeClass('modal-open');
+        //    }
+        //});
+    });
+</script>
+
+

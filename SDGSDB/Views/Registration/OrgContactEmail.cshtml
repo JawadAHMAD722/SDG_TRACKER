@@ -1,0 +1,439 @@
+﻿@using SDGSDB.Models;
+@model NGOCompoundModel
+@{
+    Layout = "~/Views/Layouts/_DashboardLayout.cshtml";
+    ViewBag.Title = "OrgContactEmail";
+
+}
+
+@Scripts.Render("~/Scripts/jquery-3.4.1.js")
+@Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+@Scripts.Render("~/Scripts/bootstrap.min.js")
+<!-- Main content -->
+<section class="content">
+
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+
+            <div class="row">
+                <div class="col-md-1"></div>
+                @using (Html.BeginForm("OrgContactEmail", "Registration", FormMethod.Post, new { @class = "form", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <fieldset style="float:left;margin-left:40px;margin-right:40px;">
+
+                        <!-- Organization Contact Information box -->
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <div class="well">Organization Contact Information:</div>
+                                <div class="box-tools pull-right">
+                                    <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                                    <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="box-body" style="margin-left:130px;">
+                                <!-- The Modal Organization Email Address-->
+                                <div class="modal fade" id="OrgEmailModle">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <!--Organization Email Addresses Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Organization Email Addresses:</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+
+                                            <!--Organization Email Addresses Modal body -->
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <label id="lblEmailID" for="lblEmailID" style="display:none"></label>
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="txt_email">Email ID</label>
+                                                                <font size="5">@Html.ValidationMessageFor(m => m.EmailModel.Email_Id, "", new { @class = "text-danger", @Style = "color:Red" })</font>
+                                                                @Html.EditorFor(m => m.EmailModel.Email_Id, new { htmlattributes = new { @class = "form-control", id = "txt_email", placeholder = "Email" } })
+
+                                                                @*<input type="text" class="form-control" id="txt_email" placeholder="Enter Email Address">*@
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="Cmb_Types">Type</label>
+                                                                <font size="5">@Html.ValidationMessageFor(m => m.EmailModel.Email_Type, "", new { @class = "text-danger", @Style = "color:Red" })</font>
+                                                                @Html.DropDownListFor(m => m.EmailModel.Email_Type, new SelectList(ViewBag.Cmb_Types, "Value", "Text"), new { @Class = "form-control input-mini", id = "Cmb_Types" })
+                                                                @*<select id="Cmb_Types" class="form-control input-mini" name="Cmb_Types">
+
+
+                                                        @*<option value="Official">Official</option>
+                                                        <option value="Private">Private</option>*@
+
+                                                                @*</select>*@
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-10">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button type="button" id="BtnOrgEmailSubmit" style="float:right;margin-left:10px;" class="btn btn-primary text-center">Submit</button>
+                                                <button type="button" style="visibility:hidden;float:right;margin-left:10px;" id="BtnOrgEmailUpdate" class="btn btn-primary text-center">Update</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- The Modal Organization Contact-->
+                                <div class="modal fade" id="OrgContactModel">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Organization Contacts</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <label id="lblContactID" for="lblContactID" style="display:none"></label>
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="txtContact">Contact No.</label>
+                                                                <font size="5">@Html.ValidationMessageFor(m => m.ContactModel.Contact_Number, "", new { @class = "text-danger", @Style = "color:Red" })</font>
+                                                                @Html.EditorFor(m => m.ContactModel.Contact_Number, new { htmlattributes = new { @class = "form-control", id = "txtContactnum", placeholder = "Contact No." } })
+
+                                                                @*<input type="text" class="form-control" id="txtContactnum" required placeholder="Contact No.">*@
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+
+                                                                <label for="txtFax">Fax #</label>
+                                                                <font size="5">
+                                                                    @Html.ValidationMessageFor(m => m.ContactModel.Fax, "", new { @class = "text-danger", @Style = "color:Red" })
+                                                                </font>
+                                                                @Html.EditorFor(m => m.ContactModel.Fax, new { htmlattributes = new { @class = "form-control", id = "txtFax", placeholder = "Fax No." } })
+
+                                                                @*<input type="text" class="form-control" id="txtFax" required placeholder="House">*@
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+
+                                                                <label for="txtFax">Website URL:</label>
+                                                                <font size="5">
+                                                                    @Html.ValidationMessageFor(m => m.ContactModel.Website_URL, "", new { @class = "text-danger", @Style = "color:Red" })
+                                                                </font>
+                                                                @Html.EditorFor(m => m.ContactModel.Website_URL, new { htmlattributes = new { @class = "form-control", id = "txtWebsite", placeholder = "Website URL" } })
+
+                                                                @*<input type="text" class="form-control" id="txtWebsite" required placeholder="House">*@
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-10">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button type="button" id="BtnOrgContactSubmit" style="float:right;margin-left:10px;" class="btn btn-primary text-center">Submit</button>
+                                                <button type="button" style="visibility:hidden;float:right;margin-left:10px;" id="BtnOrgContactUpdate" class="btn btn-primary text-center">Update</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-10">
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">S.No</th>
+                                                    <th scope="col">Contact Number</th>
+                                                    <th scope="col">Fax Number</th>
+                                                    <th scope="col">Website (URL)</th>
+                                                    <th scope="col">Actions</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody id="OrgContact"></tbody>
+                                        </table>
+
+                                    </div>
+
+                                </div>
+                            </div><!-- /.box-body -->
+                            <div class="box-footer">
+                                <button style="margin-bottom:20px;margin-left:1040px" type="button" class="btn btn-dropbox" id="btnAddOrgContactInfo" data-toggle="modal" data-target="#OrgContactModel">
+                                    Add Contact Information
+                                </button>
+                            </div><!-- /.box-footer-->
+                        </div>
+                        <!-- /.box -->
+                        <!-- Organization Email Addresses box -->
+                        <div class="box box-success">
+                            <div class="box-header with-border">
+                                <div class="well">Organization Email Addresses:</div>
+                                <div class="box-tools pull-right">
+                                    <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                                    <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="box-body" style="margin-left:130px;">
+                                <div class="row">
+                                    <div class="col-md-10">
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">S.No</th>
+                                                    <th scope="col">Eamil</th>
+                                                    <th scope="col">Type</th>
+                                                    <th scope="col">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="OrgEmails"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div><!-- /.box-body -->
+                            <div class="box-footer">
+                                <button type="button" class="btn btn-dropbox" id="BtnAddOrgEmilAddressInfo" style="margin-bottom:20px;margin-left:1060px" type="button" data-toggle="modal" data-target="#OrgEmailModle">
+                                    Add Email Address
+                                </button>
+                            </div><!-- /.box-footer-->
+                        </div>
+                        <!-- /.box -->
+                    </fieldset>
+                }
+                <!--Email success Modal-->
+                <div class="modal fade" tabindex="-1" id="successModal" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h4>Success</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <h2>Your Email Address Successfully Added!</h2>
+                            </div>
+                            <div class="modal-footer">
+                                <button data-dismiss="modal" class="btn btn-success">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divError" class="alert alert-danger collapse">
+                        <a id="linkClose" class="close" href="#">$times;</a>
+                        <div id="divErrorText"></div>
+                    </div>
+                </div>
+                <!--Contact Add success Modal-->
+                <div class="modal fade" tabindex="-1" id="OrgContactsuccessModal" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h4>Success</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <h2>Your Contact Number Successfully Added!</h2>
+                            </div>
+                            <div class="modal-footer">
+                                <button data-dismiss="modal" class="btn btn-success">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divError" class="alert alert-danger collapse">
+                        <a id="linkClose" class="close" href="#">$times;</a>
+                        <div id="divErrorText"></div>
+                    </div>
+                </div>
+                <!--Contact Delete success Modal-->
+                <div class="modal fade" tabindex="-1" id="OrgContactDeletesuccessModal" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h4>Success</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <h2>Your Contact Number Deleted!</h2>
+                            </div>
+                            <div class="modal-footer">
+                                <button data-dismiss="modal" class="btn btn-success">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divError" class="alert alert-danger collapse">
+                        <a id="linkClose" class="close" href="#">$times;</a>
+                        <div id="divErrorText"></div>
+                    </div>
+                </div>
+                <!--Organization Email Add success Modal-->
+                <div class="modal fade" tabindex="-1" id="OrgEmailADDsuccessModal" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h4>Success</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <h2>Your Email Successfully Added!</h2>
+                            </div>
+                            <div class="modal-footer">
+                                <button data-dismiss="modal" class="btn btn-success">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divError" class="alert alert-danger collapse">
+                        <a id="linkClose" class="close" href="#">$times;</a>
+                        <div id="divErrorText"></div>
+                    </div>
+                </div>
+                <!--Email Update success Modal-->
+                <div class="modal fade" tabindex="-1" id="OrgEmailUpdatesuccessModal" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h4>Success</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <h2>Your Email Address Successfully Updated!</h2>
+                            </div>
+                            <div class="modal-footer">
+                                <button data-dismiss="modal" class="btn btn-success">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divError" class="alert alert-danger collapse">
+                        <a id="linkClose" class="close" href="#">$times;</a>
+                        <div id="divErrorText"></div>
+                    </div>
+                </div>
+                <!--Email Delete success Modal-->
+                <div class="modal fade" tabindex="-1" id="OrgEmailDeletesuccessModal" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h4>Success</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <h2>Your Email Address Deleted!</h2>
+                            </div>
+                            <div class="modal-footer">
+                                <button data-dismiss="modal" class="btn btn-success">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divError" class="alert alert-danger collapse">
+                        <a id="linkClose" class="close" href="#">$times;</a>
+                        <div id="divErrorText"></div>
+                    </div>
+                </div>
+
+                <!--Contact Update success Modal-->
+                <div class="modal fade" tabindex="-1" id="OrgContactUpdatesuccessModal" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h4>Success</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <h2>Your Contact Number Successfully Updated!</h2>
+                            </div>
+                            <div class="modal-footer">
+                                <button data-dismiss="modal" class="btn btn-success">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divError" class="alert alert-danger collapse">
+                        <a id="linkClose" class="close" href="#">$times;</a>
+                        <div id="divErrorText"></div>
+                    </div>
+                </div>
+                <!--Registration Completed success Modal-->
+                <div class="modal fade" tabindex="-1" id="successRegistrationModal" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h4>Success</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <h2>Your Registration Completed Successfully!</h2>
+                            </div>
+                            <div class="modal-footer">
+                                <button data-dismiss="modal" class="btn btn-success">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divError" class="alert alert-danger collapse">
+                        <a id="linkClose" class="close" href="#">$times;</a>
+                        <div id="divErrorText"></div>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- end widget content -->
+
+</section><!-- /.content -->
+<section class="content"></section>
+
+@Scripts.Render("~/bundles/jqueryval")

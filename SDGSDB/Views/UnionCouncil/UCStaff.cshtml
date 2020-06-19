@@ -1,0 +1,883 @@
+﻿@using SDGSDB.Models
+@model UCStaffModel
+@{
+    ViewBag.Title = "UCStaff";
+    Layout = "~/Views/Layouts/_DashboardLayout.cshtml";
+}
+@Scripts.Render("~/Scripts/jquery-3.4.1.js")
+@Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <div class="modal fade" tabindex="-1" id="successUCStaffModal" data-keyboard="false" data-backdrop="static">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <h4>Success</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <h2>UC Staff Added Successfully!</h2>
+                        </div>
+                        <div class="modal-footer">
+                            <button data-dismiss="modal" class="btn btn-success">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="divError" class="alert alert-danger collapse">
+                    <a id="linkClose" class="close" href="#">$times;</a>
+                    <div id="divErrorText"></div>
+                </div>
+            </div>
+            <div class="modal fade" tabindex="-1" id="UpdateUCStaffModal" data-keyboard="false" data-backdrop="static">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <h4>Success</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <h2>UC Staff Updated Successfully!</h2>
+                        </div>
+                        <div class="modal-footer">
+                            <button data-dismiss="modal" class="btn btn-success">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="divError" class="alert alert-danger collapse">
+                    <a id="linkClose" class="close" href="#">$times;</a>
+                    <div id="divErrorText"></div>
+                </div>
+            </div>
+            <div class="modal fade" tabindex="-1" id="DeleteUCStaffModal" data-keyboard="false" data-backdrop="static">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <h4>Success</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <h2>UC Staff Deleted Successfully!</h2>
+                        </div>
+                        <div class="modal-footer">
+                            <button data-dismiss="modal" class="btn btn-success">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="divError" class="alert alert-danger collapse">
+                    <a id="linkClose" class="close" href="#">$times;</a>
+                    <div id="divErrorText"></div>
+                </div>
+            </div>
+            <!-- form start -->
+            @using (Html.BeginForm("UnionCouncil", "UCStaff", FormMethod.Post, new { @class = "form", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <fieldset>
+                    <div class="box box-success">
+                        <div class="box-header with-border">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-10">
+                                <div class="well" style="padding:10px;border-radius:20px;">
+                                    <h3><img width="50" src="~/Images/sdgs_circle.png" />Union Council Staff Information</h3>
+                                </div>
+                            </div>
+                            <div class="col-sm-1"></div>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-12" style="padding:20px;margin-top:20px;">
+                                            <!-- Custom Tabs -->
+                                            <div class="nav-tabs-custom">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="pull-right header" style="color:red"><i class="fa fa-files-o"></i><strong> UC Staff Detail</strong></li>
+                                                    <li id="tab3" class="active"><a href="#tab_3" data-toggle="tab">UC Staff Detail</a></li>
+                                                    <li id="tab1"><a href="#tab_1" data-toggle="tab">New UC Staff</a></li>
+
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <div class="tab-pane" id="tab_1">
+                                                        <div style="margin-top:20px;">
+                                                            <label id="lblStaffID" style="display:none"></label>
+                                                            <div class="row">
+                                                                <div class="col-sm-1"></div>
+                                                                <div class="col-sm-5">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">First Name</label>
+                                                                        @Html.ValidationMessageFor(model => model.US_StaffFirstName, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                                            @Html.EditorFor(m => m.US_StaffFirstName, new { htmlattributes = new { @class = "form-control", id = "txtUCStaffFName", placeholder = "First Name" } })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-5">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Last Name</label>
+                                                                        @Html.ValidationMessageFor(model => model.UC_StaffLastName, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                                            @Html.EditorFor(m => m.UC_StaffLastName, new { htmlattributes = new { @class = "form-control", id = "txtUCStaffLName", placeholder = "Last Name" } })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-1"></div>
+                                                                <div class="col-sm-5">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Father Name</label>
+                                                                        @Html.ValidationMessageFor(model => model.FatherName, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                                            @Html.EditorFor(m => m.FatherName, new { htmlattributes = new { @class = "form-control", id = "txtFatherName", placeholder = "Father Name" } })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-5">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">CNIC #</label>
+                                                                        @Html.ValidationMessageFor(model => model.CNIC, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                                            @Html.EditorFor(m => m.CNIC, new { htmlattributes = new { @class = "form-control", id = "txtCNIC", placeholder = "CNIC Number" } })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-1"></div>
+                                                                <div class="col-sm-5">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Birth Place</label>
+                                                                        @Html.ValidationMessageFor(model => model.BirthPlace, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                                            @Html.EditorFor(m => m.BirthPlace, new { htmlattributes = new { @class = "form-control", id = "txtBirthPlace", placeholder = "Birth Place" } })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-5">
+                                                                    <div class="form-group">
+                                                                        <label for="txt_email">DOB</label>
+                                                                        @Html.ValidationMessageFor(m => m.DOB, "", new { @class = "text-danger", @Style = "color:Red" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                            @Html.EditorFor(m => m.DOB, new { htmlattributes = new { @class = "form-control", id = "txtDOB", placeholder = "Date Of Birth" } })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-1"></div>
+                                                                <div class="col-sm-5">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Gender</label>
+                                                                        <font size="5">@Html.ValidationMessageFor(m => m.Gender, "", new { @class = "text-danger", @Style = "color:Red" })</font>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-magnet"></i></span>
+                                                                            <select class="form-control " id="drpGender" name="drpGender">
+                                                                                <option value="" selected="selected">---Choose Gender----</option>
+                                                                                <option value="Male">Male</option>
+                                                                                <option value="Female">Female</option>
+                                                                                <option value="Other">Other</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-5">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Religion</label>
+                                                                        <font size="5">@Html.ValidationMessageFor(m => m.Religion, "", new { @class = "text-danger", @Style = "color:Red" })</font>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-magnet"></i></span>
+                                                                            <select class="form-control " id="drpReligion" name="drpReligion">
+                                                                                <option value="" selected="selected">---Choose Religion----</option>
+                                                                                <option value="Islam">Islam</option>
+                                                                                <option value="African Traditional &amp; Diasporic">African Traditional &amp; Diasporic</option>
+                                                                                <option value="Agnostic">Agnostic</option>
+                                                                                <option value="Atheist">Atheist</option>
+                                                                                <option value="Baha'i">Baha'i</option>
+                                                                                <option value="Buddhism">Buddhism</option>
+                                                                                <option value="Cao Dai">Cao Dai</option>
+                                                                                <option value="Chinese traditional religion">Chinese traditional religion</option>
+                                                                                <option value="Christianity">Christianity</option>
+                                                                                <option value="Hinduism">Hinduism</option>
+                                                                                <option value="Jainism">Jainism</option>
+                                                                                <option value="Juche">Juche</option>
+                                                                                <option value="Judaism">Judaism</option>
+                                                                                <option value="Neo-Paganism">Neo-Paganism</option>
+                                                                                <option value="Nonreligious">Nonreligious</option>
+                                                                                <option value="Rastafarianism">Rastafarianism</option>
+                                                                                <option value="Secular">Secular</option>
+                                                                                <option value="Shinto">Shinto</option>
+                                                                                <option value="Sikhism">Sikhism</option>
+                                                                                <option value="Spiritism">Spiritism</option>
+                                                                                <option value="Tenrikyo">Tenrikyo</option>
+                                                                                <option value="Unitarian-Universalism">Unitarian-Universalism</option>
+                                                                                <option value="Zoroastrianism">Zoroastrianism</option>
+                                                                                <option value="primal-indigenous">primal-indigenous</option>
+                                                                                <option value="Other">Other</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-1"></div>
+                                                                <div class="col-md-2">
+                                                                    <label class="">
+                                                                        <input type="checkbox" name="IsEducated" value="1" id="IsEducated" onclick="myFunction()">
+                                                                        <i></i>Is Educated
+                                                                    </label>
+                                                                </div>
+                                                                <div id="DivLastDegree" style="display:none" class="col-sm-8">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Last Degree</label>
+                                                                        @Html.ValidationMessageFor(model => model.LastDegree, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                                            @Html.EditorFor(m => m.LastDegree, new { htmlattributes = new { @class = "form-control", id = "txtLastDegree", placeholder = "Last Degree" } })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-1"></div>
+                                                                <div class="col-sm-5">
+                                                                    <div class="form-group">
+                                                                        <label for="txt_email">Starting Term</label>
+                                                                        <font size="5">@Html.ValidationMessageFor(m => m.StartingTerm, "", new { @class = "text-danger", @Style = "color:Red" })</font>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                            @Html.EditorFor(m => m.StartingTerm, new { htmlattributes = new { @class = "form-control", id = "txtStarTermDate", placeholder = "Terminating Date" } })
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-5">
+                                                                    <div class="form-group">
+                                                                        <label for="txt_email">Ending Term</label>
+                                                                        <font size="5">@Html.ValidationMessageFor(m => m.EndingTerm, "", new { @class = "text-danger", @Style = "color:Red" })</font>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                            @Html.EditorFor(m => m.EndingTerm, new { htmlattributes = new { @class = "form-control", id = "txtEndTermDate", placeholder = "Terminating Date" } })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-sm-1"></div>
+                                                                <div class="col-sm-5">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">UC Staff Category</label>
+                                                                        @Html.ValidationMessageFor(model => model.UC_Staff_Category, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-magnet"></i></span>
+                                                                            <select class="form-control " id="drpUC_Staff_Category" name="drpGender">
+                                                                                <option value="" selected="selected">---Choose Organization Category----</option>
+                                                                                <option value="Education">Education Sector</option>
+                                                                                <option value="Health">Health Sector</option>
+                                                                                <option value="Banking">Banking Sector</option>
+                                                                                <option value="Industrial">Industrial Sector</option>
+                                                                                <option value="Agricultural">Agricultural Sector</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-5">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Contact Number</label>
+                                                                        @Html.ValidationMessageFor(model => model.ContactNumber, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                                                            @Html.EditorFor(m => m.ContactNumber, new { htmlattributes = new { @class = "form-control", id = "txtContact", placeholder = "Enter Contact Number" } })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-sm-1"></div>
+                                                                <div class="col-sm-5">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Fax Number</label>
+                                                                        @Html.ValidationMessageFor(model => model.FaxNumber, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+                                                                            @Html.EditorFor(m => m.FaxNumber, new { htmlattributes = new { @class = "form-control", id = "txtFax", placeholder = "Enter Fax Number" } })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-5">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Email Address</label>
+                                                                        @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                                            @Html.EditorFor(m => m.EmailAddress, new { htmlattributes = new { @class = "form-control", @type = "email", id = "txtEmailID", placeholder = "Enter Email ID" } })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-1"></div>
+                                                                <div class="col-sm-10">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Staff Address</label>
+                                                                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                                                                            @Html.TextAreaFor(m => m.Address, 3, 157, new { placeholder = "Staff Address", @class = "form-control", id = "txtStaffAddress" })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-1"></div>
+                                                                <div class="col-sm-10">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Office Address</label>
+                                                                        @Html.ValidationMessageFor(model => model.OfficeAddress, "", new { @class = "text-danger" })
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                                                                            @Html.TextAreaFor(m => m.OfficeAddress, 3, 157, new { placeholder = "Office Address", @class = "form-control", id = "txtOfficeAddress" })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="box-footer" style="text-align:center">
+                                                            <button type="submit" style="border-radius:10px;text-align: center;" id="btnStaffSubmit" class="btn btn-primary"><i class="glyphicon glyphicon-save"></i> Submit</button>
+                                                            <button type="submit" style="border-radius:10px;text-align: center;visibility:hidden" id="btnStaffUpdate" class="btn btn-primary"><i class="glyphicon glyphicon-save"></i> Update</button>
+                                                        </div>
+                                                    </div><!-- /.tab-pane -->
+                                                    <!-- /.tab-pane -->
+                                                    <div class="tab-pane active" id="tab_3">
+
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <div class="box">
+                                                                    <div class="box-header">
+                                                                        <h3 class="box-title">UC Staff Detail</h3>
+                                                                        <button type="submit" style="border-radius:10px;text-align:center;float:right;" id="btnAddNew" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Add New</button>
+                                                                    </div><!-- /.box-header -->
+                                                                    <div class="box-body">
+                                                                        <table id="example23" class="table table-bordered table-hover">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Sr#</th>
+                                                                                    <th>First Name</th>
+                                                                                    <th>Last Name</th>
+                                                                                    <th>Staff Category</th>
+                                                                                    <th>Contact #</th>
+                                                                                    <th>Email Address</th>
+                                                                                    <th>Fax #</th>
+                                                                                    <th>Office Address</th>
+                                                                                    <th>Action</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody id="UCStaffGridBody">
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div><!-- /.box-body -->
+                                                                </div><!-- /.box -->
+
+                                                            </div><!-- /.col -->
+                                                        </div>
+                                                    </div><!-- /.tab-pane -->
+                                                </div><!-- /.tab-content -->
+                                            </div><!-- nav-tabs-custom -->
+                                        </div><!-- /.col -->
+                                    </div>
+                                </div>
+                                <div class="col-sm-1"></div>
+                            </div>
+
+
+
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer" style="text-align:center">
+
+
+                        </div>
+
+                    </div><!-- /.box -->
+                </fieldset>
+            }
+        </div><!--/.col (left) -->
+        <!-- right column -->
+    </div>   <!-- /.row -->
+</section>
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var apiBaseUrl = document.getElementById('ApiBaseURL').innerHTML;
+        var BaseUrl = document.getElementById('BaseURL').innerHTML;
+        var UserID = document.getElementById('lblGUID').innerHTML;
+        $('#txtDOB').datepicker();
+        $('#txtStarTermDate').datepicker();
+        $('#txtEndTermDate').datepicker();
+        
+        //ADD UC Staff
+        $("#btnStaffSubmit").click(function (e) {
+            e.preventDefault();
+            if ($("txtUCStaffFName").val() != '') {
+                var UCStaffFName = $("#txtUCStaffFName").val();
+                var UCStaffLName = $("#txtUCStaffLName").val();
+                var FatherName = $("#txtFatherName").val();
+                var CNIC = $("#txtCNIC").val();
+                var BirthPlace = $("#txtBirthPlace").val();
+                var DOB = $("#txtDOB").val();
+                var Gender = $("#drpGender").val();
+                var Religion = $("#drpReligion").val();
+                var IsEducated = document.getElementById("IsEducated").checked;
+                var LastDegree = $("#txtLastDegree").val();
+                var StaffAddress = $("#txtStaffAddress").val();
+                var StarTermDate = $("#txtStarTermDate").val();
+                var EndTermDate = $("#txtEndTermDate").val();
+                var UC_Staff_Category = $("#drpUC_Staff_Category").val();
+                var Contact = $("#txtContact").val();
+                var Fax = $("#txtFax").val();
+                var EmailID = $("#txtEmailID").val();
+                var OfficeAddress = $("#txtOfficeAddress").val();
+                var data = {
+                    US_StaffFirstName: UCStaffFName,
+                    UC_StaffLastName: UCStaffLName,
+                    FatherName: FatherName,
+                    CNIC: CNIC,
+                    BirthPlace: BirthPlace,
+                    DOB: DOB,
+                    Gender: Gender,
+                    Religion: Religion,
+                    Educated: IsEducated,
+                    LastDegree: LastDegree,
+                    Address: StaffAddress,
+                    StartingTerm: StarTermDate,
+                    EndingTerm: EndTermDate,
+                    UC_Staff_Category: UC_Staff_Category,
+                    ContactNumber: Contact,
+                    FaxNumber: Fax,
+                    EmailAddress: EmailID,
+                    OfficeAddress: OfficeAddress
+                };
+                var JSONDATA = JSON.stringify(data);
+                //alert(JSONDATA);
+                $.ajax({
+                    type: 'POST',
+                    url: apiBaseUrl + '/UCStaff?UserID=' + UserID,
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSONDATA,
+                    success: function () {
+                        //alert(JSONDATA);
+                        $("#successUCStaffModal").modal("show");
+                        $("#txtUCStaffFName").val('');
+                        $("#txtUCStaffLName").val('');
+                        $("#txtFatherName").val('');
+                        $("#txtCNIC").val('');
+                        $("#txtBirthPlace").val('');
+                        $("#txtDOB").val('');
+                        $("#drpGender").val('');
+                        $("#drpReligion").val('');
+                        $("input[name=IsEducated]").iCheck('uncheck');
+                        $("#txtLastDegree").val('');
+                        $("#txtStaffAddress").val('');
+                        $("#txtStarTermDate").val('');
+                        $("#txtEndTermDate").val('');
+                        $("#drpUC_Staff_Category").val('');
+                        $("#txtContact").val('');
+                        $("#txtFax").val('');
+                        $("#txtEmailID").val('');
+                        $("#txtOfficeAddress").val('');
+                        $("#UCStaffGridBody").empty();
+                        $.ajax({
+                            type: 'Get',
+                            url: apiBaseUrl + '/GetUCStaff?UserID=' + UserID,
+                            dataType: 'json',
+                            success: function (data) {
+                                //var JSONDATA = JSON.parse(data);
+                                //alert(JSONDATA);
+                                $.each(data, function (index, val) {
+                                    // alert(val.Contact_Number);
+                                    var UC_Concil_StaffId = val.UC_Concil_StaffId;
+                                    var US_StaffFirstName = val.US_StaffFirstName;
+                                    var UC_StaffLastName = val.UC_StaffLastName;
+                                    var UC_Staff_Category = val.UC_Staff_Category;
+                                    var ContactNumber = val.ContactNumber;
+                                    var EmailAddress = val.EmailAddress;
+                                    var FaxNumber = val.FaxNumber;
+                                    var OfficeAddress = val.OfficeAddress;
+                                    var link2 = "#";
+                                    UCStaffGridBody.append('<tr>' +
+                                        '<th>' + id1 + '</th>' +
+                                        '<td>' + US_StaffFirstName + '</td>' +
+                                        '<td>' + UC_StaffLastName + '</td>' +
+                                        '<td>' + UC_Staff_Category + '</td>' +
+                                        '<td>' + ContactNumber + '</td>' +
+                                        '<td>' + EmailAddress + '</td>' +
+                                        '<td>' + FaxNumber + '</td>' +
+                                        '<td>' + OfficeAddress + '</td>' +
+                                        '<td> <button type="button" class="btn btn-primary" id="btnUCStaffEdit" title="Edit" value="' + UC_Concil_StaffId + '"><i class="fa fa-pencil"></i></button >' +
+                                        ' ' + '<button class="btn btn-danger" id="btnUCStaffDelete" title="Delete' +
+                                        '" value="' + UC_Concil_StaffId + '"><i class="fa fa-times"></i></button> </td>' + '</tr>');
+                                    id1++;
+                                });
+                            }
+                        });
+                        $("#tab_1").removeClass("active");
+                        $("#tab1").removeClass("active");
+                        $("#tab_3").addClass("active");
+                        $("#tab3").addClass("active");
+                    },
+                    error: function (jqXHR) {
+                        $("#divErrorText").text(jqXHR.responseText);
+                        $('#divError').show('fade');
+                    }
+
+                });
+            }
+        });
+        //Move on tab
+        $("#btnAddNew").click(function (e) {
+            e.preventDefault();
+            $("#tab_1").addClass("active");
+            $("#tab1").addClass("active");
+            $("#tab_3").removeClass("active");
+            $("#tab3").removeClass("active");
+
+        });
+    //Is Educated
+        $('#IsEducated').on('ifChanged', function (event) {
+            var checkBox = document.getElementsByName('IsEducated');
+            var LastDegree = document.getElementById("DivLastDegree");
+            if (this.checked) // if changed state is "CHECKED"
+            {
+                LastDegree.style.display = "block";
+            }
+            else {
+                LastDegree.style.display = "none";
+            }
+        });
+        //Grid Bind Uc's Staff
+        var UCStaffGridBody = $("#UCStaffGridBody");
+        var id1 = 1;
+        $.ajax({
+            type: 'Get',
+            url: apiBaseUrl + '/GetUCStaff?UserID=' + UserID,
+            dataType: 'json',
+            success: function (data) {
+                //var JSONDATA = JSON.parse(data);
+                //alert(JSONDATA);
+                $.each(data, function (index, val) {
+                    // alert(val.Contact_Number);
+                    var UC_Concil_StaffId = val.UC_Concil_StaffId;
+                    var US_StaffFirstName = val.US_StaffFirstName;
+                    var UC_StaffLastName = val.UC_StaffLastName;
+                    var UC_Staff_Category = val.UC_Staff_Category;
+                    var ContactNumber = val.ContactNumber;
+                    var EmailAddress = val.EmailAddress;
+                    var FaxNumber = val.FaxNumber;
+                    var OfficeAddress = val.OfficeAddress;
+                    var link2 = "#";
+                    UCStaffGridBody.append('<tr>' +
+                        '<th>' + id1 + '</th>' +
+                        '<td>' + US_StaffFirstName + '</td>' +
+                        '<td>' + UC_StaffLastName + '</td>' +
+                        '<td>' + UC_Staff_Category + '</td>' +
+                        '<td>' + ContactNumber + '</td>' +
+                        '<td>' + EmailAddress + '</td>' +
+                        '<td>' + FaxNumber + '</td>' +
+                        '<td>' + OfficeAddress + '</td>' +
+                        '<td> <button type="button" class="btn btn-primary" id="btnUCStaffEdit" title="Edit" value="' + UC_Concil_StaffId + '"><i class="fa fa-pencil"></i></button >' +
+                        ' ' + '<button class="btn btn-danger" id="btnUCStaffDelete" title="Delete' +
+                        '" value="' + UC_Concil_StaffId + '"><i class="fa fa-times"></i></button> </td>' + '</tr>');
+                    id1++;
+                });
+            }
+        });
+
+        //Edit UC Staff 
+        $(document).on("click", "#btnUCStaffEdit", function (e) {
+            e.preventDefault();
+            $("#tab_1").addClass("active");
+            $("#tab1").addClass("active");
+            $("#tab_3").removeClass("active");
+            $("#tab3").removeClass("active");
+            var UCStaffId = $(this).val();
+            //alert(ContactId);
+            $.ajax({
+                type: 'Get',
+                url: apiBaseUrl + '/GetUCStaffBYStaffID?UserID=' + UserID +'&UC_Concil_StaffId=' + UCStaffId,
+                dataType: 'json',
+                success: function (data) {
+                    //alert(data);
+                    //var JSONDATA = JSON.parse(data);
+                    $.each(data, function (index, val) {
+                        var str = val.DOB;
+                        var newStr = str.substring(0, str.length - 12);
+                        //alert(val.Educated);
+                        var UC_Concil_StaffId = val.UC_Concil_StaffId;
+                        var US_StaffFirstName = val.US_StaffFirstName;
+                        var UC_StaffLastName = val.UC_StaffLastName;
+                        var FatherName = val.FatherName;
+                        var CNIC = val.CNIC;
+                        var BirthPlace = val.BirthPlace;
+                        var DOB = newStr;
+                        var Gender = val.Gender;
+                        var Religion = val.Religion;
+                        var IsEducated = val.Educated;
+                        var LastDegree = val.LastDegree;
+                        var StaffAddress = val.Address;
+                        var UC_Staff_Category = val.UC_Staff_Category;
+                        var StarTermDate = val.StartingTerm;
+                        var StarTermDateStr = StarTermDate.substring(0, StarTermDate.length - 12);
+                        var EndTermDate = val.EndingTerm;
+                        var EndTermDateStr = EndTermDate.substring(0, EndTermDate.length - 12);
+                        var ContactNumber = val.ContactNumber;
+                        var EmailAddress = val.EmailAddress;
+                        var FaxNumber = val.FaxNumber;
+                        var OfficeAddress = val.OfficeAddress;
+                        document.getElementById('lblStaffID').innerHTML = UC_Concil_StaffId;
+                        $("#txtUCStaffFName").val(US_StaffFirstName);
+                        $("#txtUCStaffLName").val(UC_StaffLastName);
+                        $("#txtFatherName").val(FatherName);
+                        $("#txtCNIC").val(CNIC);
+                        $("#txtBirthPlace").val(BirthPlace);
+                        $("#txtDOB").val(DOB);
+                        $("#drpGender").val(Gender);
+                        $("#drpReligion").val(Religion);
+                        if (IsEducated == true) {
+                            $("input[name=IsEducated]").iCheck('check');
+                        }
+                        if (IsEducated == false) {
+                            $("input[name=IsEducated]").iCheck('uncheck');
+                        }
+                        //$("#IsEducated").prop("checked", true);
+                        //document.getElementById("IsEducated").setAttribute('checked', 'checked');
+                        $("#txtLastDegree").val(LastDegree);
+                        $("#txtStaffAddress").val(StaffAddress);
+                        $("#txtStarTermDate").val(StarTermDateStr);
+                        $("#txtEndTermDate").val(EndTermDateStr);
+                        $("#drpUC_Staff_Category").val(UC_Staff_Category);
+                        $("#txtContact").val(ContactNumber);
+                        $("#txtFax").val(FaxNumber);
+                        $("#txtEmailID").val(EmailAddress);
+                        $("#txtOfficeAddress").val(OfficeAddress);
+                    });
+                    document.getElementById('btnStaffSubmit').style.visibility = 'hidden';
+                    document.getElementById('btnStaffUpdate').style.visibility = 'visible';
+                    
+                }
+            });
+        });
+
+        //Delete UC Staff 
+        $(document).on("click", "#btnUCStaffDelete", function (e) {
+            e.preventDefault();
+            var UCStaffID = $(this).val();
+            $.ajax({
+                type: 'POST',
+                url: apiBaseUrl + '/UCStaffDeletion?UserID=' + UserID + '&UC_Concil_StaffId=' + UCStaffID,
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function () {
+                    //alert(JSONDATA);
+                    $("#DeleteUCStaffModal").modal("show");
+                    $("#UCStaffGridBody").empty();
+                    $.ajax({
+                        type: 'Get',
+                        url: apiBaseUrl + '/GetUCStaff?UserID=' + UserID,
+                        dataType: 'json',
+                        success: function (data) {
+                            //var JSONDATA = JSON.parse(data);
+                            //alert(JSONDATA);
+                            $.each(data, function (index, val) {
+                                // alert(val.Contact_Number);
+                                var UC_Concil_StaffId = val.UC_Concil_StaffId;
+                                var US_StaffFirstName = val.US_StaffFirstName;
+                                var UC_StaffLastName = val.UC_StaffLastName;
+                                var UC_Staff_Category = val.UC_Staff_Category;
+                                var ContactNumber = val.ContactNumber;
+                                var EmailAddress = val.EmailAddress;
+                                var FaxNumber = val.FaxNumber;
+                                var OfficeAddress = val.OfficeAddress;
+                                var link2 = "#";
+                                UCStaffGridBody.append('<tr>' +
+                                    '<th>' + id1 + '</th>' +
+                                    '<td>' + US_StaffFirstName + '</td>' +
+                                    '<td>' + UC_StaffLastName + '</td>' +
+                                    '<td>' + UC_Staff_Category + '</td>' +
+                                    '<td>' + ContactNumber + '</td>' +
+                                    '<td>' + EmailAddress + '</td>' +
+                                    '<td>' + FaxNumber + '</td>' +
+                                    '<td>' + OfficeAddress + '</td>' +
+                                    '<td> <button type="button" class="btn btn-primary" id="btnUCStaffEdit" title="Edit" value="' + UC_Concil_StaffId + '"><i class="fa fa-pencil"></i></button >' +
+                                    ' ' + '<button class="btn btn-danger" id="btnUCStaffDelete" title="Delete' +
+                                    '" value="' + UC_Concil_StaffId + '"><i class="fa fa-times"></i></button> </td>' + '</tr>');
+                                id1++;
+                            });
+                        }
+                    });
+                },
+                error: function (jqXHR) {
+                    $("#divErrorText").text(jqXHR.responseText);
+                    $('#divError').show('fade');
+                }
+
+            });
+           
+        });
+
+        //Update UC Staff
+        $("#btnStaffUpdate").click(function (e) {
+            e.preventDefault();
+            if ($("txtUCStaffFName").val() != '') {
+                var UCStaffID = document.getElementById('lblStaffID').innerText;;
+                var UCStaffFName = $("#txtUCStaffFName").val();
+                var UCStaffLName = $("#txtUCStaffLName").val();
+                var FatherName = $("#txtFatherName").val();
+                var CNIC = $("#txtCNIC").val();
+                var BirthPlace = $("#txtBirthPlace").val();
+                var DOB = $("#txtDOB").val();
+                var Gender = $("#drpGender").val();
+                var Religion = $("#drpReligion").val();
+                var IsEducated = document.getElementById("IsEducated").checked;
+                var LastDegree = $("#txtLastDegree").val();
+                var StaffAddress = $("#txtStaffAddress").val();
+                var StarTermDate = $("#txtStarTermDate").val();
+                var EndTermDate = $("#txtEndTermDate").val();
+                var UC_Staff_Category = $("#drpUC_Staff_Category").val();
+                var Contact = $("#txtContact").val();
+                var Fax = $("#txtFax").val();
+                var EmailID = $("#txtEmailID").val();
+                var OfficeAddress = $("#txtOfficeAddress").val();
+                var data = {
+                    US_StaffFirstName: UCStaffFName,
+                    UC_StaffLastName: UCStaffLName,
+                    FatherName: FatherName,
+                    CNIC: CNIC,
+                    BirthPlace: BirthPlace,
+                    DOB: DOB,
+                    Gender: Gender,
+                    Religion: Religion,
+                    Educated: IsEducated,
+                    LastDegree: LastDegree,
+                    Address: StaffAddress,
+                    StartingTerm: StarTermDate,
+                    EndingTerm: EndTermDate,
+                    UC_Staff_Category: UC_Staff_Category,
+                    ContactNumber: Contact,
+                    FaxNumber: Fax,
+                    EmailAddress: EmailID,
+                    OfficeAddress: OfficeAddress
+                };
+                var JSONDATA = JSON.stringify(data);
+                //alert(JSONDATA);
+                $.ajax({
+                    type: 'POST',
+                    url: apiBaseUrl + '/UCStaffUpdation?UserID=' + UserID + '&UC_Concil_StaffId=' + UCStaffID,
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSONDATA,
+                    success: function () {
+                        //alert(JSONDATA);
+                        $("#UpdateUCStaffModal").modal("show");
+                        $("#txtUCStaffFName").val('');
+                        $("#txtUCStaffLName").val('');
+                        $("#txtFatherName").val('');
+                        $("#txtCNIC").val('');
+                        $("#txtBirthPlace").val('');
+                        $("#txtDOB").val('');
+                        $("#drpGender").val('');
+                        $("#drpReligion").val('');
+                        $("input[name=IsEducated]").iCheck('uncheck');
+                        $("#txtLastDegree").val('');
+                        $("#txtStaffAddress").val('');
+                        $("#txtStarTermDate").val('');
+                        $("#txtEndTermDate").val('');
+                        $("#drpUC_Staff_Category").val('');
+                        $("#txtContact").val('');
+                        $("#txtFax").val('');
+                        $("#txtEmailID").val('');
+                        $("#txtOfficeAddress").val('');
+                        $("#UCStaffGridBody").empty();
+                        $.ajax({
+                            type: 'Get',
+                            url: apiBaseUrl + '/GetUCStaff?UserID=' + UserID,
+                            dataType: 'json',
+                            success: function (data) {
+                                //var JSONDATA = JSON.parse(data);
+                                //alert(JSONDATA);
+                                $.each(data, function (index, val) {
+                                    // alert(val.Contact_Number);
+                                    var UC_Concil_StaffId = val.UC_Concil_StaffId;
+                                    var US_StaffFirstName = val.US_StaffFirstName;
+                                    var UC_StaffLastName = val.UC_StaffLastName;
+                                    var UC_Staff_Category = val.UC_Staff_Category;
+                                    var ContactNumber = val.ContactNumber;
+                                    var EmailAddress = val.EmailAddress;
+                                    var FaxNumber = val.FaxNumber;
+                                    var OfficeAddress = val.OfficeAddress;
+                                    var link2 = "#";
+                                    UCStaffGridBody.append('<tr>' +
+                                        '<th>' + id1 + '</th>' +
+                                        '<td>' + US_StaffFirstName + '</td>' +
+                                        '<td>' + UC_StaffLastName + '</td>' +
+                                        '<td>' + UC_Staff_Category + '</td>' +
+                                        '<td>' + ContactNumber + '</td>' +
+                                        '<td>' + EmailAddress + '</td>' +
+                                        '<td>' + FaxNumber + '</td>' +
+                                        '<td>' + OfficeAddress + '</td>' +
+                                        '<td> <button type="button" class="btn btn-primary" id="btnUCStaffEdit" title="Edit" value="' + UC_Concil_StaffId + '"><i class="fa fa-pencil"></i></button >' +
+                                        ' ' + '<button class="btn btn-danger" id="btnUCStaffDelete" title="Delete' +
+                                        '" value="' + UC_Concil_StaffId + '"><i class="fa fa-times"></i></button> </td>' + '</tr>');
+                                    id1++;
+                                });
+                            }
+                        });
+                        $("#tab_1").removeClass("active");
+                        $("#tab1").removeClass("active");
+                        $("#tab_3").addClass("active");
+                        $("#tab3").addClass("active");
+                    },
+                    error: function (jqXHR) {
+                        $("#divErrorText").text(jqXHR.responseText);
+                        $('#divError').show('fade');
+                    }
+
+                });
+            }
+
+        });
+
+        
+    });
+</script>
+
+

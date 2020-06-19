@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDGSDB", "SDGSDB\SDGSDB.csproj", "{35A4A502-94B6-4D43-8114-080741EA2F00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDGSDB.API", "SDGSDB.API\SDGSDB.API.csproj", "{0B7C8BCD-7C9E-4E03-9CBD-ACD3628EB207}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDGSDB.Lib", "SDGSDB.Lib\SDGSDB.Lib.csproj", "{36F8DFA3-98E4-4C63-A004-F0F5702A30C4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{35A4A502-94B6-4D43-8114-080741EA2F00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35A4A502-94B6-4D43-8114-080741EA2F00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35A4A502-94B6-4D43-8114-080741EA2F00}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{35A4A502-94B6-4D43-8114-080741EA2F00}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{0B7C8BCD-7C9E-4E03-9CBD-ACD3628EB207}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B7C8BCD-7C9E-4E03-9CBD-ACD3628EB207}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B7C8BCD-7C9E-4E03-9CBD-ACD3628EB207}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B7C8BCD-7C9E-4E03-9CBD-ACD3628EB207}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{36F8DFA3-98E4-4C63-A004-F0F5702A30C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36F8DFA3-98E4-4C63-A004-F0F5702A30C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36F8DFA3-98E4-4C63-A004-F0F5702A30C4}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{36F8DFA3-98E4-4C63-A004-F0F5702A30C4}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C34B14A9-30B6-4273-8EB3-E224EC336719}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://ibmsinv.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = SDGSDB.API\\SDGSDB.API.csproj
+		SccProjectName1 = SDGSDB.API
+		SccLocalPath1 = SDGSDB.API
+		SccProjectUniqueName2 = SDGSDB.Lib\\SDGSDB.Lib.csproj
+		SccProjectName2 = SDGSDB.Lib
+		SccLocalPath2 = SDGSDB.Lib
+		SccProjectUniqueName3 = SDGSDB\\SDGSDB.csproj
+		SccProjectName3 = SDGSDB
+		SccLocalPath3 = SDGSDB
+	EndGlobalSection
+EndGlobal
